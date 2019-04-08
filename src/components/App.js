@@ -8,7 +8,9 @@ class App extends React.Component{
         return(
               
         <BrowserRouter>
-            <h1>Homie</h1>
+            <div className="app">
+                <h1>Homie</h1>
+            </div>
         </BrowserRouter> 
 
 

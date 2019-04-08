@@ -1,0 +1,143 @@
+/*
+ * Template Name
+ * Description
+ * Vertion
+ * Copyright
+ * Author: Karen HaoYi Tu
+ * Last Modified Date: Feb 24 2019 14:05
+ *
+ */
+/*-------------------------*/
+/* $Catalog 
+---------------------------*/
+/** 
+ * Catalog
+ * Font Import
+ * Layout
+ * Base
+ * Button
+ * Navigationbar
+ * Footer
+ * Jumbotron
+ * Section
+ * Product 
+ * Cart 
+ * CallButton
+**/
+
+/*-------------------------*/
+/* $Font Import
+---------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/*-------------------------*/
+/* $Layout
+---------------------------*/
+/* Global*/
+*{
+    position: relative;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+body{
+    color: #212121;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Noto Sans TC','Roboto', sans-serif;
+}
+
+/* Grid */
+.container {
+  /* border: 1px solid blue; */
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 1170px;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .u-clearfix:before,
+  .u-clearfic:after,
+  .container:before,
+  .container:after,
+  .container-fluid:before,
+  .container-fluid:after,
+  .row:before,
+  .row:after,
+  .u-col-row:before,
+  .u-col-row:after,
+  .shoppingcart-block:before,
+  .shoppingcart-block:after,
+  .item-row:before,
+  .item-row:after{
+      content: " ";
+      display: table;
+  }
+  .u-clearfix:after,
+  .container:after,
+  .container-fluid:after,
+  .row:after,
+  .u-col-row:after,
+  .sshoppingcart-block:after,
+  .item-row:after{
+      clear: both;
+  }
+  /*-------------------------*/
+  /* $Base
+  ---------------------------*/
+  /* Color */
+  /* background color*/
+  .bg-color-default{background-color: #313538;}
+  .bg-color-light-grey{background-color: #828282;}
+  .bg-color-light-blue{background-color: #E0EEFE;}
+  .bg-color-blue{background-color: #CFDDED;}
+  .bg-color-deep-blue{background-color: #8B99A9;}
+  .bg-color-white{background-color: #ffffff;}
+  
+  /* text color */
+  .color-default{color:#313538;}
+  /* Utility */
+  /* text */
+  .u-text-center{text-align: center !important;}
+  .u-text-right{text-align: right !important;}
+  /* float*/
+  .u-pull-left{float:left !important;}
+  .u-push-right{float:right !important;}
+  html,body{
+    color: #3f3a3a;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: "Roboto","Noto Sans TC", sans-serif;
+}
+h1,h2,h3,h4,h5,h6,p{
+    margin: 0;
+    padding: 0;
+}
+/* link */
+a{
+    color: #313538;
+    text-decoration: none;
+}
+a:hover,
+a:focus {
+    color: #8b572a;
+    text-decoration: none;
+}
