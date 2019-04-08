@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app'
-class wrapper extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        return <App/>;
-    }
-}
+import './index.css';
+import App from './App';
+import { createStore, applyMiddleware, compose } from 'redux'
+import rootReducer from './components/store/reducers/rootReducer'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import { reduxFirestore, getFirestore } from 'redux-firestore'
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
+import fbConfig from './components/config/fbConfig'
 
-ReactDOM.render(<App/>, document.querySelector('#app'));
+const store = createStore(rootReducer,
+    compose(
+        applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+        reduxFirestore(fbConfig),
+        reactReduxFirebase(fbConfig)
+    ) 
+);
+ReactDOM.render(<Provider store={store} ><App /></Provider>, document.getElementById('root'));
+
+

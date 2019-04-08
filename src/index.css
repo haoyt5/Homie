@@ -4,7 +4,7 @@
  * Vertion
  * Copyright
  * Author: Karen HaoYi Tu
- * Last Modified Date: Feb 24 2019 14:05
+ * Last Modified Date:
  *
  */
 /*-------------------------*/
@@ -14,15 +14,7 @@
  * Catalog
  * Font Import
  * Layout
- * Base
- * Button
- * Navigationbar
- * Footer
- * Jumbotron
- * Section
- * Product 
- * Cart 
- * CallButton
+
 **/
 
 /*-------------------------*/
@@ -140,4 +132,37 @@ a:hover,
 a:focus {
     color: #8b572a;
     text-decoration: none;
+}
+/*-------------------------*/
+/* $Utility
+---------------------------*/
+.u-border{
+    border:1px solid gray;
+}
+/*-------------------------*/
+/* $NavBar
+---------------------------*/
+.navwrapper{
+   position: relative;
+}
+.brandname{
+    color:steelblue;
+}
+.signinwrapper{
+    display: flex;
+    float: right;
+}
+.signinwrapper a{
+    padding-left: 2rem;
+}
+/*-------------------------*/
+/* $SignIn
+---------------------------*/
+.signinform{
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+}
+.input-row{
+    display: block;
 }
