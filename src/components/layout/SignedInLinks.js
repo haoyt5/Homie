@@ -1,14 +1,18 @@
 import React from 'react'
+
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../store/actions/authActions'
 
+
+
 const SignedInLinks = (props) => {
+    const { profile } = props
     return(
         <div className="signinwrapper">
             <NavLink to="/">New Task</NavLink>
             <a href="/" onClick={ props.signOut }>Log Out</a>   
-            <NavLink to="/" className="avatar-circle">KT</NavLink>
+            <NavLink to="/" className="avatar-circle">{profile.initials}</NavLink>
         </div>
     )   
 }

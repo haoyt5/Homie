@@ -22,6 +22,7 @@
 ---------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Asap|Monoton|Noto+Sans+TC|Noto+Serif+TC');
 
 /*-------------------------*/
 /* $Layout
@@ -33,7 +34,7 @@
             box-sizing: border-box;
 }
 body{
-    color: #212121;
+    color: #aeb9ba;
     font-style: normal;
     font-variant-ligatures: normal;
     font-variant-caps: normal;
@@ -117,7 +118,7 @@ body{
     font-stretch: normal;
     font-size: 16px;
     line-height: 24px;
-    font-family: "Roboto","Noto Sans TC", sans-serif;
+    font-family: "Asap","Roboto","Noto Sans TC", sans-serif;
 }
 h1,h2,h3,h4,h5,h6,p{
     margin: 0;
@@ -125,19 +126,19 @@ h1,h2,h3,h4,h5,h6,p{
 }
 /* link */
 a{
-    color: #313538;
+    color: #aeb9ba;
     text-decoration: none;
 }
 a:hover,
 a:focus {
-    color: #8b572a;
+    color: #46defc;
     text-decoration: none;
 }
 /*-------------------------*/
 /* $Utility
 ---------------------------*/
 .u-border{
-    border:1px solid gray;
+    border:1px solid #f6d8ff;
 }
 /*-------------------------*/
 /* $NavBar
@@ -146,7 +147,9 @@ a:focus {
    position: relative;
 }
 .brandname{
-    color:steelblue;
+    color:#01a5c6;
+    letter-spacing: 2px;
+    font-family: 'Monoton', cursive;
 }
 .signinwrapper{
     display: flex;
@@ -159,10 +162,26 @@ a:focus {
 /* $SignIn
 ---------------------------*/
 .signinform{
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     display: flex;
     flex-direction: column;
 }
 .input-row{
     display: block;
+}
+/*-------------------------*/
+/* $SignUp
+---------------------------*/
+
+.alert-font{
+    color:#db576d;
+    background-color: #fcc4ce;
+    font-size: 0.8rem;
+    text-align: center;  
+}
+/*-------------------------*/
+/* $Dashboard
+---------------------------*/
+.dashboard-wapper{
+    background-color: #f9f9f9;
 }
