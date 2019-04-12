@@ -19,16 +19,15 @@ class Dashboard extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
-        tasks: state.task.tasks
+        tasks: state.firestore.ordered.tasks
     }
 }
 
-export default  connect(mapStateToProps)(Dashboard);
-// export default compose(
-//     connect(mapStateToProps),
-//     firestoreConnect([
-//         { collection: 'tasks' }
-//     ])
-// )(Dashboard);
+// export default  connect(mapStateToProps)(Dashboard);
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        { collection: 'tasks' }
+    ])
+)(Dashboard);
