@@ -44,9 +44,15 @@ body{
     font-stretch: normal;
     font-size: 16px;
     line-height: 24px;
-    font-family: 'Noto Sans TC','Roboto', sans-serif;
+    font-family: 'Asap','Noto Sans TC','Roboto', sans-serif;
 }
-
+button{
+    border:1px solid #aeb9ba;
+    border-radius: 5px;
+    color: #aeb9ba;
+    padding:0.4rem 1rem;
+    
+}
 /* Grid */
 .container {
   /* border: 1px solid blue; */
@@ -108,7 +114,7 @@ body{
   .u-pull-left{float:left !important;}
   .u-push-right{float:right !important;}
   html,body{
-    color: #3f3a3a;
+    color: #a5a5a5;
     font-style: normal;
     font-variant-ligatures: normal;
     font-variant-caps: normal;
@@ -183,5 +189,28 @@ a:focus {
 /* $Dashboard
 ---------------------------*/
 .dashboard-wapper{
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
+    padding: 2rem 0;
+}
+.title{
+    font-weight: 1200;
+    letter-spacing: 1.5px;
+    
+}
+.task-card{
+    background-color: #fff;
+    padding: 1rem;
+    margin: 1rem 0;
+    -webkit-box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
+    box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
+    border-radius: 2px ;
+}
+.expirydate{
+    font-size: 0.8rem;
+}
+.expirydate-title{
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+    padding: 0 1rem 0 0;
 }
