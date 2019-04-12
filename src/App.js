@@ -8,6 +8,7 @@ import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp'
 import Dashboard from './components/dashboard/Dashboard'
 import CreateTask from'./components/tasks/CreateTask'
+import TaskDetails from './components/tasks/TaskDetails'
 class App extends React.Component{
  
 
@@ -21,7 +22,7 @@ class App extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Dashboard} />
                     <Route path="/signin" component={SignIn} />
-                    {/* <Route path="/signup" component={SignUp} /> */}
+                    <Route path="/task/:id" component={TaskDetails} />
                     <Route path="/signup" component={ ()=>  <SignUp/> }/>
                     <Route path="/post" component={CreateTask} />
                 </Switch>

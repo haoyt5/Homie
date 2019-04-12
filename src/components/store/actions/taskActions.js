@@ -1,6 +1,5 @@
 export const createTask = (task) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-
         const firestore = getFirestore();
         firestore.collection('tasks').add({
             ...task,

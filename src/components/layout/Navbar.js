@@ -5,7 +5,6 @@ import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
 class Navbar extends Component{
 
-
     render(){
         const { auth,  profile } = this.props;
         const links = auth.uid ?  <SignedInLinks profile={ profile } /> : <SignedOutLinks />;

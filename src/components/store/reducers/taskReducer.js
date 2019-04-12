@@ -1,7 +1,7 @@
 const initState = {
     tasks:[
-        {id:'1',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'},
-        {id:'2',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'}
+        // {id:'1',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'},
+        // {id:'2',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'}
     ]
 }
 
