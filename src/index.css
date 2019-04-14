@@ -48,10 +48,42 @@ body{
 }
 button{
     border:1px solid #aeb9ba;
-    border-radius: 5px;
+    border-radius: 2rem;
     color: #aeb9ba;
     padding:0.4rem 1rem;
-    
+}
+button:focus {outline:0;}
+input{
+    border-radius: 3px;
+    border:1px solid #E8E8E8;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0 0.5rem;
+    color:#696969;
+}
+input:focus{
+    outline:0;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #E8E8E8;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: #E8E8E8;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: #E8E8E8;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #E8E8E8;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: #E8E8E8;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color: #E8E8E8;
 }
 /* Grid */
 .container {
@@ -137,14 +169,14 @@ a{
 }
 a:hover,
 a:focus {
-    color: #46defc;
+    color: #D5B172;
     text-decoration: none;
 }
 /*-------------------------*/
 /* $Utility
 ---------------------------*/
 .u-border{
-    border:1px solid #f6d8ff;
+    border:1px solid #F9E2B8;
 }
 /*-------------------------*/
 /* $NavBar
@@ -153,13 +185,17 @@ a:focus {
    position: relative;
 }
 .brandname{
-    color:#01a5c6;
-    letter-spacing: 2px;
-    font-family: 'Monoton', cursive;
+    font-weight: 900;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    color:#D5B172;
 }
 .signinwrapper{
     display: flex;
     float: right;
+    line-height: 2rem;
+    font-size: 0.8rem;
+    font-weight: 900;    
 }
 .signinwrapper a{
     padding-left: 2rem;
@@ -174,11 +210,79 @@ a:focus {
 }
 .input-row{
     display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    /* border:1px solid greenyellow; */
+}
+.label-font{
+    font-size: 0.8rem;
+}
+.sub-instruciton-title{
+    text-align: center;
+    padding: 1rem 0;
+    color:#696969;
+}
+.formoutter{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+.formwrapper{
+    padding:2rem 1rem;
+    text-align: left;
+    min-width:50%;
+    border:1px solid #E8E8E8;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(235,235,235,1);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(235,235,235,1);
+    box-shadow: 0px 1px 5px 0px rgba(235,235,235,1);
+}
+@media(max-width:800px){
+    .formwrapper{
+        width:80%;
+    }
+}
+@media(max-width:600px){
+    .formwrapper{
+        width:100%;
+    }
+}
+.feature-row{
+    text-align: center;
+}
+
+.medium-button{
+    background-color: #EDAA15;
+    color:white;
+    border:0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding:0.3rem 5rem;
+    line-height: 1.5rem;
+}
+.medium-button:hover,
+.medium-button:active{
+    background-color: #F9BD46;
+}
+.google-button{
+    border-radius: 5px;
+}
+.feature-row .medium-button{
+    margin-top:2rem;
+}
+.text-row.error-holder{
+    margin-top:1rem
+}
+.input-row > input{
+    width: 100%;
 }
 /*-------------------------*/
 /* $SignUp
 ---------------------------*/
-
+.error-holder{
+    height: 0.8rem;
+}
 .alert-font{
     color:#db576d;
     background-color: #fcc4ce;

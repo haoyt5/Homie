@@ -9,7 +9,7 @@ class Navbar extends Component{
         const { auth,  profile } = this.props;
         const links = auth.uid ?  <SignedInLinks profile={ profile } /> : <SignedOutLinks />;
         return(
-        <nav className="navwrapper"> 
+        <nav className="navwrappe"> 
             <div className="container">
                 <Link to='/' className="brandname">HOMIE</Link>
                 { links }
@@ -21,7 +21,6 @@ class Navbar extends Component{
 
 
 const mapStateToProps = ( state ) => {
-    // console.log( state )
     return {
         auth: state.firebase.auth,
         profile:state.firebase.profile

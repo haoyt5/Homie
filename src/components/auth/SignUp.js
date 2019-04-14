@@ -19,8 +19,9 @@ export class SignUp extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state)
         this.props.signUp(this.state)
+        //after submit redidirect the user
+        // this.props.history.push('/')
     }
   render() {
     const { auth, authError } = this.props;

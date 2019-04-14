@@ -25,25 +25,40 @@ export class SignIn extends Component {
     
     return (
       <div className="container">
-        <form className="signinform"
-             onSubmit={this.handleSubmit}>
-            <div className="input-row">
-                <label htmlFor="email">Email</label>
-                <input type="email"
-                        id="email"
-                        onChange={this.handleChange}/>
+        <h2 className="sub-instruciton-title">Member Login</h2>
+        <div className="formoutter">
+          <div className="formwrapper u-border">
+            <div className="button-row">
+            <button className="google-button" >Continue with Google</button>
             </div>
-            <div className="input-row">
-                <label htmlFor="password">Password</label>
-                <input type="password"
-                        id="password"
-                        onChange={this.handleChange}/>
+            <div className="feature-row">
+              <div className="hr">OR</div>
             </div>
-            <div className="input-row">
-                <button className="btn login-btn">Sign In</button>
-               <div className="input-row">{ authError ? <p>{authError}</p> : null }</div>
-            </div>
-        </form>
+            <form className="signinform"
+                onSubmit={this.handleSubmit}>
+                <label className="label-font" htmlFor="email">Email</label>
+                <div className="input-row">
+                    <input type="email"
+                            id="email"
+                            onChange={this.handleChange}/>
+                </div>
+                <label className="label-font"  htmlFor="password">Password</label>
+                <div className="input-row">
+                    <input type="password"
+                            id="password"
+                            onChange={this.handleChange}/>
+                </div>
+                <div className="text-row error-holder">
+                  { authError ? <p className="alert-font">{authError}</p> : null }
+                </div>
+                <div className="feature-row">
+                    <button className="medium-button">Log in</button>
+                </div>
+            </form>
+          </div>
+        </div>
+   
+        
       </div>
     )
   }

@@ -11,7 +11,7 @@ const SignedInLinks = (props) => {
     return(
         <div className="signinwrapper">
             <NavLink to="/post">New Task</NavLink>
-            <a href="/" onClick={ props.signOut }>Log Out</a>   
+            <a href="/" onClick={ props.signOut }>Log out</a>   
             <NavLink to="/" className="avatar-circle">{profile.initials}</NavLink>
         </div>
     )   

@@ -1,13 +1,15 @@
 export const createTask = (task) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
+        const profile = getState().firebase.profile;
+        const authorUid = getState().firebase.auth.uid;
         firestore.collection('tasks').add({
             ...task,
-            author: "{Name}",
-            authorUid: "{Uid}",
+            author: profile.firstname,
+            authorUid: authorUid,
             grouprUid: "{groupUid}",
             category: "{category}",
-            creatAt: new Date(),
+            createAt: new Date(),
             verification:{
                 byOther: [{
                     "checkbox": "false",

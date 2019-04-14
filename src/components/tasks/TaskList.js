@@ -12,22 +12,16 @@ class TaskList extends Component {
                             <div className="task-card" >
                                 <h3>{ task.title }</h3>
                                 <p className="expirydate">
-                                <span className="expirydate-title">Expiry Date </span>
-                                Wed 19 / 04 / 2019
+                                <span className="expirydate-title">Expiry Date | Wed 19 / 04 / 2019 </span>
                                 </p>
                                 <p>{ task.content }</p>
+                                <span className="expirydate-title">Posted by | { task.author } </span>
+                                <span className="expirydate-title">Posted at | { task.createAt.toDate().toDateString() }</span>
                             </div>
                         </Link>
                         )
                     }) }
-                    <div className="task-card">
-                    <h3>123</h3>
-                    <p className="expirydate">
-                    <span className="expirydate-title">Expiry Date </span>
-                    Wed 19 / 04 / 2019
-                    </p>
-                    <p> contetns</p>
-                    </div>
+
                 </div>
             </div>
         )

@@ -16,11 +16,13 @@ export class CreatTask extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
         this.props.createTask(this.state);
+        //after submit redidirect the user
+        this.props.history.push('/')
     }
   render() {
-
+    // console.log(this.props)
     return (
       <div className="container">
       <h3 className="title">POST A TASK</h3>
