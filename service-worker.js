@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Homie/precache-manifest.53b96ecfb0663b9a624ac2ec1952829d.js"
+  "/Homie/precache-manifest.a95661147fced2cecc5ad2ab51238324.js"
 );
 
 workbox.clientsClaim();
