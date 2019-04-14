@@ -33,6 +33,19 @@ export class SignUp extends Component {
           <div className="formwrapper">
             <form className="signinform"
                 onSubmit={this.handleSubmit}>
+                <div className="button-row">
+                  <button className="google-button" >
+                    <div className="login-icon">G</div>
+                    <div className="login-text">Sign up with Google</div> 
+                  </button>
+                </div>
+                <div className="feature-row">
+                  <div className="hr-box ">
+                    <div className="hr-placer">———</div>
+                    <div className="hr">OR</div>
+                    <div className="hr-placer">———</div>
+                  </div>
+                </div>
                 <label className="label-font" htmlFor="email">Email</label>
                 <div className="input-row">
                     

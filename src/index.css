@@ -210,7 +210,15 @@ a:focus {
     font-weight: 900;    
 }
 .signinwrapper a{
-    padding-left: 2rem;
+    padding:0 1rem;
+    margin-left: 1rem;
+}
+.link-button{
+    border-radius: 5px;
+}
+.link-button:hover{
+    background-color: #ebebeb;
+    color:white;
 }
 /*-------------------------*/
 /* $SignIn
@@ -302,7 +310,7 @@ a:focus {
 }
 .google-button{
     border-radius: 5px;
-    background-color: #4285F4;
+    background-color: #0F9D58;
     color:white;
     border:0;
     cursor:pointer;
@@ -313,7 +321,7 @@ a:focus {
 }
 .google-button:hover,
 .google-button:active{
-    background-color: #5497F7;
+    background-color: #11C968;
     transition: 1s;
     transform: scale(1.01);
 }
