@@ -58,7 +58,7 @@ input{
     border:1px solid #E8E8E8;
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: 0 0.5rem;
+    padding: 0.5rem 0.5rem;
     color:#696969;
 }
 input:focus{
@@ -252,21 +252,56 @@ a:focus {
 }
 
 .medium-button{
-    background-color: #EDAA15;
+    /* background-color: #EDAA15; */
+    background-color: #FF8300;
     color:white;
     border:0;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 300;
-    padding:0.3rem 5rem;
+    padding:0.6rem 6rem;
     line-height: 1.5rem;
 }
 .medium-button:hover,
 .medium-button:active{
-    background-color: #F9BD46;
+    background-color: #FFBC00;
+    transition: 1s;
+    transform: scale(1.01);
+    /* background-image: linear-gradient(to right top, #fae3b9, #f8d094, #f6bb71, #f6a550, #f68d31, #f78c29, #f88c1f, #f98b13, #fba428, #fcbb3f, #fdd158, #ffe673); */
+}
+.button-row{
+    text-align: center;
 }
 .google-button{
     border-radius: 5px;
+    background-color: #4285F4;
+    color:white;
+    border:0;
+    cursor:pointer;
+    padding:0.8rem 0.5rem;
+    width:100%;
+    font-size: 0.8rem;
+    display: flex;
+}
+.google-button:hover,
+.google-button:active{
+    background-color: #5497F7;
+    transition: 1s;
+    transform: scale(1.01);
+}
+
+.login-icon{
+    font-weight: 900;
+    padding:0 0.5rem;
+}
+.login-text{
+    align-self: center;
+    justify-content: center;
+    flex:2;
+}
+
+.button-row .google-button{
+    margin-bottom: 1rem;
 }
 .feature-row .medium-button{
     margin-top:2rem;

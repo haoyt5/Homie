@@ -28,28 +28,30 @@ export class SignUp extends Component {
     if (auth.uid) return <Redirect to ='/' />
     return (
       <div className="container">
+      <h2 className="sub-instruciton-title">Start with Homie</h2>
         <form className="signinform"
              onSubmit={this.handleSubmit}>
+            <label htmlFor="email">Email</label>
             <div className="input-row">
-                <label htmlFor="email">Email</label>
+                
                 <input type="email"
                         id="email"
                         onChange={this.handleChange}/>
             </div>
+            <label htmlFor="password">Password</label>
             <div className="input-row">
-                <label htmlFor="password">Password</label>
                 <input type="password"
                         id="password"
                         onChange={this.handleChange}/>
             </div>
+            <label htmlFor="firstName">Firstname</label>
             <div className="input-row">
-                <label htmlFor="firstName">Firstname</label>
                 <input type="text"
                         id="firstName"
                         onChange={this.handleChange}/>
             </div>
+            <label htmlFor="lastName">Lastname</label>
             <div className="input-row">
-                <label htmlFor="lastName">Lastname</label>
                 <input type="text"
                         id="lastName"
                         onChange={this.handleChange}/>

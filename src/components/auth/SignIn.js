@@ -29,7 +29,10 @@ export class SignIn extends Component {
         <div className="formoutter">
           <div className="formwrapper u-border">
             <div className="button-row">
-            <button className="google-button" >Continue with Google</button>
+            <button className="google-button" >
+              <div className="login-icon">G</div>
+              <div className="login-text">Continue with Google</div> 
+            </button>
             </div>
             <div className="feature-row">
               <div className="hr">OR</div>
@@ -52,7 +55,8 @@ export class SignIn extends Component {
                   { authError ? <p className="alert-font">{authError}</p> : null }
                 </div>
                 <div className="feature-row">
-                    <button className="medium-button">Log in</button>
+                    <button className="medium-button">Log in
+                    </button>
                 </div>
             </form>
           </div>
