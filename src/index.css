@@ -53,12 +53,24 @@ button{
     padding:0.4rem 1rem;
 }
 button:focus {outline:0;}
+textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    border: 2px solid #E8E8E8;
+    border-radius: 3px;
+    resize: none;
+    margin-bottom:1rem;
+    padding:0.5rem;
+  }
+textarea:focus {outline:0;}
 input{
     border-radius: 3px;
     border:1px solid #E8E8E8;
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem;
     color:#696969;
 }
 input:focus{
@@ -212,7 +224,6 @@ a:focus {
     display: block;
     height: 2.5rem;
     line-height: 2.5rem;
-    /* border:1px solid greenyellow; */
 }
 .label-font{
     font-size: 0.8rem;
@@ -269,6 +280,23 @@ a:focus {
     transform: scale(1.01);
     /* background-image: linear-gradient(to right top, #fae3b9, #f8d094, #f6bb71, #f6a550, #f68d31, #f78c29, #f88c1f, #f98b13, #fba428, #fcbb3f, #fdd158, #ffe673); */
 }
+.medium-square-button{
+    background-color: #D3A971;
+    color:white;
+    border:0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding:0.6rem 6rem;
+    line-height: 1.5rem;
+    border-radius: 5px;
+}
+.medium-square-button:hover,
+.medium-square-button:active{
+    background-color: #C49A66;
+    transition: 1s;
+    transform: scale(1.01);    
+}
 .button-row{
     text-align: center;
 }
@@ -312,6 +340,22 @@ a:focus {
 .input-row > input{
     width: 100%;
 }
+.hr-box{
+    color:#ebebeb;
+}
+.hr-placer{
+    width: 2.5rem;
+    display: inline-block;
+    height: 1rem;
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+.hr{
+    font-size: 0.8rem;
+    line-height: 1rem;
+    display: inline-block;
+    padding: 0 0.5rem;
+}
 /*-------------------------*/
 /* $SignUp
 ---------------------------*/
@@ -324,6 +368,15 @@ a:focus {
     font-size: 0.8rem;
     text-align: center;  
 }
+/*-------------------------*/
+/* $CreatTask
+---------------------------*/
+
+.task-input-row input{
+    border: 2px solid #E8E8E8; 
+    width:100%;
+}
+
 /*-------------------------*/
 /* $Dashboard
 ---------------------------*/

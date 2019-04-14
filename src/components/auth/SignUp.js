@@ -29,40 +29,44 @@ export class SignUp extends Component {
     return (
       <div className="container">
       <h2 className="sub-instruciton-title">Start with Homie</h2>
-        <form className="signinform"
-             onSubmit={this.handleSubmit}>
-            <label htmlFor="email">Email</label>
-            <div className="input-row">
-                
-                <input type="email"
-                        id="email"
-                        onChange={this.handleChange}/>
-            </div>
-            <label htmlFor="password">Password</label>
-            <div className="input-row">
-                <input type="password"
-                        id="password"
-                        onChange={this.handleChange}/>
-            </div>
-            <label htmlFor="firstName">Firstname</label>
-            <div className="input-row">
-                <input type="text"
-                        id="firstName"
-                        onChange={this.handleChange}/>
-            </div>
-            <label htmlFor="lastName">Lastname</label>
-            <div className="input-row">
-                <input type="text"
-                        id="lastName"
-                        onChange={this.handleChange}/>
-            </div>
-            <div className="input-row">
-                { authError ? <p className="alert-font">{ authError }</p>  : null} 
-            </div>
-            <div className="input-row">
-                <button className="btn login-btn">Sign Up</button>
-            </div>
-        </form>
+        <div className="formoutter">
+          <div className="formwrapper">
+            <form className="signinform"
+                onSubmit={this.handleSubmit}>
+                <label className="label-font" htmlFor="email">Email</label>
+                <div className="input-row">
+                    
+                    <input type="email"
+                            id="email"
+                            onChange={this.handleChange}/>
+                </div>
+                <label className="label-font" htmlFor="password">Password</label>
+                <div className="input-row">
+                    <input type="password"
+                            id="password"
+                            onChange={this.handleChange}/>
+                </div>
+                <label className="label-font" htmlFor="firstName">Firstname</label>
+                <div className="input-row">
+                    <input type="text"
+                            id="firstName"
+                            onChange={this.handleChange}/>
+                </div>
+                <label className="label-font" htmlFor="lastName">Lastname</label>
+                <div className="input-row">
+                    <input type="text"
+                            id="lastName"
+                            onChange={this.handleChange}/>
+                </div>
+                <div className="text-row error-holder">
+                    { authError ? <p className="alert-font">{ authError }</p>  : null} 
+                </div>
+                <div className="feature-row">
+                    <button className="medium-button">Sign Up</button>
+                </div>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

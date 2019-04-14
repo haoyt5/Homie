@@ -27,7 +27,7 @@ export class SignIn extends Component {
       <div className="container">
         <h2 className="sub-instruciton-title">Member Login</h2>
         <div className="formoutter">
-          <div className="formwrapper u-border">
+          <div className="formwrapper">
             <div className="button-row">
             <button className="google-button" >
               <div className="login-icon">G</div>
@@ -35,7 +35,12 @@ export class SignIn extends Component {
             </button>
             </div>
             <div className="feature-row">
-              <div className="hr">OR</div>
+              <div className="hr-box ">
+                <div className="hr-placer">———</div>
+                <div className="hr">OR</div>
+                <div className="hr-placer">———</div>
+              </div>
+
             </div>
             <form className="signinform"
                 onSubmit={this.handleSubmit}>

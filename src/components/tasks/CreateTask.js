@@ -25,29 +25,29 @@ export class CreatTask extends Component {
     // console.log(this.props)
     return (
       <div className="container">
-      <h3 className="title">POST A TASK</h3>
+      <h2 className="sub-instruciton-title">Post a task</h2>
         <form className="signinform"
              onSubmit={this.handleSubmit}>
-            <div className="input-row">
-                <label htmlFor="title">Title</label>
+             <label className="label-font" htmlFor="title">Title</label>
+            <div className="task-input-row">
                 <input type="test"
                         id="title"
                         onChange={this.handleChange}/>
             </div>
-            <div className="input-row">
-                <label htmlFor="expiryDate">Expiry Date</label>
+            <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
+            <div className="task-input-row">
                 <input type="text"
                         id="expiryDate"
                         onChange={this.handleChange}/>
             </div>
-            <div className="input-row">
-                <label htmlFor="content">Description</label>
+            <label className="label-font" htmlFor="content">Description</label>
+            <div className="textarea-row">
                 <textarea type="text"
                         id="content"
                         onChange={this.handleChange}/>
             </div>
-            <div className="input-row">
-                <button className="btn login-btn">SAVE</button>
+            <div className="feature-row">
+                <button className="medium-square-button">Save</button>
             </div>
         </form>
       </div>
