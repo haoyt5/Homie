@@ -16,7 +16,7 @@ class App extends React.Component{
         
         return(
               
-        <BrowserRouter>
+        <BrowserRouter basename="/Homie">
             <div className="app">
                 <Navbar />
                 <Switch>
