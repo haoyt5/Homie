@@ -256,6 +256,28 @@ a:focus {
     -moz-box-shadow: 0px 1px 5px 0px rgba(235,235,235,1);
     box-shadow: 0px 1px 5px 0px rgba(235,235,235,1);
 }
+.formwrapper-bottom{
+    padding:0 1rem 2rem 1rem;
+    text-align: left;
+    min-width:50%;
+    border: 0.5px solid #E8E8E8;
+    border-top: 0px;
+    border-radius:0 0 3px 3px;
+    -webkit-box-shadow: 0px 4px 5px -2px rgba(235,235,235,1);
+    -moz-box-shadow: 0px 4px 5px -2px rgba(235,235,235,1);
+    box-shadow: 0px 4px 5px -2px rgba(235,235,235,1);
+}
+.formwrapper-top{
+    padding:2rem 1rem 0rem 1rem;
+    text-align: left;
+    min-width:50%;
+    border: 0.5px solid #E8E8E8;
+    border-bottom: 0px;
+    border-radius:3px 3px 0 3px;
+    -webkit-box-shadow: 0px -3px 5px -4px rgba(235,235,235,1);
+    -moz-box-shadow: 0px -3px 5px -4px rgba(235,235,235,1);
+    box-shadow: 0px -3px 5px -4px rgba(235,235,235,1);
+}
 @media(max-width:800px){
     .formwrapper{
         width:80%;
@@ -363,6 +385,12 @@ a:focus {
     line-height: 1rem;
     display: inline-block;
     padding: 0 0.5rem;
+}
+/*-------------------------*/
+/* $SignGroup
+---------------------------*/
+.link-wrapper{
+    width:100%;
 }
 /*-------------------------*/
 /* $SignUp

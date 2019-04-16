@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 import { Redirect } from  'react-router-dom'
-
 import { signUp } from '../store/actions/authActions'
+
 export class SignUp extends Component {
     state = {
         email: '',
@@ -19,13 +19,20 @@ export class SignUp extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
+
         this.props.signUp(this.state)
         //after submit redidirect the user
-        // this.props.history.push('/')
+        // history.push('/')
+        
+    }
+    componentDidUpdate(){
+      const { profile } = this.props;
+      console.log('componentDidUpdate',profile)
+      console.log('componentDidUpdate',profile.groupId)
     }
   render() {
-    const { auth, authError } = this.props;
-    if (auth.uid) return <Redirect to ='/' />
+    const { authError } = this.props;
+    // if (auth.uid) return <Redirect to ='/' />
     return (
       <div className="container">
       <h2 className="sub-instruciton-title">Start with Homie</h2>
@@ -59,13 +66,13 @@ export class SignUp extends Component {
                             id="password"
                             onChange={this.handleChange}/>
                 </div>
-                <label className="label-font" htmlFor="firstName">Firstname</label>
+                <label className="label-font" htmlFor="firstName">First name</label>
                 <div className="input-row">
                     <input type="text"
                             id="firstName"
                             onChange={this.handleChange}/>
                 </div>
-                <label className="label-font" htmlFor="lastName">Lastname</label>
+                <label className="label-font" htmlFor="lastName">Last name</label>
                 <div className="input-row">
                     <input type="text"
                             id="lastName"
@@ -78,6 +85,7 @@ export class SignUp extends Component {
                     <button className="medium-button">Sign Up</button>
                 </div>
             </form>
+            
           </div>
         </div>
       </div>
@@ -85,9 +93,11 @@ export class SignUp extends Component {
   }
 }
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    auth: state.firebase.auth,
-    authError: state.auth.authError
+    auth: state.firebase.auth, //for checking the login or not
+    authError: state.auth.authError,
+    profile: state.firebase.profile
   }
 }
 const mapDispatchToProps = (dispatch) => {

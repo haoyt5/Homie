@@ -9,6 +9,7 @@ class Dashboard extends Component {
     }
     render(){
         const { tasks } = this.props
+        console.log('render裡的', this.props.tasks)
         return (
             <div className="dashboard-wapper">
                 <div className="container">

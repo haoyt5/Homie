@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { HashRouter , Switch, Route} from 'react-router-dom'
 import './index.css'
 
 // Components
@@ -9,6 +9,8 @@ import SignUp from './components/auth/SignUp'
 import Dashboard from './components/dashboard/Dashboard'
 import CreateTask from'./components/tasks/CreateTask'
 import TaskDetails from './components/tasks/TaskDetails'
+import SignGroup from './components/auth/SignGroup'
+
 class App extends React.Component{
  
 
@@ -16,7 +18,7 @@ class App extends React.Component{
         
         return(
               
-        <BrowserRouter basename="/Homie">
+        <HashRouter >
             <div className="app">
                 <Navbar />
                 <Switch>
@@ -25,9 +27,10 @@ class App extends React.Component{
                     <Route path="/task/:id" component={TaskDetails} />
                     <Route path="/signup" component={ ()=>  <SignUp/> }/>
                     <Route path="/post" component={CreateTask} />
+                    <Route path="/signgroup" component={SignGroup} />
                 </Switch>
             </div>
-        </BrowserRouter> 
+        </HashRouter> 
 
         );
     }
