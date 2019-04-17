@@ -11,14 +11,15 @@ import CreateTask from'./components/tasks/CreateTask'
 import TaskDetails from './components/tasks/TaskDetails'
 import SignGroup from './components/auth/SignGroup'
 
+
 class App extends React.Component{
- 
+
 
     render() {
         
         return(
               
-        <HashRouter >
+        <HashRouter  >
             <div className="app">
                 <Navbar />
                 <Switch>

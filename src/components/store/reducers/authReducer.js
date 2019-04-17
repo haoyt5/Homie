@@ -1,5 +1,6 @@
 const initState = {
-    authError: null
+    authError: null,
+    groupError: null
 }
 const authReducer = (state = initState, action ) => {
     switch(action.type){
@@ -30,6 +31,18 @@ const authReducer = (state = initState, action ) => {
             return {
                 ...state,
                 authError: action.err.message
+            }
+        case 'SIGNUPGROUP_SUCCESS':
+            console.log('signup group success')
+            return {
+                ...state,
+                groupError: null
+            }
+        case 'SIGNUPGROUP_ERROR':
+        console.log('signup group error')
+        return {
+            ...state,
+            groupError: "the groupid has already been used"
             }
         default:
             return state

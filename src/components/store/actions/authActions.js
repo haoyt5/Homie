@@ -43,3 +43,41 @@ export const signUp = (newUser) => {
     }
 
 }
+export const signUpGroup = (newGroup) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        const userUid = getState().firebase.auth.uid;
+        let groupValidate = true;
+        //(1) Check if the groupId whether exist or not
+        firestore.collection('groups').where( 'groupId', '==' , newGroup.groupId ).get()
+        .then( querySnapshot => {
+            querySnapshot.forEach(doc =>{
+                if(doc.data()){
+                    // console.log(doc.id, doc.data())
+                    groupValidate = false
+                    console.log('不能存')   
+                }
+            })
+        }).then( () =>{
+            if( !groupValidate){
+                dispatch({ type: 'SIGNUPGROUP_ERROR'})
+            }if( groupValidate ){
+        //(2)new one update the members array in the firestorecollection('groups') groupName, groupId, groupPassword, members userUid
+                firestore.collection('groups').add({
+                    ...newGroup,
+                    members:firestore.FieldValue.arrayUnion(userUid)
+                }).then(resp => {
+         //(3)update to the user database with the groupUid
+                    let groupUid = resp.id
+                    firestore.collection('users').doc(userUid).update({
+                        groupsUid:firestore.FieldValue.arrayUnion(groupUid)
+                    })
+                }).then(
+                    dispatch({ type: 'SIGNUPGROUP_SUCCESS'})
+                )
+            }
+        })
+
+    }
+
+}

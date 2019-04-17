@@ -3,13 +3,15 @@ import TaskList from '../tasks/TaskList'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux' 
+
+
 class Dashboard extends Component {
     componentDidUpdate(){
-        console.log( this.props.tasks)
+        // console.log( this.props.tasks)
     }
     render(){
         const { tasks } = this.props
-        console.log('render裡的', this.props.tasks)
+        // console.log('render裡的', this.props.tasks)
         return (
             <div className="dashboard-wapper">
                 <div className="container">

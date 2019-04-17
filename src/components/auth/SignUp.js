@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-
+import { createHashHistory } from 'history'
 import { connect } from 'react-redux'
 import { Redirect } from  'react-router-dom'
 import { signUp } from '../store/actions/authActions'
 
+const history = createHashHistory({
+  hashType: 'slash' // the default
+});
 export class SignUp extends Component {
     state = {
         email: '',
@@ -21,14 +24,16 @@ export class SignUp extends Component {
         e.preventDefault();
 
         this.props.signUp(this.state)
-        //after submit redidirect the user
-        // history.push('/')
+
+        // after submit redidirect the user to signupgroup
+        history.push('/signgroup/signup'); 
         
     }
     componentDidUpdate(){
-      const { profile } = this.props;
-      console.log('componentDidUpdate',profile)
-      console.log('componentDidUpdate',profile.groupId)
+      // const { profile } = this.props;
+      // console.log('componentDidUpdate',profile)
+      // console.log('componentDidUpdate',profile.groupId)
+      // console.log('componentDidUpdate',profile.groupId.length)
     }
   render() {
     const { authError } = this.props;
@@ -96,8 +101,7 @@ const mapStateToProps = (state) => {
   console.log(state)
   return {
     auth: state.firebase.auth, //for checking the login or not
-    authError: state.auth.authError,
-    profile: state.firebase.profile
+    authError: state.auth.authError
   }
 }
 const mapDispatchToProps = (dispatch) => {

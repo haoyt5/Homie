@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from  'react-router-dom'
+import { signUpGroup } from '../store/actions/authActions'
 
 export class SignUpGroup extends Component {
     state = {
-
+      groupName: '',
+      groupId: '',
+      groupPassword: ''
     }
     handleChange = (e) =>{
         this.setState({
            [e.target.id]: e.target.value
         })
-        
+      //  console.log(this.state)
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state)
-        // this.props.signUp(this.state)
+        // console.log(this.props)
+        this.props.signUpGroup(this.state)
         //after submit redidirect the user
         // this.props.history.push('/')
     }
@@ -56,5 +61,16 @@ export class SignUpGroup extends Component {
     )
   }
 }
-
-export default SignUpGroup
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+      auth: state.firebase.auth, //for checking the login or not
+      authError: state.auth.authError
+    }
+  }
+  const mapDispatchToProps = (dispatch) => {
+    return{
+      signUpGroup: (newGroup) => dispatch(signUpGroup(newGroup))
+    }
+  }
+export default connect(mapStateToProps,mapDispatchToProps)(SignUpGroup);
