@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createHashHistory } from 'history'
 import { connect } from 'react-redux'
-import { Redirect } from  'react-router-dom'
+// import { Redirect } from  'react-router-dom'
 import { signUp } from '../store/actions/authActions'
 
 const history = createHashHistory({

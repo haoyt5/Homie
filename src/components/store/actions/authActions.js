@@ -33,7 +33,9 @@ export const signUp = (newUser) => {
                 firstname: newUser.firstName,
                 lastname: newUser.lastName,
                 initials: newUser.firstName[0] + newUser.lastName[0],
-                groupId:[]
+                email: newUser.email,
+                groupsId:[]
+                
             })
         }).then(() =>{
             dispatch({ type: 'SIGNUP_SUCCESS' })
@@ -42,6 +44,47 @@ export const signUp = (newUser) => {
         })
     }
 
+}
+export const signInGroup = (credentials) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        //(1)query the doc groupUid
+        //(2)check if the groupId whether corresponed or not
+        //(3)if (1) (2) update the userUid in the members array
+        //(4)update the groupUid in the users groups array
+        
+        // const firestore = getFirestore();
+        // const userUid = getState().firebase.auth.uid;
+        // let groupValidate = true;
+        // //(1) Check if the groupId whether exist or not
+        // firestore.collection('groups').where( 'groupId', '==' , newGroup.groupId ).get()
+        // .then( querySnapshot => {
+        //     querySnapshot.forEach(doc =>{
+        //         if(doc.data()){
+        //             // console.log(doc.id, doc.data())
+        //             groupValidate = false
+        //             console.log('不能存')   
+        //         }
+        //     })
+        // }).then( () =>{
+        //     if( !groupValidate){
+        //         dispatch({ type: 'SIGNUPGROUP_ERROR'})
+        //     }if( groupValidate ){
+        // //(2)If it is new groupId update the members array in the firestorecollection('groups') with the form information groupName, groupId, groupPassword, members userUid
+        //         firestore.collection('groups').add({
+        //             ...newGroup,
+        //             members:firestore.FieldValue.arrayUnion(userUid)
+        //         }).then(resp => {
+        //  //(3)update to the user database with the groupUid
+        //             let groupUid = resp.id
+        //             firestore.collection('users').doc(userUid).update({
+        //                 groupsUid:firestore.FieldValue.arrayUnion(groupUid)
+        //             })
+        //         }).then(
+        //             dispatch({ type: 'SIGNUPGROUP_SUCCESS'})
+        //         )
+        //     }
+        // })
+    }
 }
 export const signUpGroup = (newGroup) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
@@ -62,7 +105,7 @@ export const signUpGroup = (newGroup) => {
             if( !groupValidate){
                 dispatch({ type: 'SIGNUPGROUP_ERROR'})
             }if( groupValidate ){
-        //(2)new one update the members array in the firestorecollection('groups') groupName, groupId, groupPassword, members userUid
+        //(2)If it is new groupId update the members array in the firestorecollection('groups') with the form information groupName, groupId, groupPassword, members userUid
                 firestore.collection('groups').add({
                     ...newGroup,
                     members:firestore.FieldValue.arrayUnion(userUid)
@@ -77,7 +120,5 @@ export const signUpGroup = (newGroup) => {
                 )
             }
         })
-
     }
-
 }

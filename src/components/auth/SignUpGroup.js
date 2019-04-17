@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from  'react-router-dom'
 import { signUpGroup } from '../store/actions/authActions'
 
 export class SignUpGroup extends Component {
@@ -22,10 +21,12 @@ export class SignUpGroup extends Component {
         //after submit redidirect the user
         // this.props.history.push('/')
     }
+    
   render() {
-
+    // console.log(this.props)
+    // const { groupError } = this.props
+    // if(groupError) return console.log( groupError )
     return (
-
         <div className="formoutter">
           <div className="formwrapper-bottom">
             <form className="signinform"
@@ -49,7 +50,7 @@ export class SignUpGroup extends Component {
                             onChange={this.handleChange}/>
                 </div>
                 <div className="text-row error-holder">
-                    {/* { authError ? <p className="alert-font">{ authError }</p>  : null}  */}
+                    { this.props.groupError ? <p className="alert-font">{ this.props.groupError }</p>  : null} 
                 </div>
                 <div className="feature-row">
                     <button className="medium-button">Sign Up Group</button>
@@ -65,7 +66,9 @@ const mapStateToProps = (state) => {
     console.log(state)
     return {
       auth: state.firebase.auth, //for checking the login or not
-      authError: state.auth.authError
+      groupError: state.auth.groupError
+      // authError: state.auth.authError
+      
     }
   }
   const mapDispatchToProps = (dispatch) => {
