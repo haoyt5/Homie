@@ -268,7 +268,7 @@ a:focus {
     box-shadow: 0px 4px 5px -2px rgba(235,235,235,1);
 }
 .formwrapper-top{
-    padding:2rem 1rem 0rem 1rem;
+    padding:0 0rem 0.5rem 0rem;
     text-align: left;
     min-width:50%;
     border: 0.5px solid #E8E8E8;
@@ -391,6 +391,27 @@ a:focus {
 ---------------------------*/
 .link-wrapper{
     width:100%;
+    position: relative;
+    /* border:1px solid black; */
+    display: flex;
+}
+.signgroup-tab{
+    width: 50%;
+    text-align: center;  
+    padding:1rem 0  1rem 0; 
+}
+a.signgroup-tab:hover{
+   background-color:#ebebeb;
+   color: #FFBC00;
+   transition: 0.5s;
+}
+a.signgroup-tab:active,
+a.signgroup-tab:focus{
+    color: #FFBC00;
+}
+.signgroup-tab-active{
+    color: #FFBC00;
+    /* transform: scale(1.01); */
 }
 /*-------------------------*/
 /* $SignUp

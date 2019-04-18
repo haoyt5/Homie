@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// import { createHashHistory } from 'history'
 import { signInGroup } from '../store/actions/authActions'
+
 class SignInGroup extends Component {
     state = {
       groupId: '',
@@ -10,12 +12,18 @@ class SignInGroup extends Component {
         this.setState({
            [e.target.id]: e.target.value
         })
-        
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        this.props.signInGroup(this.state)
-        //after submit redidirect the user
+        // this.props.signInGroup(this.state)
+        if( this.state.groupId.length === 0 || this.state.groupPassword.length === 0 ){
+          document.querySelector('.error-holder').innerHTML='<p class="alert-font">That was an invalid user id or password.</p>';
+          return
+        }if( this.state.groupId.length > 0 && this.state.groupPassword.length > 0){
+          document.querySelector('.error-holder').innerHTML='';
+          this.props.signInGroup(this.state)
+        }
+        //（＊）after submit redidirect the user
         // this.props.history.push('/')
     }
   render() {

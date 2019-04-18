@@ -1,6 +1,6 @@
 const initState = {
     authError: null,
-    groupError: null,
+    groupError: null
 }
 const authReducer = (state = initState, action ) => {
     switch(action.type){
@@ -39,10 +39,10 @@ const authReducer = (state = initState, action ) => {
             groupError: null
             }
         case 'SIGNINGROUP_NOTEXIST':
-            console.log('This group id is not exist')
+            console.log('This group id was not exist')
             return {
                 ...state,
-                groupError: "This groupid was not exist"
+                groupError: "This group id was not exist"
                     }
         case 'SIGNINGROUP_ERROR':
             console.log('The password is incorrect')

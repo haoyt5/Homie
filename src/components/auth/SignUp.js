@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { createHashHistory } from 'history'
 import { connect } from 'react-redux'
-// import { Redirect } from  'react-router-dom'
+import { createHashHistory } from 'history'
+import { Redirect } from  'react-router-dom'
 import { signUp } from '../store/actions/authActions'
 
-const history = createHashHistory({
-  hashType: 'slash' // the default
-});
+const history = createHashHistory();
 export class SignUp extends Component {
     state = {
         email: '',
@@ -26,7 +24,7 @@ export class SignUp extends Component {
         this.props.signUp(this.state)
 
         // after submit redidirect the user to signupgroup
-        history.push('/signgroup/signup'); 
+        // history.push('/signgroup/signup'); 
         
     }
     componentDidUpdate(){
@@ -36,8 +34,8 @@ export class SignUp extends Component {
       // console.log('componentDidUpdate',profile.groupId.length)
     }
   render() {
-    const { authError } = this.props;
-    // if (auth.uid) return <Redirect to ='/' />
+    const { auth, authError } = this.props;
+    if (auth.uid) return <Redirect to ='/signgroup/signup' />
     return (
       <div className="container">
       <h2 className="sub-instruciton-title">Start with Homie</h2>

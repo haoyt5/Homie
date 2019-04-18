@@ -8,9 +8,9 @@ const SignGroup = () =>{
         <h2 className="sub-instruciton-title">Join the Homie Group</h2>
             <div className="formoutter">
                 <div className="formwrapper-top ">
-                    <div className="link-wrapper u-border">
-                        <NavLink to="/signgroup/signup" >Signup Group</NavLink>
-                        <NavLink to="/signgroup/signin" >Signin Group</NavLink>
+                    <div className="link-wrapper">
+                        <NavLink className="signgroup-tab" activeClassName="signgroup-tab-active" to="/signgroup/signup" >Create Group</NavLink>
+                        <NavLink className="signgroup-tab" activeClassName="signgroup-tab-active" to="/signgroup/signin" >Join Group</NavLink>
                     </div>
 
                 </div>
