@@ -45,12 +45,13 @@ export const signUp = (newUser) => {
     }
 
 }
+
 export const signInGroup = (credentials) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
-        //(3)update the userUid in the members array
-        //(4)update the groupUid in the users groups array
-
         const firestore = getFirestore();
+        const userUid = getState().firebase.auth.uid;
+        let groupSignInValidate = false;
+        let groupUid = null;
         //(1)query in group collection to check whether the group id whether exist or not
         firestore.collection('groups').where( 'groupId', '==', credentials.groupId).get()
         .then( querySnapshot => {
@@ -59,21 +60,35 @@ export const signInGroup = (credentials) => {
             }if(querySnapshot.docs.length === 1){
                 querySnapshot.forEach(doc => {  
                     if(doc.data()){
+                        groupUid = doc.id;
                         const{ groupPassword } = doc.data();
-                        console.log(doc.data())
-                        console.log(groupPassword)
                         if ( groupPassword !== credentials.groupPassword){
                             dispatch({ type: 'SIGNINGROUP_ERROR'})
                         }if ( groupPassword === credentials.groupPassword){
-                            console.log('signin the group')
+                            groupSignInValidate = true
                         }
-                    }
-                      
+                    } 
                 })
             } 
+        }).then(() => {
+            if( groupSignInValidate && userUid ){
+        //(2)update the userUid in the members array
+                firestore.collection('groups').doc(groupUid).update({
+                    members:firestore.FieldValue.arrayUnion(userUid)
+                }).then(()=>{
+        //(3)update the groupUid in the users groups array
+                    firestore.collection('users').doc(userUid).update({
+                        groupsUid:firestore.FieldValue.arrayUnion(groupUid)
+                    })
+                }).then(()=>{
+                    console.log('signin group success!')
+                    dispatch({ type: 'SIGNINGROUP_SUCCESS'})
+                })
+            }
         })
     }
 }
+
 export const signUpGroup = (newGroup) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
@@ -84,7 +99,6 @@ export const signUpGroup = (newGroup) => {
         .then( querySnapshot => {
             querySnapshot.forEach(doc =>{
                 if(doc.data()){
-                    // console.log(doc.id, doc.data())
                     groupValidate = false
                 }
             })

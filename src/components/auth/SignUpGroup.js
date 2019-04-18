@@ -53,7 +53,7 @@ export class SignUpGroup extends Component {
                     { this.props.groupError ? <p className="alert-font">{ this.props.groupError }</p>  : null} 
                 </div>
                 <div className="feature-row">
-                    <button className="medium-button">Sign Up Group</button>
+                    <button className="medium-button">Create Group</button>
                 </div>
             </form>
           </div>

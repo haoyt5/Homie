@@ -41,7 +41,7 @@ class SignInGroup extends Component {
                     { this.props.groupError ? <p className="alert-font">{ this.props.groupError }</p>  : null} 
                 </div>
                 <div className="feature-row">
-                    <button className="medium-button">Log in</button>
+                    <button className="medium-button">Join Group</button>
                 </div>
             </form>
           </div>

@@ -1,6 +1,6 @@
 const initState = {
     authError: null,
-    groupError: null
+    groupError: null,
 }
 const authReducer = (state = initState, action ) => {
     switch(action.type){
@@ -31,6 +31,12 @@ const authReducer = (state = initState, action ) => {
             return {
                 ...state,
                 authError: action.err.message
+            }
+        case 'SIGNINGROUP_SUCCESS':
+        console.log('signin group success')
+        return {
+            ...state,
+            groupError: null
             }
         case 'SIGNINGROUP_NOTEXIST':
             console.log('This group id is not exist')
