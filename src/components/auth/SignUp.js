@@ -20,12 +20,9 @@ export class SignUp extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-
         this.props.signUp(this.state)
-
         // after submit redidirect the user to signupgroup
         // history.push('/signgroup/signup'); 
-        
     }
     componentDidUpdate(){
       // const { profile } = this.props;
