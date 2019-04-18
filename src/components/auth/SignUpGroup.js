@@ -63,15 +63,13 @@ export class SignUpGroup extends Component {
   }
 }
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
       auth: state.firebase.auth, //for checking the login or not
       groupError: state.auth.groupError
-      // authError: state.auth.authError
-      
     }
   }
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return{
       signUpGroup: (newGroup) => dispatch(signUpGroup(newGroup))
     }

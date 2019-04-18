@@ -32,6 +32,18 @@ const authReducer = (state = initState, action ) => {
                 ...state,
                 authError: action.err.message
             }
+        case 'SIGNINGROUP_NOTEXIST':
+            console.log('This group id is not exist')
+            return {
+                ...state,
+                groupError: "This groupid was not exist"
+                    }
+        case 'SIGNINGROUP_ERROR':
+            console.log('The password is incorrect')
+            return {
+                ...state,
+                groupError: "That was an invalid password"
+                    }
         case 'SIGNUPGROUP_SUCCESS':
             console.log('signup group success')
             return {
@@ -42,7 +54,7 @@ const authReducer = (state = initState, action ) => {
         console.log('signup group error')
         return {
             ...state,
-            groupError: "the groupid has already been used"
+            groupError: "This group id has already been used"
             }
         default:
             return state

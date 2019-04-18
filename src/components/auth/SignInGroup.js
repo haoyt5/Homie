@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
+import { signInGroup } from '../store/actions/authActions'
 class SignInGroup extends Component {
     state = {
-
+      groupId: '',
+      groupPassword: ''
     }
     handleChange = (e) =>{
         this.setState({
@@ -12,14 +14,12 @@ class SignInGroup extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state)
-        // this.props.signUp(this.state)
+        this.props.signInGroup(this.state)
         //after submit redidirect the user
         // this.props.history.push('/')
     }
   render() {
     return (
-
         <div className="formoutter">
           <div className="formwrapper-bottom">
             <form className="signinform"
@@ -31,14 +31,14 @@ class SignInGroup extends Component {
                             id="groupId"
                             onChange={this.handleChange}/>
                 </div>
-                <label className="label-font" htmlFor="password">Password</label>
+                <label className="label-font" htmlFor="groupPassword">Password</label>
                 <div className="input-row">
                     <input type="password"
-                            id="password"
+                            id="groupPassword"
                             onChange={this.handleChange}/>
                 </div>
                 <div className="text-row error-holder">
-                    {/* { authError ? <p className="alert-font">{ authError }</p>  : null}  */}
+                    { this.props.groupError ? <p className="alert-font">{ this.props.groupError }</p>  : null} 
                 </div>
                 <div className="feature-row">
                     <button className="medium-button">Log in</button>
@@ -46,9 +46,17 @@ class SignInGroup extends Component {
             </form>
           </div>
         </div>
-
     )
   }
 }
-
-export default SignInGroup
+const mapStateToProps = (state) => {
+    return {
+      groupError: state.auth.groupError
+    }
+}
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    signInGroup: (creds) => dispatch(signInGroup(creds))
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(SignInGroup);
