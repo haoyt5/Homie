@@ -60,7 +60,7 @@ const authReducer = (state = initState, action ) => {
         console.log('signup group error')
         return {
             ...state,
-            groupError: "This group id has already been used"
+            groupError: "This group id is already in use by another account"
             }
         default:
             return state

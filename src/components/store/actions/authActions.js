@@ -35,17 +35,57 @@ export const signUp = (newUser) => {
                 lastname: newUser.lastName,
                 initials: newUser.firstName[0] + newUser.lastName[0],
                 email: newUser.email,
-                groupsId:[]
-                
+                createAt: firestore.FieldValue.serverTimestamp(),
+                photoURL: null
             })
-        }).then(() =>{
+        }).then(()=>{
+            firebase.auth().currentUser.updateProfile({
+                displayName: newUser.firstName,
+                email:newUser.email,
+                createAt: firestore.FieldValue.serverTimestamp()
+            })
+        })
+        .then(() => {
             dispatch({ type: 'SIGNUP_SUCCESS' })
+        }).then(()=>{
             window.location.hash = '#/signgroup/signup'
-        }).catch( err => {
+        })
+        .catch( err => {
             dispatch({ type: 'SIGNUP_ERROR', err })
         })
     }
-
+}
+export const socialLogin = (selectedProvider) => {
+    return(dispatch, getState, {getFirebase, getFirestore})=>{
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        firebase.login({
+            provider: selectedProvider,
+            type: 'popup'
+        })
+        .then( resp => {
+            if( resp.additionalUserInfo.isNewUser ){
+                const { profile, user } = resp
+                const { given_name, family_name} = resp.additionalUserInfo.profile
+                firestore.collection('users').doc(user.uid).set({
+                    firstname: given_name,
+                    lastname: family_name,
+                    initials: given_name[0] + family_name[0],
+                    photoURL: profile.avatarUrl,
+                    email: profile.email,
+                    createAt: firestore.FieldValue.serverTimestamp()
+                }).catch( err => console.log(err))
+            }
+            console.log( resp )
+        })
+        .then(()=>{
+            dispatch({ type: 'LOGIN_SUCCESS' })
+        })
+        .catch((err) => {
+            console.log(err)
+            dispatch({ type: 'LOGIN_ERROR'}, err)
+        })
+    }
 }
 
 export const signInGroup = (credentials) => {
@@ -54,6 +94,7 @@ export const signInGroup = (credentials) => {
         const userUid = getState().firebase.auth.uid;
         let groupSignInValidate = false;
         let groupUid = null;
+        //(0) to check the user whether exist or not
         //(1)query in group collection to check whether the group id whether exist or not
         firestore.collection('groups').where( 'groupId', '==', credentials.groupId).get()
         .then( querySnapshot => {
@@ -82,10 +123,15 @@ export const signInGroup = (credentials) => {
                     firestore.collection('users').doc(userUid).update({
                         groupsUid:firestore.FieldValue.arrayUnion(groupUid)
                     })
-                }).then(()=>{
-                    console.log('signin group success!')
-                    dispatch({ type: 'SIGNINGROUP_SUCCESS'})
                 })
+            }
+        }).then(()=>{
+            if(groupSignInValidate && userUid ){
+                dispatch({ type: 'SIGNINGROUP_SUCCESS'})
+            }
+        }).then(()=>{
+            if(groupSignInValidate && userUid){
+                window.location.hash = '#/'
             }
         })
     }
@@ -120,7 +166,9 @@ export const signUpGroup = (newGroup) => {
                     })
                 }).then(
                     dispatch({ type: 'SIGNUPGROUP_SUCCESS'})
-                )
+                ).then(()=>{
+                    window.location.hash = '#/'
+                })
             }
         })
     }

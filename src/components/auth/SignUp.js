@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { createHashHistory } from 'history'
-import { Redirect } from  'react-router-dom'
-import { signUp } from '../store/actions/authActions'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from  'react-router-dom';
+import { signUp, socialLogin } from '../store/actions/authActions';
 
-const history = createHashHistory();
 export class SignUp extends Component {
     state = {
         email: '',
@@ -24,12 +22,16 @@ export class SignUp extends Component {
         // after submit redidirect the user to signupgroup
         // history.push('/signgroup/signup'); 
     }
-    componentDidUpdate(){
-      // const { profile } = this.props;
-      // console.log('componentDidUpdate',profile)
-      // console.log('componentDidUpdate',profile.groupId)
-      // console.log('componentDidUpdate',profile.groupId.length)
+    handleGoogleLogin = (e) =>{
+      this.props.socialLogin('google')
     }
+    // componentDidUpdate(){
+    //   // const { profile } = this.props;
+    //   // console.log('componentDidUpdate',profile)
+    //   // console.log('componentDidUpdate',profile.groupId)
+    //   // console.log('componentDidUpdate',profile.groupId.length)
+    // }
+
   render() {
     const { auth, authError } = this.props;
     if (auth.uid) return <Redirect to ='/signgroup/signup' />
@@ -39,7 +41,8 @@ export class SignUp extends Component {
         <div className="formoutter">
           <div className="formwrapper">
             <div className="button-row">
-              <button className="google-button" >
+              <button onClick={this.handleGoogleLogin}
+                      className="google-button" >
                 <div className="login-icon">G</div>
                 <div className="login-text">Sign up with Google</div> 
               </button>
@@ -93,7 +96,7 @@ export class SignUp extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return {
     auth: state.firebase.auth, //for checking the login or not
     authError: state.auth.authError
@@ -101,7 +104,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return{
-    signUp: (newUser) => dispatch(signUp(newUser))
+    signUp: (newUser) => dispatch(signUp(newUser)),
+    socialLogin: (selectedProvider) => dispatch(socialLogin(selectedProvider))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

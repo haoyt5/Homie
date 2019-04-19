@@ -332,7 +332,7 @@ a:focus {
 }
 .google-button{
     border-radius: 5px;
-    background-color: #0F9D58;
+    background-color: #DB4437;
     color:white;
     border:0;
     cursor:pointer;
@@ -343,7 +343,7 @@ a:focus {
 }
 .google-button:hover,
 .google-button:active{
-    background-color: #11C968;
+    background-color: #ff5a4c;
     transition: 1s;
     transform: scale(1.01);
 }

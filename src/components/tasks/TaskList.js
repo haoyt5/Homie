@@ -6,7 +6,7 @@ class TaskList extends Component {
         return (
             <div className="tasklist-wapper">
                 <div className="container ">
-                { task && task.map( task => {
+                {  task && task.map( task => {
                         return (
                         <Link to={'/task/'+  task.id } key={ task.id }>
                             <div className="task-card" >

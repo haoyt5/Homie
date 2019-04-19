@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from  'react-router-dom'
-import { signIn } from '../store/actions/authActions'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from  'react-router-dom';
+import { signIn, socialLogin } from '../store/actions/authActions';
 
 export class SignIn extends Component {
     state = {
@@ -19,6 +19,9 @@ export class SignIn extends Component {
         console.log(this.state)
         this.props.signIn(this.state); 
     }
+    handleGoogleLogin = (e) =>{
+      this.props.socialLogin('google')
+    }
   render() {
     const { authError, auth } = this.props;
     if (auth.uid) return <Redirect to ='/' />
@@ -29,7 +32,8 @@ export class SignIn extends Component {
         <div className="formoutter">
           <div className="formwrapper">
             <div className="button-row">
-              <button className="google-button" >
+              <button onClick={this.handleGoogleLogin}
+                      className="google-button" >
                 <div className="login-icon">G</div>
                 <div className="login-text">Continue with Google</div> 
               </button>
@@ -79,7 +83,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (creds) => dispatch(signIn(creds))
+    signIn: (creds) => dispatch(signIn(creds)),
+    socialLogin: (selectedProvider) => dispatch(socialLogin(selectedProvider))
   }
 }
 export default connect( mapStateToProps , mapDispatchToProps)(SignIn);
