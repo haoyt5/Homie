@@ -12,7 +12,6 @@ const SignGroup = () =>{
                         <NavLink className="signgroup-tab" activeClassName="signgroup-tab-active" to="/signgroup/signup" >Create Group</NavLink>
                         <NavLink className="signgroup-tab" activeClassName="signgroup-tab-active" to="/signgroup/signin" >Join Group</NavLink>
                     </div>
-
                 </div>
             </div>
 

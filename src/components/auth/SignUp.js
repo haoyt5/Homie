@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from  'react-router-dom';
-import { signUp, socialLogin } from '../store/actions/authActions';
+import { signUp, googleLogin } from '../store/actions/authActions';
 
 export class SignUp extends Component {
     state = {
@@ -14,16 +14,13 @@ export class SignUp extends Component {
         this.setState({
            [e.target.id]: e.target.value
         })
-        
     }
     handleSubmit = (e) =>{
         e.preventDefault();
         this.props.signUp(this.state)
-        // after submit redidirect the user to signupgroup
-        // history.push('/signgroup/signup'); 
     }
     handleGoogleLogin = (e) =>{
-      this.props.socialLogin('google')
+      this.props.googleLogin()
     }
     // componentDidUpdate(){
     //   // const { profile } = this.props;
@@ -105,7 +102,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return{
     signUp: (newUser) => dispatch(signUp(newUser)),
-    socialLogin: (selectedProvider) => dispatch(socialLogin(selectedProvider))
+    googleLogin:() => dispatch(googleLogin())
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

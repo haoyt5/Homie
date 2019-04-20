@@ -55,6 +55,38 @@ export const signUp = (newUser) => {
         })
     }
 }
+export const googleLogin = () =>{
+    return (dispatch, getState, {getFirebase, getFirestore})=>{
+        console.log('click')
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            console.log('result',result)
+           
+            if( result.additionalUserInfo.isNewUser ){
+                const { user } = result
+                const { given_name, family_name,picture,email} = result.additionalUserInfo.profile
+                firestore.collection('users').doc(user.uid).set({
+                    firstname: given_name,
+                    lastname: family_name,
+                    initials: given_name[0] + family_name[0],
+                    photoURL: picture,
+                    email: email,
+                    createAt: firestore.FieldValue.serverTimestamp()
+                })
+                .then(() =>  dispatch({ type: 'LOGIN_SUCCESS' }))
+                .catch((err) => {
+                    console.log(err)
+                    dispatch({ type: 'LOGIN_ERROR'}, err)
+                })
+            }
+          }).catch(function(error) {
+            console.log('error',error)
+            dispatch({ type: 'LOGIN_ERROR'}, error)
+          });
+    }
+}
 export const socialLogin = (selectedProvider) => {
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firebase = getFirebase()

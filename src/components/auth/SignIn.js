@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from  'react-router-dom';
-import { signIn, socialLogin } from '../store/actions/authActions';
+import { signIn, googleLogin } from '../store/actions/authActions';
 
 export class SignIn extends Component {
     state = {
@@ -20,7 +20,7 @@ export class SignIn extends Component {
         this.props.signIn(this.state); 
     }
     handleGoogleLogin = (e) =>{
-      this.props.socialLogin('google')
+      this.props.googleLogin()
     }
   render() {
     const { authError, auth } = this.props;
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (creds) => dispatch(signIn(creds)),
-    socialLogin: (selectedProvider) => dispatch(socialLogin(selectedProvider))
+    googleLogin: () => dispatch(googleLogin())
   }
 }
 export default connect( mapStateToProps , mapDispatchToProps)(SignIn);

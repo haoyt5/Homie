@@ -23,8 +23,6 @@ class SignInGroup extends Component {
           document.querySelector('.error-holder').innerHTML='';
           this.props.signInGroup(this.state)
         }
-        //（＊）after submit redidirect the user
-        // this.props.history.push('/')
     }
   render() {
     return (
