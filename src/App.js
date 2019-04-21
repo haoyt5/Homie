@@ -11,9 +11,12 @@ import CreateTask from'./components/tasks/CreateTask'
 import TaskDetails from './components/tasks/TaskDetails'
 import SignGroup from './components/auth/SignGroup'
 
+// fontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 
+library.add(faStroopwafel)
 class App extends React.Component{
-
 
     render() {
         

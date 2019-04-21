@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 export class TaskDetails extends Component {
 
   render() {

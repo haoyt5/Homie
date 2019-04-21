@@ -541,7 +541,7 @@ a.signgroup-tab:focus{
   }
 .dashboard-wrapper{
     /* background-color: #f9f9f9; */
-    padding: 2rem 0;
+    padding: 0;
 }
 .title{
     font-weight: 1200;
@@ -563,4 +563,106 @@ a.signgroup-tab:focus{
     font-size: 0.6rem;
     line-height: 0.6rem;
     padding: 0 1rem 0 0;
+}
+/*-------------------------*/
+/* $GroupSelected
+---------------------------*/
+.group-form{
+    width:100%;
+    text-align: center;
+}
+.group-select{
+    border:0;
+    width: 50%;
+    height:2rem;
+    text-align: center;
+    color: #C49A66;
+}
+.group-select > option{
+    border:1px solid blue;
+}
+.group-select:focus {
+    outline:0;
+}
+.selected-wrapper{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.selected-group{
+    text-align: center;
+    width:400px;
+    height:2rem;
+    line-height: 2rem;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.selected-group:hover{
+    background-color: rgba(203,203,203, .2);
+}
+.popup{
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(203,203,203, .2) ;
+    height: 95vh;
+    width:100vw;
+    color:rgb(203, 203 , 203);
+
+}
+.popup > .container{
+    border-bottom: 0px;
+    height: 96%;
+    top:4%;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+    animation: springUp .5s ease-in;
+    transition: .5s;
+}
+@keyframes springUp {
+    from{
+        transform: translateY(25%)
+    }
+    to{
+        transform: translateY(0%)
+    }
+}
+.option-block{
+    margin-top:5rem;
+    padding: 1rem 0;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+.close-popup-row{
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    font-size: 1.8rem;
+}
+.option-row{
+    display: flex;
+    border-radius: 6px;
+    font-size: 1rem;
+    height: 3rem;
+    line-height: 3rem;
+    transition:.3s;
+    margin:1rem 0;
+}
+.option-row:hover{
+    background-color: #D2B074;
+    color:white;
+    cursor: pointer;
+}
+.option-icon{
+    padding-left: 6%;
+    font-size: 1.4rem;
+}
+.option-text{
+    position: absolute;
+    right:6%;
+}
+.u-bottom{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
 }

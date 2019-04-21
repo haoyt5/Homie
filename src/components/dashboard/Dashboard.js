@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import TaskList from '../tasks/TaskList';
+import Landing from '../dashboard/Landing'
+import GroupPopup from '../dashboard/GroupPopup' 
 // import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'; 
 
+// fontAwesome
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 class Dashboard extends Component {
+    state = {
+        groupPopup: false
+    }
+    togglePopup = () => {
+        this.setState( prevState => ({
+            groupPopup: !prevState.groupPopup
+        }))
+    }
     componentDidUpdate(){
-        console.log( this.props)
+        // console.log( this.props)
     }
     render(){
         const { tasks, auth } = this.props
@@ -16,9 +30,15 @@ class Dashboard extends Component {
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
+                {this.state.groupPopup ? <GroupPopup togglePopup={this.togglePopup.bind(this)}/> : null}
                     <div className="container">
-                    
-                        <h3 className="title">PENDING TASK</h3>
+                        <div className="selected-wrapper">
+                            <div className="selected-group" onClick={this.togglePopup}>
+                                221B  <FontAwesomeIcon icon={faAngleDown} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="container">
                         <TaskList task={ tasks } />
                     </div>
                 </div>
@@ -26,22 +46,7 @@ class Dashboard extends Component {
         } else {
             return (
                  <div className="landing-wrapper">
-                       <div className="welcome-wrapper">
-                           <div className="container">
-                               <div className="col-2-1">
-                                   <div className="logo-block">
-                                       <div className="logo-holder expand-effect"><h2>●´∀`●</h2></div>
-                                   </div>
-                               </div>
-                               <div className="col-2-1">
-                                   <div className="campaign-block">
-                                        <h1 className="campaign-block-title ">Start from <span className="brand">HOMIE</span><br/> Arrange houseworks easier.</h1>
-                                        <p className="">Manage, collaborate and track the houseworks smart.  </p>
-                                   </div>
-                                   
-                               </div>
-                           </div>
-                       </div>
+                    <Landing />
                 </div>
             )
         }
