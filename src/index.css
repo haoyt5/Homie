@@ -437,14 +437,115 @@ a.signgroup-tab:focus{
 /*-------------------------*/
 /* $Dashboard
 ---------------------------*/
-.dashboard-wapper{
+
+.landing-wrapper{
+    height:90vh;
+    overflow-y:hidden;
+    position: relative;
+} 
+.welcome-wrapper{
+    height:70%;
+    width:100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.welcome-wrapper >.container{
+    /* color: #D4B074; */
+    height: 100%;
+    border-radius: 3px;
+    display:flex;
+}
+.col-2-1{
+    width:50%;
+    cursor: default;
+}
+.campaign-block{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 2.5rem;
+}
+/* .campaign-item{
+    align-self: center;
+} */
+.brand{
+    color: #F8C633;
+    cursor: grabbing;
+    transition: 0.5s;
+}
+/* .brand:hover{
+    color: #ffd866;
+} */
+.brand:hover {
+    -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+    -webkit-mask-size: 200%;
+    animation: shine 1s infinite ease-in-out;
+}
+  
+@-webkit-keyframes shine {
+    from {
+        -webkit-mask-position: 150%;
+    }
+
+    to {
+        -webkit-mask-position: -50%;
+    }
+}
+.logo-block{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 2.5rem;
+}
+.logo-holder{
+    cursor: grabbing;
+    width:150px;
+    height:150px;
+    border-radius: 25px;
+    align-self: center;
+    text-align: center;
+    background-color: #F8C633;
+    color:white;
+    opacity: 0; 
+    animation: fadeInUp 1s ease-in-out 0s forwards;
+    animation-delay: .3s;
+    transition: .5s;
+}
+.logo-holder:hover{
+    background-color: #ffbf00;
+}
+.logo-holder > h2{
+    line-height: 150px;
+    transition: .5s;
+    transform: scale(1.3);
+}
+.logo-holder > h2:hover{
+    transform: scale(2.3);
+}
+@keyframes fadeInUp {
+    from { 
+      opacity: 0;
+      -webkit-transform: translate3d(0, 25%, 0);
+      transform: translate3d(0, 25%, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+.dashboard-wrapper{
     /* background-color: #f9f9f9; */
     padding: 2rem 0;
 }
 .title{
     font-weight: 1200;
     letter-spacing: 1.5px;
-    
 }
 .task-card{
     background-color: #fff;
