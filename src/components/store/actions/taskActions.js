@@ -7,7 +7,7 @@ export const createTask = (task) => {
             ...task,
             author: profile.firstname,
             authorUid: authorUid,
-            grouprUid: "{groupUid}",
+            groupUid: profile.groupsUid[0],
             category: "{category}",
             createAt: new Date(),
             verification:{
@@ -22,7 +22,10 @@ export const createTask = (task) => {
             }
         }).then(() => {
             dispatch({ type: 'CREATE_TASK', task })
-        }).catch((err)=>{
+        }).then(() => {
+            window.location.hash = '#/'
+        })
+        .catch((err)=>{
             dispatch({ type: 'CREATE_TASK_ERROR', err })
         })
     }

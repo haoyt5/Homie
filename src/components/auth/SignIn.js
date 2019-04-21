@@ -25,7 +25,6 @@ export class SignIn extends Component {
   render() {
     const { authError, auth } = this.props;
     if (auth.uid) return <Redirect to ='/' />
-    
     return (
       <div className="container">
         <h2 className="sub-instruciton-title">Member Login</h2>

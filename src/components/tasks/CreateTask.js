@@ -19,7 +19,7 @@ export class CreatTask extends Component {
         // console.log(this.state);
         this.props.createTask(this.state);
         //after submit redidirect the user
-        this.props.history.push('/')
+        // this.props.history.push('/')
     }
   render() {
     // console.log(this.props)

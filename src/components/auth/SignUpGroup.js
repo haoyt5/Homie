@@ -16,15 +16,14 @@ export class SignUpGroup extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        if( this.state.groupName.length === 0 || this.state.groupId.length === 0 || this.state.groupPassword.length === 0 ){
-            document.querySelector('.error-holder').innerHTML='<p class="alert-font">All fields are required</p>'
-            return
-        }if(this.state.groupName.length > 0 && this.state.groupId.length > 0 && this.state.groupPassword.length > 0){
-          document.querySelector('.error-holder').innerHTML='';
-          this.props.signUpGroup(this.state)
-        }
-        //（＊）after submit redidirect the user
-        // this.props.history.push('/')
+        // if( this.state.groupName.length === 0 || this.state.groupId.length === 0 || this.state.groupPassword.length === 0 ){
+        //     document.querySelector('.error-holder').innerHTML='<p class="alert-font">All fields are required</p>'
+        //     return
+        // }if(this.state.groupName.length > 0 && this.state.groupId.length > 0 && this.state.groupPassword.length > 0){
+        //   document.querySelector('.error-holder').innerHTML='';
+        
+        // }
+        this.props.signUpGroup(this.state)
     }
     
   render() {

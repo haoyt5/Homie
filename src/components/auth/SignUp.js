@@ -22,13 +22,6 @@ export class SignUp extends Component {
     handleGoogleLogin = (e) =>{
       this.props.googleLogin()
     }
-    // componentDidUpdate(){
-    //   // const { profile } = this.props;
-    //   // console.log('componentDidUpdate',profile)
-    //   // console.log('componentDidUpdate',profile.groupId)
-    //   // console.log('componentDidUpdate',profile.groupId.length)
-    // }
-
   render() {
     const { auth, authError } = this.props;
     if (auth.uid) return <Redirect to ='/signgroup/signup' />

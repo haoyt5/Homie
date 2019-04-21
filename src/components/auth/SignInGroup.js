@@ -15,14 +15,7 @@ class SignInGroup extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        // this.props.signInGroup(this.state)
-        if( this.state.groupId.length === 0 || this.state.groupPassword.length === 0 ){
-          document.querySelector('.error-holder').innerHTML='<p class="alert-font">That was an invalid user id or password.</p>';
-          return
-        }if( this.state.groupId.length > 0 && this.state.groupPassword.length > 0){
-          document.querySelector('.error-holder').innerHTML='';
-          this.props.signInGroup(this.state)
-        }
+        this.props.signInGroup(this.state)
     }
   render() {
     return (

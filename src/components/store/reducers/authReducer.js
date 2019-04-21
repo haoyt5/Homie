@@ -43,6 +43,12 @@ const authReducer = (state = initState, action ) => {
                 ...state,
                 groupError: "This group id was not exist"
                     }
+        case 'SIGNINGROUP_EMPTY':
+            console.log('All fields are required')
+            return {
+                ...state,
+                groupError: "All fields are required"
+                    }
         case 'SIGNINGROUP_ERROR':
             console.log('The password is incorrect')
             return {
