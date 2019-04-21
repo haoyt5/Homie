@@ -17,6 +17,8 @@ export const signOut = () => {
         const firebase = getFirebase();
         firebase.auth().signOut().then(() => {
             dispatch({type: 'SIGNOUT_SUCCESS'})
+        }).then(()=>{
+            window.location.hash = '#/'
         })
     }
 }
