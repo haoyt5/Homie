@@ -7,34 +7,39 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'; 
 
-// fontAwesome
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
+import { fetchGroup } from '../store/actions/groupActions'
 class Dashboard extends Component {
     state = {
         groupPopup: false
     }
     togglePopup = () => {
+        if( !this.state.groupPopup ){
+            this.props.fetchGroup(this.props.groupsUid)
+        } 
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }))
     }
     componentDidUpdate(){
-        // console.log( this.props)
+        // console.log(this.props.groupsData)
+        // console.log( this.props.auth.uid) 
+        // console.log(this.props.groupsUid)
     }
     render(){
+        
         const { tasks, auth } = this.props
         // if (!auth.uid) return <Redirect to='/signin'/>
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
-                {this.state.groupPopup ? <GroupPopup togglePopup={this.togglePopup.bind(this)}/> : null}
+                {this.state.groupPopup ? <GroupPopup togglePopup={this.togglePopup.bind(this)} groupsData={this.props.groupsData}/> : null}
                     <div className="container">
                         <div className="selected-wrapper">
                             <div className="selected-group" onClick={this.togglePopup}>
-                                221B  <FontAwesomeIcon icon={faAngleDown} />
+                                {this.props.profile.defaultGroup} <FontAwesomeIcon icon={faAngleDown} />
                             </div>
                         </div>
                     </div>
@@ -53,17 +58,24 @@ class Dashboard extends Component {
 
     }
 }
-const mapStateToProps = (state) => {
-    // console.log(state)
+const mapStateToProps = (state) => {  
     return {
         tasks: state.firestore.ordered.tasks,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        groupsUid: state.firebase.profile.groupsUid,
+        groupsData: state.group.groups,
+        profile:state.firebase.profile
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchGroup: (groupsUid) => dispatch(fetchGroup(groupsUid))
+    }
 
+}
 // export default  connect(mapStateToProps)(Dashboard);
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         { collection: 'tasks' , orderBy:['createAt','desc']}
     ])

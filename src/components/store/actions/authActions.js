@@ -27,7 +27,6 @@ export const signUp = (newUser) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();        
-        console.log( window.location.hash)
         firebase.auth().createUserWithEmailAndPassword(
             newUser.email,
             newUser.password
@@ -59,12 +58,10 @@ export const signUp = (newUser) => {
 }
 export const googleLogin = () =>{
     return (dispatch, getState, {getFirebase, getFirestore})=>{
-        console.log('click')
         const firebase = getFirebase();
         const firestore = getFirestore();
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log('result',result)
             if( result.additionalUserInfo.isNewUser ){
                 const { user } = result
                 const { given_name, family_name,picture,email} = result.additionalUserInfo.profile
@@ -126,7 +123,8 @@ export const signInGroup = (credentials) => {
                     }).then(()=>{
         //(3)update the groupUid in the users groups array
                         firestore.collection('users').doc(userUid).update({
-                            groupsUid:firestore.FieldValue.arrayUnion(groupUid)
+                            groupsUid:firestore.FieldValue.arrayUnion(groupUid),
+                            defaultGroup: groupUid
                         })
                     })
                 }
@@ -149,7 +147,6 @@ export const signUpGroup = (newGroup) => {
         const userUid = getState().firebase.auth.uid;
         let groupValidate = true;
         const { groupName, groupId, groupPassword } = newGroup 
-        console.log( groupName.length, groupId.length, groupPassword.length)
         if (groupName.length === 0 || groupId.length === 0 || groupPassword.length === 0){
             dispatch({ type: 'SIGNINGROUP_EMPTY'})
             return
@@ -174,7 +171,11 @@ export const signUpGroup = (newGroup) => {
         //(3)update to the user database with the groupUid
                         let groupUid = resp.id
                         firestore.collection('users').doc(userUid).update({
-                            groupsUid:firestore.FieldValue.arrayUnion(groupUid)
+                            groupsUid:firestore.FieldValue.arrayUnion(groupUid),
+                            defaultGroup: groupUid
+                        })
+                        firestore.collection('groups').doc(groupUid).update({
+                            groupUid: groupUid
                         })
                     }).then(
                         dispatch({ type: 'SIGNUPGROUP_SUCCESS'})
