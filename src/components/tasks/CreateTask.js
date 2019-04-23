@@ -7,6 +7,7 @@ export class CreatTask extends Component {
         title: '',
         content: '',
         expiryDate: '',
+        category:'trash'
     }
     handleChange = (e) =>{
         this.setState({
@@ -40,6 +41,16 @@ export class CreatTask extends Component {
                         id="expiryDate"
                         onChange={this.handleChange}/>
             </div>
+            <label className="label-font" htmlFor="expiryDate">Category</label>
+            <div className="task-input-row">
+                <select value={this.state.value} name="" id="category" onChange={this.handleChange}>
+                  <option value="trash">Trash</option>
+                  <option value="bathroom">Bathroom</option>
+                  <option value="kitchen">Kitchen</option>
+                  <option value="floor">Floor</option>
+                  <option value="other">Other</option>
+                </select>
+            </div>
             <label className="label-font" htmlFor="content">Description</label>
             <div className="textarea-row">
                 <textarea type="text"
@@ -50,6 +61,7 @@ export class CreatTask extends Component {
                 <button className="medium-square-button">Save</button>
             </div>
         </form>
+        <button className="medium-square-button">Cancel</button>
       </div>
     )
   }

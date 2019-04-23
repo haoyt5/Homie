@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 // import { compose } from 'redux';
 import { connect } from 'react-redux';
 // import { firestoreConnect } from 'react-redux-firebase';
-import { fetchTask } from '../store/actions/taskActions'
+import { fetchTask, acceptTask } from '../store/actions/taskActions'
 export class TaskDetails extends Component {
-
+    handleAccept = (e)=> {
+        // console.log(this.props.match.params.id,2)
+        this.props.acceptTask(this.props.match.params.id)
+    }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
     }
@@ -20,10 +23,12 @@ export class TaskDetails extends Component {
                             <p className="expirydate">Expiry Date | Wed</p>
                             <p className="expirydate">Posted by | {author}</p>
                             <p>{content}</p>
-                            <button>Accept</button>
+                            
                     </div>
                 </div>
+                <button onClick={this.handleAccept}>Accept</button>
             </div>
+           
         )
     } else {
         return (
@@ -35,7 +40,6 @@ export class TaskDetails extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-
     // const id = ownProps.match.params.id
     // const tasks = state.firestore.data.tasks
     // const task = tasks ? tasks[id] : null
@@ -47,7 +51,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)) 
+        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
+        acceptTask:(taskUid) => dispatch(acceptTask(taskUid))
     }
 }
 

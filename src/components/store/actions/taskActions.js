@@ -3,6 +3,7 @@ export const createTask = (task) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorUid = getState().firebase.auth.uid;
+        // console.log(task)
         firestore.collection('tasks').add({
             ...task,
             author: profile.firstname,
@@ -18,8 +19,10 @@ export const createTask = (task) => {
                byImage: [{
                 "checkbox": "false",
                 "url": "null"
-               }]
-            }
+               }]},
+            assign:{assignedTo:"null",assignedAt:""},
+            verify:{verifiedBy:"null",verifiedAt:""},
+            status:"unassigned"
         }).then(() => {
             dispatch({ type: 'CREATE_TASK', task })
         }).then(() => {
@@ -62,5 +65,27 @@ export const fetchTaskList = (userUid) => {
                 dispatch({type: 'GET_TASKS', tasksData})
             })
         })
+    }
+};
+export const acceptTask = (taskUid) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore()
+        const userUid = getState().firebase.auth.uid
+       
+        console.log('!!!! +++ taskUid',taskUid,'userUid', userUid)
+        //(1) update the task doc with the status and the assign field
+        //(2) update the user doc accept the task
+        firestore.collection('tasks').doc(taskUid).update({
+            assign:{assignedAt:firestore.FieldValue.serverTimestamp(),
+                    assignedTo:userUid},
+            status: 'assigned'
+        }).then(() => {
+            firestore.collection('users').doc(userUid).update({
+                beAssignedTo:firestore.FieldValue.arrayUnion(taskUid)
+            })
+        }).then(() => {
+            window.location.hash = '#/'
+        })
+
     }
 };

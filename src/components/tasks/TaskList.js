@@ -5,7 +5,7 @@ class TaskList extends Component {
         const { task }  = this.props
         return (
             <div className="tasklist-wapper">
-                <h3 className="title">PENDING TASK</h3>
+                <h3 className="title">All TASK</h3>
                 <div className="container ">
                 {  task && task.map( task => {
                         return (

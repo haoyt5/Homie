@@ -22,17 +22,19 @@ class Dashboard extends Component {
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }));
-        this.props.fetchTaskList(this.props.auth.uid)
-        this.props.fetchGroupDetails(this.props.auth.uid)
+        if (this.state.groupPopup){
+            this.props.fetchTaskList(this.props.auth.uid)
+            this.props.fetchGroupDetails(this.props.auth.uid)
+        }
+
     }
     componentDidMount(){
         if(this.props.auth.uid){
             this.props.fetchTaskList(this.props.auth.uid)
             this.props.fetchGroupDetails(this.props.auth.uid)
-            
         }
     }
-    componentDidUpdate(){
+    componentWillUnmount(){
     
     }
 
@@ -76,7 +78,7 @@ const mapStateToProps = (state) => {
         groupsUid: state.firebase.profile.groupsUid,
         groupsData: state.group.groups,
         profile:state.firebase.profile,
-        defaultGroup:state.firebase.profile.defaultGroup,
+        // defaultGroup:state.firebase.profile.defaultGroup,
         defaultGroupData:defaultGroupData,
         tasksData:state.task.tasksData
     }
