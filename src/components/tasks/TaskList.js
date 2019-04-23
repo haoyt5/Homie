@@ -11,13 +11,13 @@ class TaskList extends Component {
                         return (
                         <Link to={'/task/'+  task.id } key={ task.id }>
                             <div className="task-card" >
-                                <h3>{ task.title }</h3>
+                                <h3>{ task.data.title }</h3>
                                 <p className="expirydate">
                                 <span className="expirydate-title">Expiry Date | Wed 25 / 04 / 2019 </span>
                                 </p>
-                                <p>{ task.content }</p>
-                                <span className="expirydate-title">Posted by | { task.author } </span>
-                                <span className="expirydate-title">Posted at | { task.createAt.toDate().toDateString() }</span>
+                                <p>{ task.data.content }</p>
+                                <span className="expirydate-title">Posted by | { task.data.author } </span>
+                                <span className="expirydate-title">Posted at | { task.data.createAt.toDate().toDateString() }</span>
                             </div>
                         </Link>
                         )

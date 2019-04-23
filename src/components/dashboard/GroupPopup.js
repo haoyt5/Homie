@@ -4,15 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase';
 
 import { switchGroup } from '../store/actions/groupActions'
 
 export class GroupPopup extends Component {
 
     handleSwitch = (groupUid) => {
-        // console.log(e)
         this.props.switchGroup(groupUid)
         this.props.togglePopup()
     }
@@ -22,7 +19,6 @@ export class GroupPopup extends Component {
     render() {
         const { groupsData } = this.props
         return (
-            
         <div className="popup" >
             <div className="container">
                 <div className="row">
@@ -42,8 +38,6 @@ export class GroupPopup extends Component {
                     })
                 }
                 </div>
-
-
                 <div className="u-bottom">
                     <div className="container">
                         <NavLink to="/signgroup/signin" >
@@ -64,7 +58,6 @@ export class GroupPopup extends Component {
     }
 }
 const mapStatetToProps = (state) => {
-    // console.log(state)
     return {
         groupsUid: state.firebase.profile.groupsUid,
         defaultGroup: state.firebase.profile.defaultGroup
@@ -75,7 +68,4 @@ const mapDispatchToProps = (dispatch) => {
         switchGroup: (newGroupUid) => dispatch(switchGroup(newGroupUid))
     }
 }
-export default compose(
-    connect(mapStatetToProps,mapDispatchToProps),firestoreConnect(props => [
-        
-]))(GroupPopup);
+export default connect(mapStatetToProps,mapDispatchToProps)(GroupPopup);

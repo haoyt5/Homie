@@ -13,8 +13,6 @@ export const fetchGroup = (groupsUid) => {
                     }) 
             )
         })
-      
-
     }
 }
 

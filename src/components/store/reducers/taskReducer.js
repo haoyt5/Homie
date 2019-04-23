@@ -1,8 +1,6 @@
 const initState = {
-    tasks:[
-        // {id:'1',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'},
-        // {id:'2',title:'丟垃圾',content:'丟一般垃圾還有塑膠回收'}
-    ]
+    tasks:[],
+    tasksData:[]
 }
 
 const taskReducer = (state = initState, action) => {
@@ -13,6 +11,12 @@ const taskReducer = (state = initState, action) => {
         case 'CREATE_TASK_ERROR':
             console.log('create task', action.err)
             return state
+        case 'GET_TASKS':
+            console.log('get the tasks data')
+            return {
+                ...state,
+                tasksData:action.tasksData
+            }
         default:
             return state
     }
