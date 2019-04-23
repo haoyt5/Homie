@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+// import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
+// import { firestoreConnect } from 'react-redux-firebase';
+import { fetchTask } from '../store/actions/taskActions'
 export class TaskDetails extends Component {
 
+    componentDidMount(){
+        this.props.fetchTask(this.props.match.params.id)
+    }
   render() {
-    // console.log(this.props.match.params.id)
     const id = this.props.match.params.id
-    if (this.props.task){
-        const { author, content, title } = this.props.task
-        // console.log(author, content, title)
+    if (this.props.taskdetails.data){
+        const { author, content, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
@@ -32,19 +34,27 @@ export class TaskDetails extends Component {
     }
   }
 }
-const mapStateToprops = (state, ownProps) => {
-    // console.log(state)
-    // console.log(ownProps)
-    const id = ownProps.match.params.id
-    const tasks = state.firestore.data.tasks
-    const task = tasks ? tasks[id] : null
+const mapStateToProps = (state, ownProps) => {
+
+    // const id = ownProps.match.params.id
+    // const tasks = state.firestore.data.tasks
+    // const task = tasks ? tasks[id] : null
+    const taskdetails = state.task.taskData ? state.task.taskData : null
     return {
-        task: task
+        taskdetails: taskdetails
     }
 }
-export default compose(
-    connect(mapStateToprops),
-    firestoreConnect([
-        { collection: 'tasks' }
-    ])
-)(TaskDetails);
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)) 
+    }
+}
+
+export default    connect(mapStateToProps,mapDispatchToProps)(TaskDetails);
+// export default compose(
+//     connect(mapStateToProps,mapDispatchToProps),
+//     firestoreConnect([
+//         { collection: 'tasks' }
+//     ])
+// )(TaskDetails);

@@ -9,7 +9,7 @@ class TaskList extends Component {
                 <div className="container ">
                 {  task && task.map( task => {
                         return (
-                        <Link to={'/task/'+  task.id } key={ task.id }>
+                        <Link to={'/task/'+  task.id } key={ task.id } task={task}>
                             <div className="task-card" >
                                 <h3>{ task.data.title }</h3>
                                 <p className="expirydate">

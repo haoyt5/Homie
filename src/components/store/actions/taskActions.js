@@ -30,7 +30,23 @@ export const createTask = (task) => {
         })
     }
 };
-export const fetchTask = (userUid) => {
+export const fetchTask = (taskUid) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore()
+        let taskData;
+        console.log('fetchTask of the taskUid:',taskUid)
+        firestore.collection('tasks').doc(taskUid).get()
+        .then(doc => {
+            // console.log(doc.data())
+            taskData = {id:doc.id,data:doc.data()}
+        })
+        .then(() => {
+            console.log(taskData)
+            dispatch({type: 'GET_TASK', taskData})
+        })
+    }
+};
+export const fetchTaskList = (userUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         let tasksData = [];

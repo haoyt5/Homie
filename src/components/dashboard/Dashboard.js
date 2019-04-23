@@ -4,14 +4,13 @@ import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
 // import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux'; 
+
 
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { fetchGroup } from '../store/actions/groupActions'
-import { fetchTask } from '../store/actions/taskActions'
+import { fetchTaskList } from '../store/actions/taskActions'
 class Dashboard extends Component {
     state = {
         groupPopup: false
@@ -23,17 +22,19 @@ class Dashboard extends Component {
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }));
-        this.props.fetchTask(this.props.auth.uid)
+        this.props.fetchTaskList(this.props.auth.uid)
     }
     componentDidMount(){
-        this.props.fetchTask(this.props.auth.uid)
+        if(this.props.auth.uid){
+            this.props.fetchTaskList(this.props.auth.uid)
+        }
     }
     componentDidUpdate(){
     
     }
 
     render(){
-        const { tasksData,tasks, auth } = this.props
+        const { tasksData, auth } = this.props
         // console.log(this.props)
         // if (!auth.uid) return <Redirect to='/signin'/>
         if (auth.uid){
@@ -77,14 +78,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchGroup: (groupsUid) => dispatch(fetchGroup(groupsUid)),
-        fetchTask: (userUid) => dispatch(fetchTask(userUid)) 
+        fetchTaskList: (userUid) => dispatch(fetchTaskList(userUid)) 
     }
 
 }
-// export default  connect(mapStateToProps)(Dashboard);
-export default compose(
-    connect( mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
-        { collection: 'tasks' , orderBy:['createAt','desc']}
-    ])
-)(Dashboard);
+export default  connect( mapStateToProps, mapDispatchToProps)(Dashboard);
+// export default compose(
+//     connect( mapStateToProps, mapDispatchToProps),
+//     firestoreConnect([
+//         { collection: 'tasks' , orderBy:['createAt','desc']}
+//     ])
+// )(Dashboard);
