@@ -34,7 +34,6 @@ export const fetchTask = (taskUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         let taskData;
-        console.log('fetchTask of the taskUid:',taskUid)
         firestore.collection('tasks').doc(taskUid).get()
         .then(doc => {
             // console.log(doc.data())

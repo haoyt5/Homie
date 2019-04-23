@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { fetchGroup } from '../store/actions/groupActions'
+import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
 class Dashboard extends Component {
     state = {
@@ -17,16 +17,19 @@ class Dashboard extends Component {
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){
-            this.props.fetchGroup(this.props.groupsUid)
+            this.props.fetchGroupList(this.props.groupsUid)
         } 
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }));
         this.props.fetchTaskList(this.props.auth.uid)
+        this.props.fetchGroupDetails(this.props.auth.uid)
     }
     componentDidMount(){
         if(this.props.auth.uid){
             this.props.fetchTaskList(this.props.auth.uid)
+            this.props.fetchGroupDetails(this.props.auth.uid)
+            
         }
     }
     componentDidUpdate(){
@@ -35,16 +38,17 @@ class Dashboard extends Component {
 
     render(){
         const { tasksData, auth } = this.props
-        // console.log(this.props)
-        // if (!auth.uid) return <Redirect to='/signin'/>
+        
+
         if (auth.uid){
+            
             return (
                 <div className="dashboard-wrapper">
                 {this.state.groupPopup ? <GroupPopup togglePopup={this.togglePopup.bind(this)} groupsData={this.props.groupsData}/> : null}
                     <div className="container">
                         <div className="selected-wrapper">
                             <div className="selected-group" onClick={this.togglePopup}>
-                                {this.props.profile.defaultGroup} <FontAwesomeIcon icon={faAngleDown} />
+                                {this.props.defaultGroupData ? this.props.defaultGroupData.groupName : null} <FontAwesomeIcon icon={faAngleDown} />
                             </div>
                         </div>
                     </div>
@@ -64,7 +68,8 @@ class Dashboard extends Component {
     }
 }
 const mapStateToProps = (state) => {  
-    
+    // console.log(state.firebase.profile.defaultGroup)
+    const defaultGroupData = state.group.defaultGroupData ? state.group.defaultGroupData :null
     return {
         tasks: state.firestore.ordered.tasks,
         auth: state.firebase.auth,
@@ -72,13 +77,15 @@ const mapStateToProps = (state) => {
         groupsData: state.group.groups,
         profile:state.firebase.profile,
         defaultGroup:state.firebase.profile.defaultGroup,
+        defaultGroupData:defaultGroupData,
         tasksData:state.task.tasksData
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchGroup: (groupsUid) => dispatch(fetchGroup(groupsUid)),
-        fetchTaskList: (userUid) => dispatch(fetchTaskList(userUid)) 
+        fetchGroupList: (groupsUid) => dispatch(fetchGroupList(groupsUid)),
+        fetchTaskList: (userUid) => dispatch(fetchTaskList(userUid)),
+        fetchGroupDetails: (groupUid) => dispatch(fetchGroupDetails(groupUid)) 
     }
 
 }

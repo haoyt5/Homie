@@ -1,6 +1,7 @@
 const initState = {
     groups:null,
-    switchError:null
+    switchError:null,
+    defaultGroupData:null
 }
 const groupReducer = (state = initState, action ) => {
     switch(action.type){
@@ -15,6 +16,11 @@ const groupReducer = (state = initState, action ) => {
             return {
                 ...state,
                 switchError:action.error
+            }
+        case 'GET_GROUP':
+        return {
+            ...state,
+            defaultGroupData:action.groupData
             }
         default:
             return state

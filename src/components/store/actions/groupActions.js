@@ -1,4 +1,4 @@
-export const fetchGroup = (groupsUid) => {
+export const fetchGroupList = (groupsUid) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         let groupsData=[];
         //(1) groupsUid fetch the groups doc name groupsUid
@@ -13,6 +13,26 @@ export const fetchGroup = (groupsUid) => {
                     }) 
             )
         })
+    }
+}
+export const fetchGroupDetails = (userUid) => {
+    return (dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore()
+        let groupData;
+        firestore.collection('users').doc(userUid).get()
+        .then(doc => { 
+            const { defaultGroup } = doc.data()
+            return defaultGroup
+        })
+        .then( defaultGroup =>{
+            firestore.collection('groups').doc(defaultGroup).get()
+                .then( doc => {
+                    groupData = doc.data()
+                }).then(()=>{
+                    dispatch({type: 'GET_GROUP', groupData})
+                })
+        })
+
     }
 }
 
