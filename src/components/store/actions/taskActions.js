@@ -71,8 +71,8 @@ export const acceptTask = (taskUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         const userUid = getState().firebase.auth.uid
-       
-        console.log('!!!! +++ taskUid',taskUid,'userUid', userUid)
+        const groupUid = getState().firebase.profile.defaultGroup;
+        // console.log('!!!! +++ taskUid',taskUid,'userUid', userUid)
         //(1) update the task doc with the status and the assign field
         //(2) update the user doc accept the task
         firestore.collection('tasks').doc(taskUid).update({
@@ -81,7 +81,7 @@ export const acceptTask = (taskUid) => {
             status: 'assigned'
         }).then(() => {
             firestore.collection('users').doc(userUid).update({
-                beAssignedTo:firestore.FieldValue.arrayUnion(taskUid)
+                [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
             })
         }).then(() => {
             window.location.hash = '#/'
