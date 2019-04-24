@@ -39,9 +39,7 @@ class Dashboard extends Component {
     }
 
     render(){
-        const { tasksData, auth } = this.props
-        
-
+        const { unassignedTasksData,tasksData, auth } = this.props
         if (auth.uid){
             
             return (
@@ -55,7 +53,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">
-                        <TaskList task={ tasksData } /> 
+                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData }/>
                     </div>
                 </div>
             )
@@ -70,7 +68,6 @@ class Dashboard extends Component {
     }
 }
 const mapStateToProps = (state) => {  
-    // console.log(state.firebase.profile.defaultGroup)
     const defaultGroupData = state.group.defaultGroupData ? state.group.defaultGroupData :null
     return {
         tasks: state.firestore.ordered.tasks,
@@ -78,9 +75,9 @@ const mapStateToProps = (state) => {
         groupsUid: state.firebase.profile.groupsUid,
         groupsData: state.group.groups,
         profile:state.firebase.profile,
-        // defaultGroup:state.firebase.profile.defaultGroup,
         defaultGroupData:defaultGroupData,
-        tasksData:state.task.tasksData
+        tasksData:state.task.tasksData,
+        unassignedTasksData: state.task.unassignedTasksData
     }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -9,7 +9,6 @@ export const createTask = (task) => {
             author: profile.firstname,
             authorUid: authorUid,
             groupUid: profile.defaultGroup,
-            category: "{category}",
             createAt: new Date(),
             verification:{
                 byOther: [{
@@ -22,6 +21,7 @@ export const createTask = (task) => {
                }]},
             assign:{assignedTo:"null",assignedAt:""},
             verify:{verifiedBy:"null",verifiedAt:""},
+            lastUpdateAt:firestore.FieldValue.serverTimestamp(),
             status:"unassigned"
         }).then(() => {
             dispatch({ type: 'CREATE_TASK', task })
@@ -52,17 +52,29 @@ export const fetchTaskList = (userUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         let tasksData = [];
+        let unassignedTasksData = [];
         firestore.collection('users').doc(userUid).get()
         .then( doc => { 
            const { defaultGroup } = doc.data()
            return defaultGroup
-        }).then( defaultGroup =>{
-            firestore.collection('tasks').where('groupUid', '==', defaultGroup).orderBy('createAt','desc').get()
+        }).then( defaultGroup => {
+            firestore.collection('tasks').where('groupUid', '==', defaultGroup).orderBy('lastUpdateAt','desc').get()
                 .then( querySnapshot => { querySnapshot.forEach( doc => {
                     tasksData = [...tasksData, {id:doc.id,data:doc.data()}]
                 }) 
-            }).then(() => {
-                dispatch({type: 'GET_TASKS', tasksData})
+                // unassignedTasksData = [1,2,3]
+            })
+            .then(() => {
+                firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','unassigned').orderBy('lastUpdateAt','desc').get()
+                .then( querySnapshot => { querySnapshot.forEach( doc => {
+                    unassignedTasksData = [...unassignedTasksData, {id:doc.id,data:doc.data()}]
+                    })
+                }).then(()=>{
+                    dispatch({type: 'GET_TASKS',
+                    tasksData,
+                    unassignedTasksData
+                   })
+                })
             })
         })
     }
@@ -72,12 +84,12 @@ export const acceptTask = (taskUid) => {
         const firestore = getFirestore()
         const userUid = getState().firebase.auth.uid
         const groupUid = getState().firebase.profile.defaultGroup;
-        // console.log('!!!! +++ taskUid',taskUid,'userUid', userUid)
         //(1) update the task doc with the status and the assign field
         //(2) update the user doc accept the task
         firestore.collection('tasks').doc(taskUid).update({
             assign:{assignedAt:firestore.FieldValue.serverTimestamp(),
                     assignedTo:userUid},
+            lastUpdateAt:firestore.FieldValue.serverTimestamp(),
             status: 'assigned'
         }).then(() => {
             firestore.collection('users').doc(userUid).update({

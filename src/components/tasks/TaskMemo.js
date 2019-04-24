@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import { compose } from 'redux';
 import { connect } from 'react-redux';
-// import { firestoreConnect } from 'react-redux-firebase';
-import { fetchTask, acceptTask } from '../store/actions/taskActions'
-export class TaskDetails extends Component {
+import { fetchTask } from '../store/actions/taskActions'
+export class TaskMemo extends Component {
     handleAccept = (e)=> {
-        // console.log(this.props.match.params.id,2)
-        this.props.acceptTask(this.props.match.params.id)
+        // this.props.acceptTask(this.props.match.params.id)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
@@ -27,7 +24,7 @@ export class TaskDetails extends Component {
                             
                     </div>
                 </div>
-                <button onClick={this.handleAccept}>Accept</button>
+                <button onClick={this.handleAccept}>File</button>
             </div>
            
         )
@@ -41,9 +38,6 @@ export class TaskDetails extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-    // const id = ownProps.match.params.id
-    // const tasks = state.firestore.data.tasks
-    // const task = tasks ? tasks[id] : null
     const taskdetails = state.task.taskData ? state.task.taskData : null
     return {
         taskdetails: taskdetails
@@ -52,15 +46,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
-        acceptTask:(taskUid) => dispatch(acceptTask(taskUid))
+        fetchTask: (taskUid) => dispatch(fetchTask(taskUid))
     }
 }
 
-export default    connect(mapStateToProps,mapDispatchToProps)(TaskDetails);
-// export default compose(
-//     connect(mapStateToProps,mapDispatchToProps),
-//     firestoreConnect([
-//         { collection: 'tasks' }
-//     ])
-// )(TaskDetails);
+export default    connect(mapStateToProps,mapDispatchToProps)(TaskMemo);
+
