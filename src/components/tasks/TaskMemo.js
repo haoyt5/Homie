@@ -4,6 +4,7 @@ import { fetchTask } from '../store/actions/taskActions'
 export class TaskMemo extends Component {
     handleAccept = (e)=> {
         // this.props.acceptTask(this.props.match.params.id)
+        console.log('!')
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)

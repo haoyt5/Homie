@@ -2,7 +2,8 @@ const initState = {
     tasks:[],
     tasksData:[],
     taskData:[],
-    unassignedTasksData:[]
+    unassignedTasksData:[],
+    assignedTasksData:[]
 }
 
 const taskReducer = (state = initState, action) => {
@@ -14,11 +15,12 @@ const taskReducer = (state = initState, action) => {
             console.log('create task', action.err)
             return state
         case 'GET_TASKS':
-            console.log('get a list of task data')
+            console.log('get all task data')
             return {
                 ...state,
                 tasksData:action.tasksData,
-                unassignedTasksData:action.unassignedTasksData
+                unassignedTasksData:action.unassignedTasksData,
+                assignedTasksData:action.assignedTasksData
             }
         case 'GET_TASK':
         console.log('get the specific task data')

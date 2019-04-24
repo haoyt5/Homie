@@ -39,21 +39,21 @@ class Dashboard extends Component {
     }
 
     render(){
-        const { unassignedTasksData,tasksData, auth } = this.props
+        const { assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
         if (auth.uid){
             
             return (
                 <div className="dashboard-wrapper">
-                {this.state.groupPopup ? <GroupPopup togglePopup={this.togglePopup.bind(this)} groupsData={this.props.groupsData}/> : null}
+                {this.state.groupPopup ? <GroupPopup togglePopup={ this.togglePopup.bind(this) } groupsData={ this.props.groupsData }/> : null }
                     <div className="container">
                         <div className="selected-wrapper">
                             <div className="selected-group" onClick={this.togglePopup}>
-                                {this.props.defaultGroupData ? this.props.defaultGroupData.groupName : null} <FontAwesomeIcon icon={faAngleDown} />
+                                { this.props.defaultGroupData ? this.props.defaultGroupData.groupName : null } <FontAwesomeIcon icon={faAngleDown} />
                             </div>
                         </div>
                     </div>
                     <div className="container">
-                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData }/>
+                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } />
                     </div>
                 </div>
             )
@@ -77,7 +77,8 @@ const mapStateToProps = (state) => {
         profile:state.firebase.profile,
         defaultGroupData:defaultGroupData,
         tasksData:state.task.tasksData,
-        unassignedTasksData: state.task.unassignedTasksData
+        unassignedTasksData: state.task.unassignedTasksData,
+        assignedTasksData: state.task.assignedTasksData
     }
 }
 const mapDispatchToProps = (dispatch) => {
