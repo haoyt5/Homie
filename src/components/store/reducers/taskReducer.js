@@ -3,7 +3,8 @@ const initState = {
     tasksData:[],
     taskData:[],
     unassignedTasksData:[],
-    assignedTasksData:[]
+    assignedTasksData:[],
+    pendingTasksData:[]
 }
 
 const taskReducer = (state = initState, action) => {

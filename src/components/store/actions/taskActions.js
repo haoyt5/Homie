@@ -49,9 +49,10 @@ export const fetchTask = (taskUid) => {
 export const fetchTaskList = (userUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
-        let tasksData = [];
-        let unassignedTasksData = [];
+        let tasksData = []
+        let unassignedTasksData = []
         let assignedTasksData = []
+        let pendingTasksData = []
         firestore.collection('users').doc(userUid).get()
         .then( doc => { 
            const { defaultGroup } = doc.data()
@@ -73,8 +74,14 @@ export const fetchTaskList = (userUid) => {
                     .then( querySnapshot => { querySnapshot.forEach( doc => {
                         assignedTasksData = [...assignedTasksData, {id:doc.id,data:doc.data()}]
                         })
+                    }).then(()=>{
+                        firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','pending').orderBy('lastUpdateAt','desc').get()
+                        .then( querySnapshot => { querySnapshot.forEach( doc => {
+                            pendingTasksData = [...pendingTasksData, {id:doc.id,data:doc.data()}]
+                            })
+                            
+                        }).then(()=>{ console.log('fetch the pending tasks',pendingTasksData) })
                     }).then(() => {
-                        console.log(assignedTasksData)
                         dispatch({type: 'GET_TASKS',
                         tasksData,
                         unassignedTasksData,
@@ -119,6 +126,7 @@ export const closeTask = (taskUid, assign) => {
         const { assignedToUid } = assign
         //(1) update the task doc with the status to pending
         //(2) update the user doc remove taskUid from the beAssignedTo and add it to the pendding
+        //(*) Error Handling check if contain the image or not
         if( userUid === assignedToUid ) {
             firestore.collection('tasks').doc(taskUid).update({
                 lastUpdateAt:firestore.FieldValue.serverTimestamp(),
@@ -133,7 +141,7 @@ export const closeTask = (taskUid, assign) => {
             })
             
         } else {
-            alert('It is an invalid action ')
+            alert('It is an invalid action')
             return
         }
     }
