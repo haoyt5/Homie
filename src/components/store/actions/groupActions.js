@@ -21,16 +21,19 @@ export const fetchGroupDetails = (userUid) => {
         let groupData;
         firestore.collection('users').doc(userUid).get()
         .then(doc => { 
-            const { defaultGroup } = doc.data()
+            const defaultGroup  = doc.data().defaultGroup || null
             return defaultGroup
         })
-        .then( defaultGroup =>{
-            firestore.collection('groups').doc(defaultGroup).get()
+        .then( defaultGroup => { 
+            if(defaultGroup){
+                firestore.collection('groups').doc(defaultGroup).get()
                 .then( doc => {
                     groupData = doc.data()
                 }).then(()=>{
                     dispatch({type: 'GET_GROUP', groupData})
                 })
+            }
+
         })
 
     }

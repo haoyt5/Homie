@@ -16,15 +16,24 @@ export class SignIn extends Component {
     }
     handleSubmit = (e) =>  {
         e.preventDefault();
-        console.log(this.state)
         this.props.signIn(this.state); 
     }
     handleGoogleLogin = (e) =>{
       this.props.googleLogin()
     }
+  componentDidUpdate(){
+    const { auth, profile } = this.props;
+    if (auth.uid && profile.defaultGroup ) {
+      console.log(auth.uid , profile.defaultGroup )
+      return <Redirect to ='/' />
+    }if (auth.uid && !profile.defaultGroup) {
+      console.log(auth.uid , profile.defaultGroup )
+      return <Redirect to ='/signgroup/signup' />
+    }
+  }
   render() {
-    const { authError, auth } = this.props;
-    // if (auth.uid) return <Redirect to ='/' />
+    const { authError, auth, profile } = this.props;
+
     return (
       <div className="container">
         <h2 className="sub-instruciton-title">Member Login</h2>
@@ -77,7 +86,8 @@ export class SignIn extends Component {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   }
 }
 const mapDispatchToProps = (dispatch) => {

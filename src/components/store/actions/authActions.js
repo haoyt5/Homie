@@ -63,34 +63,48 @@ export const googleLogin = () =>{
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
         .then((result)=> {
-            
+            console.log(result)
+            const {  name,given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
                 const { user } = result
-                const {  name,given_name,family_name, picture,email} = result.additionalUserInfo.profile
-                // const givenname = result.additionalUserInfo.profile.given_name[0] ? result.additionalUserInfo.profile.given_name[0] : null
-                // const familyname = result.additionalUserInfo.profile.family_name[0] ? result.additionalUserInfo.profile.family_name[0] :null
                 console.log(result)
                 console.log(result.user.uid)
                 console.log(given_name,family_name,name,picture,email)
                 firestore.collection('users').doc(user.uid).set({
-                    firstname: given_name,
+                    firstname: given_name || '',
                     lastname: family_name || '',
-                    initials: name,
+                    initials:  given_name[0] || '' +  family_name[0] || '',
                     photoURL: picture,
                     email: email,
                     createAt: firestore.FieldValue.serverTimestamp()
                 })
-
-                // .then(() =>  window.location.hash = '#/signgroup/signup' )
-                // .then(() => dispatch({ type: 'LOGIN_SUCCESS' }))
-                // .catch((err) => {
-                //     console.log(err)
-                //     dispatch({ type: 'LOGIN_ERROR'}, err)
-                // })
+                .then(() =>  window.location.hash = '#/signgroup/signup' )
+                .then(() => dispatch({ type: 'LOGIN_SUCCESS' }))
+                .catch((err) => {
+                    console.log(err)
+                    dispatch({ type: 'LOGIN_ERROR'}, err)
+                })
+            } else {
+                firestore.collection('users').where('email','==',email).get()
+                .then( querySnapshot => {
+                    querySnapshot.forEach( doc => {
+                        const defaultGroup = doc.data().defaultGroup || null
+                        if (defaultGroup){
+                            console.log(defaultGroup)
+                            dispatch({ type: 'LOGIN_SUCCESS' })
+                            window.location.hash = '#/'
+                        } else {
+                            console.log(defaultGroup)
+                            dispatch({ type: 'LOGIN_SUCCESS' })
+                            window.location.hash = '#/signgroup/signup'
+                        }  
+                    })
+                })
+                dispatch({ type: 'LOGIN_SUCCESS' })
             }
           }).catch(function(error) {
             console.log('error',error)
-            // dispatch({ type: 'LOGIN_ERROR', error})
+            dispatch({ type: 'LOGIN_ERROR', error})
           });
     }
 }
