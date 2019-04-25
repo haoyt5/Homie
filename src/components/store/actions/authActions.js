@@ -61,27 +61,36 @@ export const googleLogin = () =>{
         const firebase = getFirebase();
         const firestore = getFirestore();
         const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
+        firebase.auth().signInWithPopup(provider)
+        .then((result)=> {
+            
             if( result.additionalUserInfo.isNewUser ){
                 const { user } = result
-                const { given_name, family_name,picture,email} = result.additionalUserInfo.profile
+                const {  name,given_name,family_name, picture,email} = result.additionalUserInfo.profile
+                // const givenname = result.additionalUserInfo.profile.given_name[0] ? result.additionalUserInfo.profile.given_name[0] : null
+                // const familyname = result.additionalUserInfo.profile.family_name[0] ? result.additionalUserInfo.profile.family_name[0] :null
+                console.log(result)
+                console.log(result.user.uid)
+                console.log(given_name,family_name,name,picture,email)
                 firestore.collection('users').doc(user.uid).set({
                     firstname: given_name,
-                    lastname: family_name,
-                    initials: given_name[0] + family_name[0],
+                    lastname: family_name || '',
+                    initials: name,
                     photoURL: picture,
                     email: email,
                     createAt: firestore.FieldValue.serverTimestamp()
                 })
-                .then(() =>  dispatch({ type: 'LOGIN_SUCCESS' }))
-                .catch((err) => {
-                    console.log(err)
-                    dispatch({ type: 'LOGIN_ERROR'}, err)
-                })
+
+                // .then(() =>  window.location.hash = '#/signgroup/signup' )
+                // .then(() => dispatch({ type: 'LOGIN_SUCCESS' }))
+                // .catch((err) => {
+                //     console.log(err)
+                //     dispatch({ type: 'LOGIN_ERROR'}, err)
+                // })
             }
           }).catch(function(error) {
             console.log('error',error)
-            dispatch({ type: 'LOGIN_ERROR'}, error)
+            // dispatch({ type: 'LOGIN_ERROR', error})
           });
     }
 }

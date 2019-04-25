@@ -41,7 +41,6 @@ class Dashboard extends Component {
     render(){
         const { assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
         if (auth.uid){
-            
             return (
                 <div className="dashboard-wrapper">
                 {this.state.groupPopup ? <GroupPopup togglePopup={ this.togglePopup.bind(this) } groupsData={ this.props.groupsData }/> : null }
@@ -69,9 +68,10 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {  
     const defaultGroupData = state.group.defaultGroupData ? state.group.defaultGroupData :null
+    const auth = state.firebase.auth ? state.firebase.auth:null
     return {
         tasks: state.firestore.ordered.tasks,
-        auth: state.firebase.auth,
+        auth: auth,
         groupsUid: state.firebase.profile.groupsUid,
         groupsData: state.group.groups,
         profile:state.firebase.profile,
