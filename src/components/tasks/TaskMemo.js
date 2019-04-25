@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTask } from '../store/actions/taskActions'
+import { fetchTask, closeTask } from '../store/actions/taskActions'
 export class TaskMemo extends Component {
-    handleAccept = (e)=> {
-        // this.props.acceptTask(this.props.match.params.id)
-        console.log('!')
+    handleFinish = (e) => {
+        const { assign }=this.props.taskdetails.data
+        this.props.closeTask(this.props.match.params.id,assign)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
@@ -13,7 +13,7 @@ export class TaskMemo extends Component {
     const id = this.props.match.params.id
     console.log(this.props)
     if (this.props.taskdetails.data){
-        const { author, content, title } = this.props.taskdetails.data
+        const { assign,author, content, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
@@ -21,11 +21,12 @@ export class TaskMemo extends Component {
                             <h2 className="title">{title}</h2>
                             <p className="expirydate">Expiry Date | Wed</p>
                             <p className="expirydate">Posted by | {author}</p>
+                            <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p>{content}</p>
                             
                     </div>
                 </div>
-                <button onClick={this.handleAccept}>File</button>
+                <button onClick={this.handleFinish}>Finish</button>
             </div>
            
         )
@@ -47,7 +48,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchTask: (taskUid) => dispatch(fetchTask(taskUid))
+        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
+        closeTask: (taskUid,assign)=>dispatch(closeTask(taskUid,assign))
     }
 }
 

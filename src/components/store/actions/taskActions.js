@@ -39,11 +39,9 @@ export const fetchTask = (taskUid) => {
         let taskData;
         firestore.collection('tasks').doc(taskUid).get()
         .then(doc => {
-            // console.log(doc.data())
             taskData = {id:doc.id,data:doc.data()}
         })
         .then(() => {
-            console.log(taskData)
             dispatch({type: 'GET_TASK', taskData})
         })
     }
@@ -92,12 +90,14 @@ export const acceptTask = (taskUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         const userUid = getState().firebase.auth.uid
+        const userName = getState().firebase.profile.firstname
         const groupUid = getState().firebase.profile.defaultGroup;
         //(1) update the task doc with the status and the assign field
         //(2) update the user doc accept the task
         firestore.collection('tasks').doc(taskUid).update({
             assign:{assignedAt:firestore.FieldValue.serverTimestamp(),
-                    assignedTo:userUid},
+                    assignedTo:userName,
+                    assignedToUid:userUid},
             lastUpdateAt:firestore.FieldValue.serverTimestamp(),
             status: 'assigned'
         }).then(() => {
@@ -110,3 +110,31 @@ export const acceptTask = (taskUid) => {
 
     }
 };
+export const closeTask = (taskUid, assign) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        console.log('the assigned user file the task close button')
+        const firestore = getFirestore()
+        const groupUid = getState().firebase.profile.defaultGroup;
+        const userUid = getState().firebase.auth.uid
+        const { assignedToUid } = assign
+        //(1) update the task doc with the status to pending
+        //(2) update the user doc remove taskUid from the beAssignedTo and add it to the pendding
+        if( userUid === assignedToUid ) {
+            firestore.collection('tasks').doc(taskUid).update({
+                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                status: 'pending'
+            }).then(() => {
+                firestore.collection('users').doc(userUid).update({
+                    [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+                    [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                })
+            }).then(() => {
+                window.location.hash = '#/'
+            })
+            
+        } else {
+            alert('It is an invalid action ')
+            return
+        }
+    }
+}
