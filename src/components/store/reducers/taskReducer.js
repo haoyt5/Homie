@@ -21,7 +21,8 @@ const taskReducer = (state = initState, action) => {
                 ...state,
                 tasksData:action.tasksData,
                 unassignedTasksData:action.unassignedTasksData,
-                assignedTasksData:action.assignedTasksData
+                assignedTasksData:action.assignedTasksData,
+                pendingTasksData:action.pendingTasksData
             }
         case 'GET_TASK':
         console.log('get the specific task data')

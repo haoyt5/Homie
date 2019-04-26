@@ -21,19 +21,18 @@ export class SignIn extends Component {
     handleGoogleLogin = (e) =>{
       this.props.googleLogin()
     }
-  componentDidUpdate(){
-    const { auth, profile } = this.props;
-    if (auth.uid && profile.defaultGroup ) {
-      console.log(auth.uid , profile.defaultGroup )
-      return <Redirect to ='/' />
-    }if (auth.uid && !profile.defaultGroup) {
-      console.log(auth.uid , profile.defaultGroup )
-      return <Redirect to ='/signgroup/signup' />
+    componentDidMount(){
+      const { authError, auth, profile } = this.props;
+      if (auth.uid && !profile.defaultGroup) return <Redirect to ='/signgroup/signup' />
+      if (auth.uid && profile.defaultGroup) return <Redirect to ='/' />
     }
-  }
+    componentDidUpdate(){
+
+    }
   render() {
     const { authError, auth, profile } = this.props;
-
+    // if (auth.uid && !profile.defaultGroup) return <Redirect to ='/' />
+    // if (auth.uid && profile.defaultGroup) return <Redirect to ='/' />
     return (
       <div className="container">
         <h2 className="sub-instruciton-title">Member Login</h2>

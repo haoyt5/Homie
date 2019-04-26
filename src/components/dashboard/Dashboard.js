@@ -17,16 +17,20 @@ class Dashboard extends Component {
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){
-            this.props.fetchGroupList(this.props.groupsUid)
+            if (this.props.profile.defaultGroup) {
+                this.props.fetchGroupList(this.props.groupsUid)
+            }
+           
         } 
+        if (this.state.groupPopup){
+            if (this.props.profile.defaultGroup) {
+            this.props.fetchTaskList(this.props.auth.uid)
+            this.props.fetchGroupDetails(this.props.auth.uid)
+            }
+        }
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }));
-        if (this.state.groupPopup){
-            this.props.fetchTaskList(this.props.auth.uid)
-            this.props.fetchGroupDetails(this.props.auth.uid)
-        }
-
     }
     componentDidMount(){
         if(this.props.auth.uid){
@@ -39,7 +43,8 @@ class Dashboard extends Component {
     }
 
     render(){
-        const { assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
+        const { pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
+        // console.log(pendingTasksData)
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
@@ -52,7 +57,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">
-                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } />
+                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } />
                     </div>
                 </div>
             )
@@ -78,7 +83,8 @@ const mapStateToProps = (state) => {
         defaultGroupData:defaultGroupData,
         tasksData:state.task.tasksData,
         unassignedTasksData: state.task.unassignedTasksData,
-        assignedTasksData: state.task.assignedTasksData
+        assignedTasksData: state.task.assignedTasksData,
+        pendingTasksData: state.task.pendingTasksData
     }
 }
 const mapDispatchToProps = (dispatch) => {

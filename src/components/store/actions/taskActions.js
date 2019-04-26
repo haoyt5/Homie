@@ -13,14 +13,14 @@ export const createTask = (task) => {
             verification:{
                 byOther: [{
                     "checkbox": "false",
-                    "reviewerId": "null"
+                    "reviewerId": null
                 }],
                byImage: [{
                 "checkbox": "false",
-                "url": "null"
+                "url": null
                }]},
-            assign:{assignedTo:"null",assignedAt:""},
-            verify:{verifiedBy:"null",verifiedAt:""},
+            assign:{assignedTo:null,assignedAt:""},
+            verify:{verifiedBy:null,verifiedAt:""},
             lastUpdateAt:firestore.FieldValue.serverTimestamp(),
             status:"unassigned"
         }).then(() => {
@@ -80,12 +80,13 @@ export const fetchTaskList = (userUid) => {
                                 pendingTasksData = [...pendingTasksData, {id:doc.id,data:doc.data()}]
                                 })
                                 
-                            }).then(()=>{ console.log('fetch the pending tasks',pendingTasksData) })
-                        }).then(() => {
-                            dispatch({type: 'GET_TASKS',
-                            tasksData,
-                            unassignedTasksData,
-                            assignedTasksData
+                            }).then(()=>{ 
+                                dispatch({type: 'GET_TASKS',
+                                tasksData,
+                                unassignedTasksData,
+                                assignedTasksData,
+                                pendingTasksData
+                                })
                             })
                         })
                     })
@@ -121,7 +122,7 @@ export const acceptTask = (taskUid) => {
 };
 export const closeTask = (taskUid, assign) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        console.log('the assigned user file the task close button')
+        // console.log('the assigned user file the task close button')
         const firestore = getFirestore()
         const groupUid = getState().firebase.profile.defaultGroup;
         const userUid = getState().firebase.auth.uid
@@ -141,6 +142,37 @@ export const closeTask = (taskUid, assign) => {
             }).then(() => {
                 window.location.hash = '#/'
             })
+            
+        } else {
+            alert('It is an invalid action')
+            return
+        }
+    }
+}
+export const approveTask = (taskUid, assign) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        console.log('the non-assigned user approve the task to turn into complete')
+        console.log(taskUid, assign)
+        const firestore = getFirestore()
+        const groupUid = getState().firebase.profile.defaultGroup;
+        const userUid = getState().firebase.auth.uid
+        const { assignedToUid } = assign
+        //(1) update the task doc with the status to complete
+        //(2) update the user doc remove taskUid from the pending and add it to the finish
+        //(*) Error Handling check if contain the image or not
+        if( userUid !== assignedToUid ) {
+            console.log('可以寫')
+            // firestore.collection('tasks').doc(taskUid).update({
+            //     lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+            //     status: 'pending'
+            // }).then(() => {
+            //     firestore.collection('users').doc(userUid).update({
+            //         [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+            //         [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+            //     })
+            // }).then(() => {
+            //     window.location.hash = '#/'
+            // })
             
         } else {
             alert('It is an invalid action')

@@ -24,7 +24,7 @@ export class SignUp extends Component {
     }
   render() {
     const { auth, authError } = this.props;
-    if (auth.uid) return <Redirect to ='/signgroup/signup' />
+    if (auth.uid) return <Redirect to ='/' />
     return (
       <div className="container">
       <h2 className="sub-instruciton-title">Start with Homie</h2>

@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTask } from '../store/actions/taskActions'
+import { fetchTask, approveTask } from '../store/actions/taskActions'
 
 export class TaskProcess extends Component {
-    handleAccept = (e)=> {
-        // this.props.acceptTask(this.props.match.params.id)
+    handleApprove = (e) => {
+        const { assign }=this.props.taskdetails.data
+        console.log('approve the tasks')
+        this.props.approveTask(this.props.match.params.id,assign)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
     }
   render() {
     const id = this.props.match.params.id
-    console.log(this.props)
     if (this.props.taskdetails.data){
-        const { author, content, title } = this.props.taskdetails.data
+        const { assign, author, content, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
                             <p className="expirydate">Expiry Date | Wed</p>
+                            <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p className="expirydate">Posted by | {author}</p>
                             <p>{content}</p>
                             
                     </div>
                 </div>
-                <button onClick={this.handleAccept}>Approve</button>
+                <button onClick={this.handleApprove}>Approve</button>
             </div>
            
         )
@@ -47,7 +49,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchTask: (taskUid) => dispatch(fetchTask(taskUid))
+        fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
+        approveTask:(taskUid,assign)=>dispatch(approveTask(taskUid,assign))
     }
 }
 
