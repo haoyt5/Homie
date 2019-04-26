@@ -11,7 +11,6 @@ export class TaskMemo extends Component {
     }
   render() {
     const id = this.props.match.params.id
-    console.log(this.props)
     if (this.props.taskdetails.data){
         const { assign,author, content, title } = this.props.taskdetails.data
         return(
@@ -25,6 +24,10 @@ export class TaskMemo extends Component {
                             <p>{content}</p>
                             
                     </div>
+                </div>
+                <div className="uploadwrapper">
+                    <button>Upload</button>
+                    <input type="file"/>
                 </div>
                 <button onClick={this.handleFinish}>Finish</button>
             </div>

@@ -19,8 +19,8 @@ export const createTask = (task) => {
                 "checkbox": "false",
                 "url": null
                }]},
-            assign:{assignedTo:null,assignedAt:""},
-            verify:{verifiedBy:null,verifiedAt:""},
+            assign:{assignedTo:null,assignedAt:null},
+            approve:{verifiedBy:null,verifiedAt:null},
             lastUpdateAt:firestore.FieldValue.serverTimestamp(),
             status:"unassigned"
         }).then(() => {
@@ -124,6 +124,7 @@ export const closeTask = (taskUid, assign) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         // console.log('the assigned user file the task close button')
         const firestore = getFirestore()
+        
         const groupUid = getState().firebase.profile.defaultGroup;
         const userUid = getState().firebase.auth.uid
         const { assignedToUid } = assign
@@ -133,6 +134,7 @@ export const closeTask = (taskUid, assign) => {
         if( userUid === assignedToUid ) {
             firestore.collection('tasks').doc(taskUid).update({
                 lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                finishAt:firestore.FieldValue.serverTimestamp(),
                 status: 'pending'
             }).then(() => {
                 firestore.collection('users').doc(userUid).update({
@@ -154,7 +156,8 @@ export const approveTask = (taskUid, assign) => {
         // console.log('the non-assigned user approve the task to turn into complete')
         // console.log(taskUid, assign)
         const firestore = getFirestore()
-        const groupUid = getState().firebase.profile.defaultGroup;
+        const groupUid = getState().firebase.profile.defaultGroup
+        const userName = getState().firebase.profile.firstname
         const userUid = getState().firebase.auth.uid
         const { assignedToUid } = assign
         //(1) update the task doc with the status to complete
@@ -164,7 +167,10 @@ export const approveTask = (taskUid, assign) => {
             console.log('可以寫')
             firestore.collection('tasks').doc(taskUid).update({
                 lastUpdateAt:firestore.FieldValue.serverTimestamp(),
-                status: 'complete'
+                status: 'complete',
+                approve:{approvedAt:firestore.FieldValue.serverTimestamp(),
+                         approvedBy:userName,
+                         approvedByUid:userUid},
             }).then(() => {
                 firestore.collection('users').doc(assignedToUid).update({
                     [`pending.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),

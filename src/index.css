@@ -666,3 +666,13 @@ a.signgroup-tab:focus{
     left:0;
     width:100%;
 }
+/*-------------------------*/
+/* $TaskMemo
+---------------------------*/
+.uploadwrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}

@@ -57,7 +57,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">
-                        <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } />
+                    {this.state.groupPopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } /> }
                     </div>
                 </div>
             )

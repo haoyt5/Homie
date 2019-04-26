@@ -35,6 +35,7 @@ class TaskList extends Component {
                                     </p>
                                     <p>{ task.data.content }</p>
                                     <span className="expirydate-title">Posted by | { task.data.author } </span>
+                                    <span className="expirydate-title">Assigned to | { task.data.assign.assignedTo } </span>
                                     <span className="expirydate-title">Posted at | { task.data.createAt.toDate().toDateString() }</span>
                                 </div>
                             </Link>
@@ -53,6 +54,7 @@ class TaskList extends Component {
                                     </p>
                                     <p>{ task.data.content }</p>
                                     <span className="expirydate-title">Posted by | { task.data.author } </span>
+                                    <span className="expirydate-title">Assigned to | { task.data.assign.assignedTo } </span>
                                     <span className="expirydate-title">Posted at | { task.data.createAt.toDate().toDateString() }</span>
                                 </div>
                             </Link>
