@@ -151,8 +151,8 @@ export const closeTask = (taskUid, assign) => {
 }
 export const approveTask = (taskUid, assign) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        console.log('the non-assigned user approve the task to turn into complete')
-        console.log(taskUid, assign)
+        // console.log('the non-assigned user approve the task to turn into complete')
+        // console.log(taskUid, assign)
         const firestore = getFirestore()
         const groupUid = getState().firebase.profile.defaultGroup;
         const userUid = getState().firebase.auth.uid
@@ -162,17 +162,17 @@ export const approveTask = (taskUid, assign) => {
         //(*) Error Handling check if contain the image or not
         if( userUid !== assignedToUid ) {
             console.log('可以寫')
-            // firestore.collection('tasks').doc(taskUid).update({
-            //     lastUpdateAt:firestore.FieldValue.serverTimestamp(),
-            //     status: 'pending'
-            // }).then(() => {
-            //     firestore.collection('users').doc(userUid).update({
-            //         [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
-            //         [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
-            //     })
-            // }).then(() => {
-            //     window.location.hash = '#/'
-            // })
+            firestore.collection('tasks').doc(taskUid).update({
+                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                status: 'complete'
+            }).then(() => {
+                firestore.collection('users').doc(assignedToUid).update({
+                    [`pending.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+                    [`finish.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                })
+            }).then(() => {
+                window.location.hash = '#/'
+            })
             
         } else {
             alert('It is an invalid action')

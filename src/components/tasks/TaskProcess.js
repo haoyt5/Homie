@@ -4,8 +4,7 @@ import { fetchTask, approveTask } from '../store/actions/taskActions'
 
 export class TaskProcess extends Component {
     handleApprove = (e) => {
-        const { assign }=this.props.taskdetails.data
-        console.log('approve the tasks')
+        const { assign } = this.props.taskdetails.data
         this.props.approveTask(this.props.match.params.id,assign)
     }
     componentDidMount(){
@@ -54,4 +53,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default    connect(mapStateToProps,mapDispatchToProps)(TaskProcess);
+export default  connect(mapStateToProps,mapDispatchToProps)(TaskProcess);
