@@ -22,7 +22,7 @@ export class SignIn extends Component {
       this.props.googleLogin()
     }
     componentDidMount(){
-      const { authError, auth, profile } = this.props;
+      const { auth, profile } = this.props;
       if (auth.uid && !profile.defaultGroup) return <Redirect to ='/signgroup/signup' />
       if (auth.uid && profile.defaultGroup) return <Redirect to ='/' />
     }

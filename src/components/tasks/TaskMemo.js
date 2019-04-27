@@ -1,10 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTask, closeTask } from '../store/actions/taskActions'
+import imageholder from '../../img/uma.jpg'
 export class TaskMemo extends Component {
+    constructor(props) {
+        super(props)
+        this.fileInput = React.createRef()
+    }
+    state = {
+        files:[],
+        imagefile: '',
+        magePreviewUrl:''
+    }
+    handleChange = (e) =>{
+        this.setState({
+            files:  URL.createObjectURL(e.target.files[0]),
+            imagePreviewUrl: URL.createObjectURL(e.target.files[0])
+        })
+    }
+    handleDismiss = (e)=>{
+        e.preventDefault()
+        console.log('取消')
+    }
     handleFinish = (e) => {
-        const { assign }=this.props.taskdetails.data
-        this.props.closeTask(this.props.match.params.id,assign)
+        e.preventDefault()
+        console.log(this.state)
+        // console.log(this.fileInput.current.files)
+        console.log(this.fileInput.current.files[0])
+        // const { assign }=this.props.taskdetails.data
+        // this.props.closeTask(this.props.match.params.id,assign)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
@@ -24,12 +48,31 @@ export class TaskMemo extends Component {
                             <p>{content}</p>
                             
                     </div>
+                    <div className="image-box">
+                    <div className="image-box-inner">
+                    {this.state.files[0] && <img src={this.state.imagePreviewUrl} alt=""/> }
+                    </div>
+                     </div>
+                     <div className="uploadwrapper">
+                        <form action=""
+                            onSubmit={this.handleFinish}>
+                            <div className="task-input-row">
+                                <label htmlFor="imagefile">attachment</label>
+                                <input id="imagefile"
+                                    type="file"
+                                    onChange={this.handleChange}
+                                    ref={this.fileInput}/>
+                            </div>
+                            <button onClick={this.handleDismiss} >Back</button>
+                            <button>Finish</button>
+                        </form>
+                    </div>
                 </div>
-                <div className="uploadwrapper">
-                    <button>Upload</button>
-                    <input type="file"/>
-                </div>
-                <button onClick={this.handleFinish}>Finish</button>
+
+
+                
+
+                
             </div>
            
         )

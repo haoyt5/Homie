@@ -669,10 +669,29 @@ a.signgroup-tab:focus{
 /*-------------------------*/
 /* $TaskMemo
 ---------------------------*/
-.uploadwrapper input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
+.image-box {
+    width:50%;
+    overflow:hidden;
+    position:relative;
 }
+.image-box-inner{
+    padding-bottom: 100%;
+    border:1px solid lightgrey;
+}
+.image-box-inner > img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    max-width:100%;
+    max-height:100%;
+    margin:auto;
+}
+.uploadwrapper input[type=file] {
+    font-size: 0.8rem;
+}
+.uploadwrapper input[type=file]::-webkit-file-upload-button{
+    font-size: 0.8rem;
+}
+
