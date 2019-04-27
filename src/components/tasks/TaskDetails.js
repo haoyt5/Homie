@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { compose } from 'redux';
 import { connect } from 'react-redux';
-// import { firestoreConnect } from 'react-redux-firebase';
 import { fetchTask, acceptTask } from '../store/actions/taskActions'
 export class TaskDetails extends Component {
     handleAccept = (e)=> {

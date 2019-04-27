@@ -38,10 +38,6 @@ class Dashboard extends Component {
             this.props.fetchGroupDetails(this.props.auth.uid)
         }
     }
-    componentWillUnmount(){
-    
-    }
-
     render(){
         const { pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
         // console.log(pendingTasksData)

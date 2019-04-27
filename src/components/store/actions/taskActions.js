@@ -1,3 +1,4 @@
+import { storage } from '../../config/fbConfig';
 export const createTask = (task) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
@@ -120,35 +121,78 @@ export const acceptTask = (taskUid) => {
 
     }
 };
-export const closeTask = (taskUid, assign) => {
+export const closeTask = (taskUid, assign ,file) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        // console.log('the assigned user file the task close button')
         const firestore = getFirestore()
-        
         const groupUid = getState().firebase.profile.defaultGroup;
         const userUid = getState().firebase.auth.uid
         const { assignedToUid } = assign
+
         //(1) update the task doc with the status to pending
         //(2) update the user doc remove taskUid from the beAssignedTo and add it to the pendding
         //(*) Error Handling check if contain the image or not
+        // console.log(firebase.uploadedFile())
+        // console.log(taskUid, assign,file)
+        // console.log(file)
         if( userUid === assignedToUid ) {
-            firestore.collection('tasks').doc(taskUid).update({
-                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
-                finishAt:firestore.FieldValue.serverTimestamp(),
-                status: 'pending'
-            }).then(() => {
-                firestore.collection('users').doc(userUid).update({
-                    [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
-                    [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+            if(file ) {
+                console.log('OKOK')
+                const storageRef = storage.ref(`task_images/${taskUid}`)
+                const mainImage = storageRef.child(file.name)
+                mainImage.put(file)
+                .then((UploadTaskSnapshot)=>{
+                    console.log(UploadTaskSnapshot)
+                    mainImage.getDownloadURL()
+                    .then( ( imageurl )=> {
+                        firestore.collection('tasks').doc(taskUid).update({
+                            lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                            finishAt:firestore.FieldValue.serverTimestamp(),
+                            status: 'pending',
+                            pendingImgURL: imageurl
+                            
+                        }).then(() => {
+                            firestore.collection('users').doc(userUid).update({
+                                [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+                                [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                            })
+                        }).then(() => {
+                            window.location.hash = '#/'
+                        })
+                    }).catch(err=>{
+                        console.log(err)
+                        alert('upload failed, please try again')
+                    })
+                }).catch(err=>{
+                    console.log(err)
+                    alert('upload failed, please try again')
                 })
-            }).then(() => {
-                window.location.hash = '#/'
-            })
-            
+
+            }else{
+                alert('沒有上傳圖片')
+            }
         } else {
             alert('It is an invalid action')
             return
         }
+
+        // if( userUid === assignedToUid ) {
+        //     firestore.collection('tasks').doc(taskUid).update({
+        //         lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+        //         finishAt:firestore.FieldValue.serverTimestamp(),
+        //         status: 'pending'
+        //     }).then(() => {
+        //         firestore.collection('users').doc(userUid).update({
+        //             [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+        //             [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+        //         })
+        //     }).then(() => {
+        //         window.location.hash = '#/'
+        //     })
+            
+        // } else {
+        //     alert('It is an invalid action')
+        //     return
+        // }
     }
 }
 export const approveTask = (taskUid, assign) => {

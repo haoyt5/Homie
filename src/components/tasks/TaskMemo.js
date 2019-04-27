@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTask, closeTask } from '../store/actions/taskActions'
-import imageholder from '../../img/uma.jpg'
+// import imageholder from '../../img/uma.jpg'
 export class TaskMemo extends Component {
     constructor(props) {
         super(props)
@@ -9,26 +9,24 @@ export class TaskMemo extends Component {
     }
     state = {
         files:[],
-        imagefile: '',
-        magePreviewUrl:''
+        imagePreviewUrl:[],
+        imagefile:null
     }
     handleChange = (e) =>{
         this.setState({
-            files:  URL.createObjectURL(e.target.files[0]),
-            imagePreviewUrl: URL.createObjectURL(e.target.files[0])
+            files:  e.target.files,
+            imagePreviewUrl: URL.createObjectURL(e.target.files[0]),
+            file:e.target.files[0]
         })
     }
     handleDismiss = (e)=>{
         e.preventDefault()
-        console.log('取消')
     }
     handleFinish = (e) => {
         e.preventDefault()
-        console.log(this.state)
-        // console.log(this.fileInput.current.files)
-        console.log(this.fileInput.current.files[0])
-        // const { assign }=this.props.taskdetails.data
-        // this.props.closeTask(this.props.match.params.id,assign)
+        const taskUid = this.props.match.params.id
+        const { assign } = this.props.taskdetails.data
+        this.props.closeTask(taskUid,assign,this.state.file)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
@@ -50,7 +48,8 @@ export class TaskMemo extends Component {
                     </div>
                     <div className="image-box">
                     <div className="image-box-inner">
-                    {this.state.files[0] && <img src={this.state.imagePreviewUrl} alt=""/> }
+                    {this.state.imagePreviewUrl[0] && <img className="" src={this.state.imagePreviewUrl} alt=""/> }
+                    
                     </div>
                      </div>
                      <div className="uploadwrapper">
@@ -95,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
-        closeTask: (taskUid,assign)=>dispatch(closeTask(taskUid,assign))
+        closeTask: (taskUid,assign,imagefile)=>dispatch(closeTask(taskUid,assign,imagefile))
     }
 }
 
