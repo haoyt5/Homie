@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTask, acceptTask } from '../store/actions/taskActions'
 export class TaskDetails extends Component {
+    handleBack = (e) =>{
+        e.preventDefault();
+        window.location.href="#/"
+      }
     handleAccept = (e)=> {
         this.props.acceptTask(this.props.match.params.id)
     }
@@ -16,6 +20,7 @@ export class TaskDetails extends Component {
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
+                    <h2 className="sub-instruciton-title">Accept the Task</h2>
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
                             <p className="expirydate">Expiry Date | Wed</p>
@@ -24,14 +29,24 @@ export class TaskDetails extends Component {
                             
                     </div>
                 </div>
-                <button onClick={this.handleAccept}>Accept</button>
+                <div className="feature-row">
+                <button onClick={this.handleBack} 
+                        className="medium-square-button cancel-button">Back</button>
+                <button onClick={this.handleAccept}
+                        className="medium-square-button">Accept</button>
+                </div>
+                
             </div>
            
         )
     } else {
         return (
             <div className="container">
-                <p>Loading ...</p>
+                <div className="bouncing-loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         )
     }

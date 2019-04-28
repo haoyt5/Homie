@@ -61,7 +61,7 @@ class TaskList extends Component {
                             )
                         }) }
                 </div>
-                <h3 className="title">All TASK</h3>
+                {/* <h3 className="title">All TASK</h3>
                 <div className="container ">
                 {  task && task.map( task => {
                         return (
@@ -78,7 +78,7 @@ class TaskList extends Component {
                         </Link>
                         )
                     }) }
-                </div>
+                </div> */}
             </div>
             
         )

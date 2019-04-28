@@ -9,6 +9,10 @@ export class CreatTask extends Component {
         expiryDate: '',
         category:'trash'
     }
+    handleBack = (e) =>{
+      e.preventDefault();
+      window.location.href="#/"
+    }
     handleChange = (e) =>{
         this.setState({
            [e.target.id]: e.target.value
@@ -58,10 +62,12 @@ export class CreatTask extends Component {
                         onChange={this.handleChange}/>
             </div>
             <div className="feature-row">
+                <button onClick={this.handleBack} 
+                        className="medium-square-button cancel-button">Back</button>
                 <button className="medium-square-button">Save</button>
             </div>
         </form>
-        <button className="medium-square-button">Cancel</button>
+
       </div>
     )
   }
