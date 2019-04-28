@@ -82,7 +82,6 @@ class TaskList extends Component {
                                     <span className="expirydate-title">Assigned to | { task.data.assign.assignedTo } </span>
                                     <span className="expirydate-title">Posted at | { task.data.createAt.toDate().toDateString() }</span>
                                 </div>
-
                             )
                         }) }
                     </div>
