@@ -4,7 +4,8 @@ const initState = {
     taskData:[],
     unassignedTasksData:[],
     assignedTasksData:[],
-    pendingTasksData:[]
+    pendingTasksData:[],
+    completeTasksData:[]
 }
 
 const taskReducer = (state = initState, action) => {
@@ -22,7 +23,8 @@ const taskReducer = (state = initState, action) => {
                 tasksData:action.tasksData,
                 unassignedTasksData:action.unassignedTasksData,
                 assignedTasksData:action.assignedTasksData,
-                pendingTasksData:action.pendingTasksData
+                pendingTasksData:action.pendingTasksData,
+                completeTasksData:action.completeTasksData
             }
         case 'GET_TASK':
         console.log('get the specific task data')

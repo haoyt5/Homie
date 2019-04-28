@@ -54,6 +54,7 @@ export const fetchTaskList = (userUid) => {
         let unassignedTasksData = []
         let assignedTasksData = []
         let pendingTasksData = []
+        let completeTasksData = []
         firestore.collection('users').doc(userUid).get()
         .then( doc => { 
            const  defaultGroup  = doc.data().defaultGroup || null
@@ -81,13 +82,22 @@ export const fetchTaskList = (userUid) => {
                                 pendingTasksData = [...pendingTasksData, {id:doc.id,data:doc.data()}]
                                 })
                                 
-                            }).then(()=>{ 
-                                dispatch({type: 'GET_TASKS',
-                                tasksData,
-                                unassignedTasksData,
-                                assignedTasksData,
-                                pendingTasksData
+                            }).then(()=>{
+                                firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','complete').orderBy('lastUpdateAt','desc').get()
+                                .then(querySnapshot => { querySnapshot.forEach( doc => {
+                                    console.log(doc.data())
+                                    completeTasksData = [...completeTasksData, {id:doc.id,data:doc.data()}]
+                                    })
+                                }).then(()=>{
+                                    dispatch({type: 'GET_TASKS',
+                                    tasksData,
+                                    unassignedTasksData,
+                                    assignedTasksData,
+                                    pendingTasksData,
+                                    completeTasksData
+                                    })
                                 })
+                              
                             })
                         })
                     })

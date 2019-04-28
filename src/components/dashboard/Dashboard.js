@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TaskList from '../tasks/TaskList';
 import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
-// import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 
@@ -39,7 +38,7 @@ class Dashboard extends Component {
         }
     }
     render(){
-        const { pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
+        const { completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
         // console.log(pendingTasksData)
         if (auth.uid){
             return (
@@ -53,7 +52,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">
-                    {this.state.groupPopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } /> }
+                    {this.state.groupPopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
                     </div>
                 </div>
             )
@@ -80,7 +79,8 @@ const mapStateToProps = (state) => {
         tasksData:state.task.tasksData,
         unassignedTasksData: state.task.unassignedTasksData,
         assignedTasksData: state.task.assignedTasksData,
-        pendingTasksData: state.task.pendingTasksData
+        pendingTasksData: state.task.pendingTasksData,
+        completeTasksData: state.task.completeTasksData
     }
 }
 const mapDispatchToProps = (dispatch) => {

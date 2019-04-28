@@ -9,7 +9,7 @@ class Navbar extends Component{
         const { auth,  profile } = this.props;
         const links = auth.uid ?  <SignedInLinks profile={ profile } /> : <SignedOutLinks />;
         return(
-        <nav className="navwrappe"> 
+        <nav className="navwrapper"> 
             <div className="container">
                 <Link to='/' className="brandname">HOMIE</Link>
                 { links }

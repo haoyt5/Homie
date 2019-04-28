@@ -195,6 +195,7 @@ a:focus {
 ---------------------------*/
 .navwrapper{
    position: relative;
+   padding:0.2rem 0;
 }
 .brandname{
     font-weight: 900;
@@ -560,8 +561,10 @@ a.signgroup-tab:focus{
     }
   }
 .dashboard-wrapper{
-    /* background-color: #f9f9f9; */
-    padding: 0;
+    background-color: #f9f9f9;
+    padding: 5px 0;
+    height: 100%;
+
 }
 .title{
     font-weight: 1200;
@@ -570,11 +573,24 @@ a.signgroup-tab:focus{
 .task-card{
     background-color: #fff;
     padding: 1rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    border-radius: 5px;
     -webkit-box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
     -moz-box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
     box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
-    border-radius: 2px ;
+}
+.empty-card{
+    background-color: #f2f2f2;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    height:8rem;
+}
+.u-invisible{
+    opacity: 0;
+}
+bg-color-dashboard{
+    background-color: black;
 }
 .expirydate{
     font-size: 0.8rem;
@@ -623,7 +639,7 @@ a.signgroup-tab:focus{
 .popup{
     position: absolute;
     z-index: 1000;
-    background-color: rgba(203,203,203, .2) ;
+    background-color: rgba(249,249,249,.9) ;
     height: 95vh;
     width:100%;
     color:rgb(203, 203 , 203);
@@ -635,12 +651,12 @@ a.signgroup-tab:focus{
     top:4%;
     border-radius: 10px 10px 0 0;
     background-color: white;
-    animation: springUp .5s ease-in;
-    transition: .8s;
+    animation: springUp .5s ease-out;
+    transition: .5s;
 }
 @keyframes springUp {
     from{
-        transform: translateY(80%)
+        transform: translateY(40%)
     }
     to{
         transform: translateY(0%)

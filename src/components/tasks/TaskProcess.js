@@ -21,7 +21,7 @@ export class TaskProcess extends Component {
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
-                <h2 className="sub-instruciton-title">Approve the Task</h2>
+                    <h2 className="sub-instruciton-title">Approve the Task</h2>
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
                             <p className="expirydate">Expiry Date | Wed</p>
