@@ -14,10 +14,17 @@ export class TaskProcess extends Component {
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
     }
+    componentWillUnmount(){
+        this.props.fetchTask()
+    }
+    // getSnapshotBeforeUpdate(nextProps, nextState){
+    //     console.log('nextProps',nextProps)
+    //     console.log('nextState',nextState)
+    // }
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { assign, author, content, title } = this.props.taskdetails.data
+        const { pendingImgURL, assign, author, content, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
@@ -27,7 +34,19 @@ export class TaskProcess extends Component {
                             <p className="expirydate">Expiry Date | Wed</p>
                             <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p className="expirydate">Posted by | {author}</p>
-                            <p>{content}</p>
+                            {pendingImgURL ? (
+                                <div>
+                                <p className="expirydate">Image attachment</p>
+                                <div className="image-row">
+                                    <div className="image-box">
+                                        <div className="image-box-inner">
+                                        <img className="" src={pendingImgURL} alt=""/> 
+                                        </div>
+                                    </div>
+                                 </div>
+                                </div>
+                            ):null
+                            }
                             
                     </div>
                 </div>

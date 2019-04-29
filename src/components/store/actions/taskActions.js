@@ -38,13 +38,21 @@ export const fetchTask = (taskUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         let taskData;
-        firestore.collection('tasks').doc(taskUid).get()
-        .then(doc => {
-            taskData = {id:doc.id,data:doc.data()}
-        })
-        .then(() => {
-            dispatch({type: 'GET_TASK', taskData})
-        })
+        if(taskUid){
+            firestore.collection('tasks').doc(taskUid).get()
+            .then(doc => {
+                taskData = {id:doc.id,data:doc.data()}
+            })
+            .then(() => {
+                dispatch({type: 'GET_TASK', taskData})
+            }).catch(err=>{
+                console.log(err)
+                dispatch({type: 'EMPTY_TASK'})
+            })
+        } else{
+            dispatch({type: 'EMPTY_TASK'})
+        }
+
     }
 };
 export const fetchTaskList = (userUid) => {
@@ -103,6 +111,9 @@ export const fetchTaskList = (userUid) => {
                 })
                 
             }
+        }).catch(err=>{
+            console.log(err)
+            dispatch({type: 'EMPTY_TASK'})
         })
     }
 };

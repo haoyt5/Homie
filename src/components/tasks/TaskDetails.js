@@ -12,6 +12,9 @@ export class TaskDetails extends Component {
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
     }
+    componentWillUnmount(){
+        this.props.fetchTask()
+    }
   render() {
     const id = this.props.match.params.id
     console.log(this.props)

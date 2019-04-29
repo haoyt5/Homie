@@ -32,6 +32,11 @@ const taskReducer = (state = initState, action) => {
                 ...state,
                 taskData:action.taskData
             }
+        case 'EMPTY_TASK':
+            return{
+                ...state,
+                taskData:[]
+            } 
         default:
             return state
     }
