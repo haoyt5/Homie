@@ -452,9 +452,40 @@ a.signgroup-tab:focus{
     outline: 0;
 }
 .task-input-row select option {
-    width:100%;
-    
+    width:100%;    
 } 
+.task-input-row #inputdate{
+    border: 2px solid #E8E8E8; 
+    width:100%;
+}
+#inputdate{
+    width:100%;
+    border-radius: 3px;
+    border:1px solid #E8E8E8;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.5rem;
+    color:#696969;
+    outline: none;
+}
+.pickers,
+#inputdate:focus,
+#inputdate:active,
+#inputdate:hover,
+#inputdate:target,
+#inputdate::visited{
+    outline: none!important;
+}
+.input-date{
+    width:100%;
+    border-radius: 3px;
+    border:1px solid #E8E8E8;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.5rem;
+    color:#696969;
+}
+
 /*-------------------------*/
 /* $Dashboard
 ---------------------------*/
@@ -579,6 +610,7 @@ a.signgroup-tab:focus{
     -moz-box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
     box-shadow: 1px 1px 5px 2px rgba(240,240,240,0.84);
 }
+
 .empty-card{
     background-color: #f2f2f2;
     padding: 1rem;
@@ -599,6 +631,38 @@ bg-color-dashboard{
     font-size: 0.6rem;
     line-height: 0.6rem;
     padding: 0 1rem 0 0;
+}
+/*-------------------------*/
+/* $TaskList
+---------------------------*/
+.title-row{
+    display: flex;
+    padding: 0.3rem 0;
+}
+.row-title{
+    font-size: 1.2rem;
+    line-height: 2rem;
+}
+.row-icon{
+    position: absolute;
+    right:15px;
+    display: flex;
+    font-size: 0.8rem;
+    line-height: 2rem;
+}
+.row-icon > p {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 2rem;
+}
+.icon-row-button{
+    padding: 0.15rem 0.8rem;
+    border-radius: 5px;
+}
+.icon-row-button:hover{
+    background-color: #ebebeb;
+    color:#868e8e;
+
 }
 /*-------------------------*/
 /* $GroupSelected

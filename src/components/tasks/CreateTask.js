@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 
+
 import { connect } from 'react-redux'
 import { createTask } from '../store/actions/taskActions'
+
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+  TimePicker,
+  DateTimePicker
+} from "material-ui-pickers";
 export class CreatTask extends Component {
     state = {
         title: '',
         content: '',
-        expiryDate: '',
-        category:'trash'
+        category:'trash',
+        expiryDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
     }
     handleBack = (e) =>{
       e.preventDefault();
@@ -19,15 +28,19 @@ export class CreatTask extends Component {
         })
         
     }
+    handleDateChange = date => {
+      this.setState({ expiryDate: date });
+    };
     handleSubmit = (e) =>{
         e.preventDefault();
-        // console.log(this.state);
-        this.props.createTask(this.state);
+        console.log(this.state);
+        // this.props.createTask(this.state);
         //after submit redidirect the user
         // this.props.history.push('/')
     }
   render() {
     // console.log(this.props)
+    const { expiryDate } = this.state;
     return (
       <div className="container">
       <h2 className="sub-instruciton-title">Post a task</h2>
@@ -39,12 +52,16 @@ export class CreatTask extends Component {
                         id="title"
                         onChange={this.handleChange}/>
             </div>
-            <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
+          <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
             <div className="task-input-row">
-                <input type="text"
-                        id="expiryDate"
-                        onChange={this.handleChange}/>
+              <MuiPickersUtilsProvider id="expiryDate"  utils={DateFnsUtils}>
+                  <div className="pickers">
+                    <DateTimePicker id="inputdate" className="input-date browser-default" value={expiryDate} onChange={this.handleDateChange} />
+                  </div>
+                </MuiPickersUtilsProvider>
             </div>
+
+
             <label className="label-font" htmlFor="expiryDate">Category</label>
             <div className="task-input-row">
                 <select value={this.state.value} name="" id="category" onChange={this.handleChange}>

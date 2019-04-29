@@ -63,58 +63,63 @@ export const fetchTaskList = (userUid) => {
         let assignedTasksData = []
         let pendingTasksData = []
         let completeTasksData = []
-        firestore.collection('users').doc(userUid).get()
-        .then( doc => { 
-           const  defaultGroup  = doc.data().defaultGroup || null
-           return defaultGroup
-        }).then( defaultGroup => {
-            if (defaultGroup) {
-                firestore.collection('tasks').where('groupUid', '==', defaultGroup).orderBy('lastUpdateAt','desc').get()
-                .then( querySnapshot => { querySnapshot.forEach( doc => {
-                    tasksData = [...tasksData, {id:doc.id,data:doc.data()}]
-                    }) 
-                })
-                .then(() => {
-                    firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','unassigned').orderBy('lastUpdateAt','desc').get()
+        if (userUid) {
+            firestore.collection('users').doc(userUid).get()
+            .then( doc => { 
+               const  defaultGroup  = doc.data().defaultGroup || null
+               return defaultGroup
+            }).then( defaultGroup => {
+                if (defaultGroup) {
+                    firestore.collection('tasks').where('groupUid', '==', defaultGroup).orderBy('lastUpdateAt','desc').get()
                     .then( querySnapshot => { querySnapshot.forEach( doc => {
-                        unassignedTasksData = [...unassignedTasksData, {id:doc.id,data:doc.data()}]
-                        })
-                    }).then(() => {
-                        firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','assigned').orderBy('lastUpdateAt','desc').get()
+                        tasksData = [...tasksData, {id:doc.id,data:doc.data()}]
+                        }) 
+                    })
+                    .then(() => {
+                        firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','unassigned').orderBy('lastUpdateAt','desc').get()
                         .then( querySnapshot => { querySnapshot.forEach( doc => {
-                            assignedTasksData = [...assignedTasksData, {id:doc.id,data:doc.data()}]
+                            unassignedTasksData = [...unassignedTasksData, {id:doc.id,data:doc.data()}]
                             })
-                        }).then(()=>{
-                            firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','pending').orderBy('lastUpdateAt','desc').get()
+                        }).then(() => {
+                            firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','assigned').orderBy('lastUpdateAt','desc').get()
                             .then( querySnapshot => { querySnapshot.forEach( doc => {
-                                pendingTasksData = [...pendingTasksData, {id:doc.id,data:doc.data()}]
+                                assignedTasksData = [...assignedTasksData, {id:doc.id,data:doc.data()}]
                                 })
-                                
                             }).then(()=>{
-                                firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','complete').orderBy('lastUpdateAt','desc').get()
-                                .then(querySnapshot => { querySnapshot.forEach( doc => {
-                                    console.log(doc.data())
-                                    completeTasksData = [...completeTasksData, {id:doc.id,data:doc.data()}]
+                                firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','pending').orderBy('lastUpdateAt','desc').get()
+                                .then( querySnapshot => { querySnapshot.forEach( doc => {
+                                    pendingTasksData = [...pendingTasksData, {id:doc.id,data:doc.data()}]
                                     })
+                                    
                                 }).then(()=>{
-                                    dispatch({type: 'GET_TASKS',
-                                    tasksData,
-                                    unassignedTasksData,
-                                    assignedTasksData,
-                                    pendingTasksData,
-                                    completeTasksData
+                                    firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','complete').orderBy('lastUpdateAt','desc').get()
+                                    .then(querySnapshot => { querySnapshot.forEach( doc => {
+                                        console.log(doc.data())
+                                        completeTasksData = [...completeTasksData, {id:doc.id,data:doc.data()}]
+                                        })
+                                    }).then(()=>{
+                                        dispatch({type: 'GET_TASKS',
+                                        tasksData,
+                                        unassignedTasksData,
+                                        assignedTasksData,
+                                        pendingTasksData,
+                                        completeTasksData
+                                        })
                                     })
                                 })
                             })
                         })
                     })
-                })
-                
-            }
-        }).catch(err=>{
-            console.log(err)
-            dispatch({type: 'EMPTY_TASK'})
-        })
+                    
+                }
+            }).catch(err=>{
+                console.log(err)
+                dispatch({type: 'EMPTY_TASKS'})
+            })
+        } else {
+            dispatch({type: 'EMPTY_TASKS'})
+        }
+
     }
 };
 export const acceptTask = (taskUid) => {

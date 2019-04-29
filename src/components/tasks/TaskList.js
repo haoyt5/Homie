@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom' 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+
 class TaskList extends Component {
     render(){
         const { completeTasks, pendingTasks, assignedTasks, unassignedTasks, task }  = this.props
         return (
             <div className="tasklist-wapper">
                 <div className="container">
-                    <div className="empty-card"></div>
+                    <div className="empty-card">
+                    </div>
                 </div>
-                <h3 className="title">UNASSIGNED</h3>
+                <div className="title-row">
+                    <h3 className="row-title">UNASSIGNED</h3>
+                    <Link to="/post" className="row-icon icon-row-button">
+                    <h3><FontAwesomeIcon  icon={faPlusSquare }/></h3>
+                    <p>Add another Task</p>
+                    </Link>
+                </div>
+
                 {this.props.unassignedTasks[0] ? (
                 <div className="container ">
                 {  unassignedTasks && unassignedTasks.map( task => {
@@ -31,7 +42,9 @@ class TaskList extends Component {
                 <div className="container">
                     <div className="empty-card"></div>
                 </div>)}
-                <h3 className="title">ASSIGNED</h3>
+                <div className="title-row">
+                    <h3 className="row-title">ASSIGNED</h3>
+                </div>
                 {this.props.assignedTasks[0] ? (
                 <div className="container ">
                     {  assignedTasks && assignedTasks.map( task => {

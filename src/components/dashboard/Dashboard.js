@@ -4,9 +4,9 @@ import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
 import { connect } from 'react-redux';
 
-
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
@@ -18,6 +18,7 @@ class Dashboard extends Component {
         if( !this.state.groupPopup ){
             if (this.props.profile.defaultGroup) {
                 this.props.fetchGroupList(this.props.groupsUid)
+                this.props.fetchTaskList()
             }
            
         } 
@@ -36,6 +37,9 @@ class Dashboard extends Component {
             this.props.fetchTaskList(this.props.auth.uid)
             this.props.fetchGroupDetails(this.props.auth.uid)
         }
+    }
+    componentWillUnmount(){
+        this.props.fetchTaskList()
     }
     render(){
         const { completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
