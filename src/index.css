@@ -644,7 +644,25 @@ bg-color-dashboard{
 
 .icon-bar{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;  
+}
+.setting-bar{
+    display: flex;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;  
+}
+.setting-button{
+    padding: 0.1rem 0.3rem;
+    font-size: 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 0.2rem;
 }
 .indicator-button {
     padding: 0.2rem 0.3rem;
@@ -652,9 +670,56 @@ bg-color-dashboard{
     border-radius: 5px;
     cursor: pointer
 }
+.setting-button:hover,
+.indicator-button:hover{
+    background-color: #ebebeb;
+    color:#868e8e;
+}
 .member-bar{
-display: flex;
-flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row;
+}
+.member-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:0 0.3rem;
+}
+.member-cirle{
+    width:1.4rem;
+    height:1.4rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.4rem;
+    font-size: 0.8rem;
+    flex-direction: row-reverse;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    background-color: #a5a5a5;  
+}
+.circle-wrapper{
+    padding-bottom: 100%;
+    overflow: hidden;
+    border-radius:50%;
+}
+.circle-wrapper img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    max-width:100%;
+    margin:auto;
+    overflow: hidden;
+}
+.circle-name{
+    font-size: 0.5rem;
+    padding: 0;
+    line-height: 0.8rem;
+    text-align: center;
 }
 /*-------------------------*/
 /* $TaskList
@@ -686,7 +751,6 @@ flex-direction: row-reverse;
 .icon-row-button:hover{
     background-color: #ebebeb;
     color:#868e8e;
-
 }
 /*-------------------------*/
 /* $GroupSelected

@@ -5,15 +5,17 @@ import GroupPopup from '../dashboard/GroupPopup'
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { faAngleDown, faUser, faCog, faUserPlus, faUnlink } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
+
+import imagecat from '../../img/uma.jpg'
 class Dashboard extends Component {
     state = {
         groupPopup: false,
-        memberBar: false
+        memberBar: false,
+        settingBar:false
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){
@@ -33,11 +35,26 @@ class Dashboard extends Component {
             groupPopup: !prevState.groupPopup
         }));
     }
+    toggleSettingBar = () => {
+        this.setState( prevState => ({
+            settingBar: !prevState.settingBar
+        }))
+        if(this.state.memberBar){
+            this.setState( prevState => ({
+                memberBar: !prevState.memberBar
+            }))
+        }
+    }
     toggleMemberbar = () => {
-        console.log(this.state)
         this.setState( prevState => ({
             memberBar: !prevState.memberBar
         }))
+        if(this.state.settingBar){
+            this.setState( prevState => ({
+                settingBar: !prevState.settingBar
+            }))
+        }
+
     }
     componentDidMount(){
         if(this.props.auth.uid){
@@ -49,8 +66,7 @@ class Dashboard extends Component {
         this.props.fetchTaskList()
     }
     render(){
-        const { completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
-        // console.log(pendingTasksData)
+        const { membersInfo, completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
@@ -63,18 +79,46 @@ class Dashboard extends Component {
                         </div>
                         <div className="indicator-wrapper">
                             <div className="icon-bar">
+                                 <div onClick={ this.toggleSettingBar }
+                                     className="indicator-button ">
+                                    <FontAwesomeIcon icon={faCog} /> 
+                                </div>
                                 <div onClick={ this.toggleMemberbar }
                                      className="indicator-button ">
-                                    <FontAwesomeIcon icon={faUser} /> 4
+                                    <FontAwesomeIcon icon={faUser} /> {this.props.defaultGroupData ? (this.props.defaultGroupData.members.length) : 1}
                                 </div>
+
                             </div>
                             { this.state.memberBar ? (
-                                <div className="member-bar u-border">
-                                    <div className="member-cirle">1</div>
-                                    <div className="member-cirle">2</div>
-                                    <div className="member-cirle">3</div>
+                                <div className="member-bar">
+                                    { membersInfo ? (
+                                        Object.keys(membersInfo).map(e => {
+                                                return ( 
+                                                    <div className="member-button" key={e} >
+                                                        <div className="member-cirle">
+                                                            <div className="circle-wrapper">
+                                                                <img src={ membersInfo[e].photoURL } alt=""/>
+                                                            </div>
+                                                        </div>
+                                                        <span className="circle-name">{membersInfo[e].firstname}</span>
+                                                    </div>
+                                                )
+                                            }))  
+                                     : null
+                                    }
                                 </div>
                             ): null}
+                            { this.state.settingBar ? (
+                                <div className="setting-bar">
+                                    <div className="setting-button">
+                                        <FontAwesomeIcon icon={faUnlink }/> Leave this group
+                                    </div>
+                                    <div className="setting-button">
+                                        <FontAwesomeIcon icon={faUserPlus}/>  Add member
+                                    </div>
+                                </div>
+                            ) : null }
+
 
                         </div>
                     </div>
@@ -95,7 +139,9 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {  
     const defaultGroupData = state.group.defaultGroupData ? state.group.defaultGroupData :null
-    const auth = state.firebase.auth ? state.firebase.auth:null
+    const auth = state.firebase.auth ? state.firebase.auth : null
+    const membersInfo = state.group.defaultGroupData ? state.group.defaultGroupData.membersInfo : null
+
     return {
         tasks: state.firestore.ordered.tasks,
         auth: auth,
@@ -103,6 +149,7 @@ const mapStateToProps = (state) => {
         groupsData: state.group.groups,
         profile:state.firebase.profile,
         defaultGroupData:defaultGroupData,
+        membersInfo:membersInfo,
         tasksData:state.task.tasksData,
         unassignedTasksData: state.task.unassignedTasksData,
         assignedTasksData: state.task.assignedTasksData,

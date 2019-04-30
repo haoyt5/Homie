@@ -94,7 +94,6 @@ export const fetchTaskList = (userUid) => {
                                 }).then(()=>{
                                     firestore.collection('tasks').where('groupUid', '==', defaultGroup).where('status','==','complete').orderBy('lastUpdateAt','desc').get()
                                     .then(querySnapshot => { querySnapshot.forEach( doc => {
-                                        console.log(doc.data())
                                         completeTasksData = [...completeTasksData, {id:doc.id,data:doc.data()}]
                                         })
                                     }).then(()=>{
