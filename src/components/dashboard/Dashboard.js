@@ -5,14 +5,15 @@ import GroupPopup from '../dashboard/GroupPopup'
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
 class Dashboard extends Component {
     state = {
-        groupPopup: false
+        groupPopup: false,
+        memberBar: false
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){
@@ -31,6 +32,12 @@ class Dashboard extends Component {
         this.setState( prevState => ({
             groupPopup: !prevState.groupPopup
         }));
+    }
+    toggleMemberbar = () => {
+        console.log(this.state)
+        this.setState( prevState => ({
+            memberBar: !prevState.memberBar
+        }))
     }
     componentDidMount(){
         if(this.props.auth.uid){
@@ -53,6 +60,22 @@ class Dashboard extends Component {
                             <div className="selected-group" onClick={this.togglePopup}>
                                 { this.props.defaultGroupData ? this.props.defaultGroupData.groupName : null } <FontAwesomeIcon icon={faAngleDown} />
                             </div>
+                        </div>
+                        <div className="indicator-wrapper">
+                            <div className="icon-bar">
+                                <div onClick={ this.toggleMemberbar }
+                                     className="indicator-button ">
+                                    <FontAwesomeIcon icon={faUser} /> 4
+                                </div>
+                            </div>
+                            { this.state.memberBar ? (
+                                <div className="member-bar u-border">
+                                    <div className="member-cirle">1</div>
+                                    <div className="member-cirle">2</div>
+                                    <div className="member-cirle">3</div>
+                                </div>
+                            ): null}
+
                         </div>
                     </div>
                     <div className="container">

@@ -638,6 +638,24 @@ bg-color-dashboard{
     line-height: 0.6rem;
     padding: 0 1rem 0 0;
 }
+.indicator-wrapper{
+  padding:0 15px;
+}
+
+.icon-bar{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.indicator-button {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer
+}
+.member-bar{
+display: flex;
+flex-direction: row-reverse;
+}
 /*-------------------------*/
 /* $TaskList
 ---------------------------*/
