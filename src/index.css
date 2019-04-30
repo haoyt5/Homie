@@ -447,12 +447,18 @@ a.signgroup-tab:focus{
 }
 .task-input-row select {
     width:100%;
-    height:2rem;
+    height:3rem;
     font-size: 1rem;
     outline: 0;
+    border: 2px solid #E8E8E8;
+    border-radius: 3px; 
+    padding: 0.5rem;
+
+    
 }
 .task-input-row select option {
-    width:100%;    
+    width:100%;
+   
 } 
 .task-input-row #inputdate{
     border: 2px solid #E8E8E8; 

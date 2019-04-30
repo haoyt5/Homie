@@ -6,6 +6,8 @@ export const signIn = (credentials) => {
             credentials.password
         ).then(()=>{
             dispatch({ type: 'LOGIN_SUCCESS' })
+        }).then(() => {
+            window.location.hash = '#/'
         }).catch((err) => {
             dispatch({ type: 'LOGIN_ERROR', err })
         });
@@ -114,6 +116,7 @@ export const signInGroup = (credentials) => {
         const { groupId, groupPassword } = credentials
         const firestore = getFirestore();
         const userUid = getState().firebase.auth.uid;
+        const profile = getState().firebase.profile;
         let groupSignInValidate = false;
         let groupUid = null;
         if ( groupId.length === 0 || groupPassword.length === 0 ){
@@ -142,7 +145,8 @@ export const signInGroup = (credentials) => {
                 if( groupSignInValidate && userUid ){
         //(2)update the userUid in the members array
                     firestore.collection('groups').doc(groupUid).update({
-                        members:firestore.FieldValue.arrayUnion(userUid)
+                        members:firestore.FieldValue.arrayUnion(userUid),
+                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                     }).then(()=>{
         //(3)update the groupUid in the users groups array
                         firestore.collection('users').doc(userUid).update({
@@ -168,6 +172,7 @@ export const signUpGroup = (newGroup) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
         const userUid = getState().firebase.auth.uid;
+        const profile = getState().firebase.profile;
         let groupValidate = true;
         const { groupName, groupId, groupPassword } = newGroup 
         if (groupName.length === 0 || groupId.length === 0 || groupPassword.length === 0){
@@ -189,7 +194,8 @@ export const signUpGroup = (newGroup) => {
         //(2)If it is new groupId update the members array in the firestorecollection('groups') with the form information groupName, groupId, groupPassword, members userUid
                     firestore.collection('groups').add({
                         ...newGroup,
-                        members:firestore.FieldValue.arrayUnion(userUid)
+                        members:firestore.FieldValue.arrayUnion(userUid),
+                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                     }).then(resp => {
         //(3)update to the user database with the groupUid
                         let groupUid = resp.id

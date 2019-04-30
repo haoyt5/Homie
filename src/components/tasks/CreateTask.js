@@ -5,12 +5,7 @@ import { connect } from 'react-redux'
 import { createTask } from '../store/actions/taskActions'
 
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  DatePicker,
-  TimePicker,
-  DateTimePicker
-} from "material-ui-pickers";
+import {  MuiPickersUtilsProvider, DateTimePicker } from "material-ui-pickers";
 export class CreatTask extends Component {
     state = {
         title: '',
@@ -66,6 +61,7 @@ export class CreatTask extends Component {
             <div className="task-input-row">
                 <select value={this.state.value} name="" id="category" onChange={this.handleChange}>
                   <option value="trash">Trash</option>
+                  <option value="clean">Clean</option>
                   <option value="bathroom">Bathroom</option>
                   <option value="kitchen">Kitchen</option>
                   <option value="floor">Floor</option>

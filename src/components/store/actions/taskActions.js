@@ -222,8 +222,6 @@ export const closeTask = (taskUid, assign ,file) => {
 }
 export const approveTask = (taskUid, assign) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        // console.log('the non-assigned user approve the task to turn into complete')
-        // console.log(taskUid, assign)
         const firestore = getFirestore()
         const groupUid = getState().firebase.profile.defaultGroup
         const userName = getState().firebase.profile.firstname
