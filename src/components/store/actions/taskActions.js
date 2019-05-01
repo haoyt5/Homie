@@ -145,7 +145,7 @@ export const acceptTask = (taskUid) => {
 
     }
 };
-export const closeTask = (taskUid, assign ,file) => {
+export const reportTaskWithImage = (taskUid, assign ,file) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
         const groupUid = getState().firebase.profile.defaultGroup;
@@ -156,8 +156,8 @@ export const closeTask = (taskUid, assign ,file) => {
         //(2) update the user doc remove taskUid from the beAssignedTo and add it to the pendding
         //(*) Error Handling check if contain the image or not
         if( userUid === assignedToUid ) {
-            if(file ) {
 
+            if(file) {
                 const storageRef = storage.ref(`task_images/${taskUid}`)
                 const mainImage = storageRef.child(file.name)
                 mainImage.put(file)
@@ -188,11 +188,41 @@ export const closeTask = (taskUid, assign ,file) => {
                     alert('upload failed, please try again')
                 })
 
-            }else{
+            } else {
                 alert('沒有上傳圖片')
             }
         } else {
-            alert('It is an invalid action')
+            alert('非指定人')
+            return
+        }
+    }
+}
+export const reportTaskWOImage = (taskUid, assign) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore()
+        const groupUid = getState().firebase.profile.defaultGroup;
+        const userUid = getState().firebase.auth.uid
+        const { assignedToUid } = assign
+
+        //(1) update the task doc with the status to pending
+        //(2) update the user doc remove taskUid from the beAssignedTo and add it to the pendding
+        if( userUid === assignedToUid ) {
+            firestore.collection('tasks').doc(taskUid).update({
+                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                finishAt:firestore.FieldValue.serverTimestamp(),
+                status: 'pending'  
+            }).then(() => {
+                firestore.collection('users').doc(userUid).update({
+                    [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+                    [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                })
+            }).then(() => {
+                window.location.hash = '#/'
+            }).catch((err)=>{
+                console.log(err)
+            })
+        } else {
+            alert('非指定人')
             return
         }
     }

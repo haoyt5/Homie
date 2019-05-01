@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTask, closeTask } from '../store/actions/taskActions'
-import imageholder from '../../img/uma.jpg'
+import { fetchTask, reportTaskWithImage, reportTaskWOImage } from '../store/actions/taskActions'
 export class TaskMemo extends Component {
     constructor(props) {
         super(props)
@@ -23,11 +22,18 @@ export class TaskMemo extends Component {
             file:e.target.files[0]
         })
     }
-    handleFinish = (e) => {
+    handleReportWithImage = (e) => {
         e.preventDefault()
         const taskUid = this.props.match.params.id
         const { assign } = this.props.taskdetails.data
-        this.props.closeTask(taskUid,assign,this.state.file)
+        this.props.reportTaskWithImage(taskUid,assign,this.state.file)
+    }
+    handleReport = (e) =>{
+        e.preventDefault()
+        alert('cool')
+        const taskUid = this.props.match.params.id
+        const { assign } = this.props.taskdetails.data
+        this.props.reportTaskWOImage(taskUid,assign)
     }
     componentDidMount(){
         this.props.fetchTask(this.props.match.params.id)
@@ -38,14 +44,15 @@ export class TaskMemo extends Component {
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { assign,author, content, title } = this.props.taskdetails.data
+        const { verifybyImage,expiryDate, assign,author, content, title } = this.props.taskdetails.data
+        console.log(this.props.taskdetails.data)
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
                     <h2 className="sub-instruciton-title">Report the Task</h2>
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
-                            <p className="expirydate">Expiry Date | Wed</p>
+                            <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
                             <p className="expirydate">Posted by | {author}</p>
                             <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p className="expirydate">Description</p>
@@ -64,9 +71,10 @@ export class TaskMemo extends Component {
                             )}
  
                     </div>
-                    <div className="uploadwrapper">
+                    {verifybyImage ? (
+                        <div className="uploadwrapper">
                         <form action=""
-                            onSubmit={this.handleFinish}>
+                            onSubmit={this.handleReportWithImage}>
                             <div className="task-input-row">
                                 <label htmlFor="imagefile">attachment</label>
                                 <input id="imagefile"
@@ -81,6 +89,17 @@ export class TaskMemo extends Component {
                             </div>
                         </form>
                     </div>
+                    ): (
+                    <div className="uploadwrapper">
+                        <form action=""
+                            onSubmit={this.handleReport}>
+                            <div className="feature-row">
+                            <button onClick={this.handleBack} 
+                                    className="medium-square-button cancel-button">Back</button>
+                            <button  className="medium-square-button">Finish</button>
+                            </div>
+                        </form>
+                    </div>)}
 
                 </div>
 
@@ -114,7 +133,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
-        closeTask: (taskUid,assign,imagefile)=>dispatch(closeTask(taskUid,assign,imagefile))
+        reportTaskWithImage: (taskUid,assign,imagefile)=>dispatch(reportTaskWithImage(taskUid,assign,imagefile)),
+        reportTaskWOImage: (taskUid,assign)=>dispatch(reportTaskWOImage(taskUid,assign))
     }
 }
 
