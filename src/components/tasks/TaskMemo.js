@@ -48,8 +48,7 @@ export class TaskMemo extends Component {
         const { verifybyImage,expiryDate, assign,author, content, title } = this.props.taskdetails.data
         return(
             <div>
-            {this.props.taskErr ? <AlertWindow error={ this.props.match.params.id }/> : null}
-
+            {this.props.taskErr ? <AlertWindow error={ this.props.match.params.id }/> : null }
                 <div className="taskdetails-wrapper" key={id} >
                     <div className="container ">
                         <h2 className="sub-instruciton-title">Report the Task</h2>

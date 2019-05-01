@@ -40,7 +40,6 @@ export class CreatTask extends Component {
     }
     handleAlert = (e) => {
       this.props.confirmTaskAlert()
- 
     }
   render() {
     const { expiryDate } = this.state;

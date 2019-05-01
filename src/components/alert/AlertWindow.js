@@ -7,7 +7,6 @@ export class AlertWindow extends Component {
   handleAlert = (e) => {
     this.props.confirmTaskAlert()
   }
-  
   render() {
     return (
           <div className="popup-layer">
