@@ -6,7 +6,8 @@ const initState = {
     assignedTasksData:[],
     pendingTasksData:[],
     completeTasksData:[],
-    err:false
+    err:false,
+    errMessage:null,
 }
 
 const taskReducer = (state = initState, action) => {
@@ -19,10 +20,17 @@ const taskReducer = (state = initState, action) => {
                 ...state,
                 err:true
             }
+        case 'TASK_BLANK_NOPIC':
+        return{
+            ...state,
+            err:true,
+            errMessage:"This task cannot report without a photo."
+        }
         case 'RESET_TASK_ALERT':
         return{
             ...state,
-            err:false
+            err:false,
+            errMessage:null
         }
         case 'CREATE_TASK_ERROR':
             console.log('create task', action.err)

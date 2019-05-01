@@ -189,10 +189,11 @@ export const reportTaskWithImage = (taskUid, assign ,file) => {
                 })
 
             } else {
-                alert('沒有上傳圖片')
+                console.log('沒有上傳圖片')
+                dispatch({type: 'TASK_BLANK_NOPIC'})
             }
         } else {
-            alert('非指定人')
+            dispatch({type: 'TASK_BLANK'})
             return
         }
     }

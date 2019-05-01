@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AlertWindow from '../alert/AlertWindow'
 import { connect } from 'react-redux';
 import { fetchTask, reportTaskWithImage, reportTaskWOImage } from '../store/actions/taskActions'
 export class TaskMemo extends Component {
@@ -45,68 +46,67 @@ export class TaskMemo extends Component {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
         const { verifybyImage,expiryDate, assign,author, content, title } = this.props.taskdetails.data
-        console.log(this.props.taskdetails.data)
         return(
-            <div className="taskdetails-wrapper" key={id} >
-                <div className="container ">
-                    <h2 className="sub-instruciton-title">Report the Task</h2>
-                    <div className="task-card">
-                            <h2 className="title">{title}</h2>
-                            <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
-                            <p className="expirydate">Posted by | {author}</p>
-                            <p className="expirydate">Assigned to | {assign.assignedTo}</p>
-                            <p className="expirydate">Description</p>
-                            <p>{content}</p>
-                            {this.state.imagePreviewUrl[0] && (
-                                <div>
-                                <p className="expirydate">Image attachment</p>
-                                <div className="image-row">
-                                    <div className="image-box">
-                                        <div className="image-box-inner">
-                                        <img className="" src={this.state.imagePreviewUrl} alt=""/> 
+            <div>
+            {this.props.taskErr ? <AlertWindow error={ this.props.match.params.id }/> : null}
+
+                <div className="taskdetails-wrapper" key={id} >
+                    <div className="container ">
+                        <h2 className="sub-instruciton-title">Report the Task</h2>
+                        <div className="task-card">
+                                <h2 className="title">{title}</h2>
+                                <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
+                                <p className="expirydate">Posted by | {author}</p>
+                                <p className="expirydate">Assigned to | {assign.assignedTo}</p>
+                                <p className="expirydate">Description</p>
+                                <p>{content}</p>
+                                {this.state.imagePreviewUrl[0] && (
+                                    <div>
+                                    <p className="expirydate">Image attachment</p>
+                                    <div className="image-row">
+                                        <div className="image-box">
+                                            <div className="image-box-inner">
+                                            <img className="" src={this.state.imagePreviewUrl} alt=""/> 
+                                            </div>
                                         </div>
                                     </div>
-                                 </div>
+                                    </div>
+                                )}
+    
+                        </div>
+                        {verifybyImage ? (
+                            <div className="uploadwrapper">
+                            <form action=""
+                                onSubmit={this.handleReportWithImage}>
+                                <div className="task-input-row">
+                                    <label htmlFor="imagefile">attachment</label>
+                                    <input id="imagefile"
+                                        type="file"
+                                        onChange={this.handleChange}
+                                        ref={this.fileInput}/>
                                 </div>
-                            )}
- 
-                    </div>
-                    {verifybyImage ? (
+                                <div className="feature-row">
+                                <button onClick={this.handleBack} 
+                                        className="medium-square-button cancel-button">Back</button>
+                                <button  className="medium-square-button">Finish</button>
+                                </div>
+                            </form>
+                        </div>
+                        ): (
                         <div className="uploadwrapper">
-                        <form action=""
-                            onSubmit={this.handleReportWithImage}>
-                            <div className="task-input-row">
-                                <label htmlFor="imagefile">attachment</label>
-                                <input id="imagefile"
-                                    type="file"
-                                    onChange={this.handleChange}
-                                    ref={this.fileInput}/>
-                            </div>
-                            <div className="feature-row">
-                            <button onClick={this.handleBack} 
-                                    className="medium-square-button cancel-button">Back</button>
-                            <button  className="medium-square-button">Finish</button>
-                            </div>
-                        </form>
+                            <form action=""
+                                onSubmit={this.handleReport}>
+                                <div className="feature-row">
+                                <button onClick={this.handleBack} 
+                                        className="medium-square-button cancel-button">Back</button>
+                                <button  className="medium-square-button">Finish</button>
+                                </div>
+                            </form>
+                        </div>)}
+
                     </div>
-                    ): (
-                    <div className="uploadwrapper">
-                        <form action=""
-                            onSubmit={this.handleReport}>
-                            <div className="feature-row">
-                            <button onClick={this.handleBack} 
-                                    className="medium-square-button cancel-button">Back</button>
-                            <button  className="medium-square-button">Finish</button>
-                            </div>
-                        </form>
-                    </div>)}
-
+                    
                 </div>
-
-
-                
-
-                
             </div>
            
         )
@@ -126,11 +126,11 @@ export class TaskMemo extends Component {
 const mapStateToProps = (state, ownProps) => {
     const taskdetails = state.task.taskData ? state.task.taskData : null
     return {
-        taskdetails: taskdetails
+        taskdetails: taskdetails,
+        taskErr: state.task.err
     }
 }
 const mapDispatchToProps = (dispatch) => {
-
     return {
         fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
         reportTaskWithImage: (taskUid,assign,imagefile)=>dispatch(reportTaskWithImage(taskUid,assign,imagefile)),
@@ -138,5 +138,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default    connect(mapStateToProps,mapDispatchToProps)(TaskMemo);
+export default  connect(mapStateToProps,mapDispatchToProps)(TaskMemo);
 

@@ -3,14 +3,14 @@ import TaskList from '../tasks/TaskList';
 import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom' 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faUser, faCog, faUserPlus, faUnlink, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faDoorOpen, faAngleDown, faUser, faCog, faUserPlus, faUnlink, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
 
-import imagecat from '../../img/uma.jpg'
 class Dashboard extends Component {
     state = {
         groupPopup: false,
@@ -110,6 +110,11 @@ class Dashboard extends Component {
                             ): null }
                             { this.state.settingBar ? (
                                 <div className="setting-bar">
+                                    <Link to="/signgroup/signin">
+                                    <div className="setting-button">
+                                        <FontAwesomeIcon icon={faDoorOpen}/>  Join new group
+                                    </div>
+                                    </Link>
                                     <div className="setting-button">
                                         <FontAwesomeIcon icon={faUnlink }/> Leave this group
                                     </div>
