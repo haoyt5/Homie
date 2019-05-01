@@ -5,7 +5,8 @@ const initState = {
     unassignedTasksData:[],
     assignedTasksData:[],
     pendingTasksData:[],
-    completeTasksData:[]
+    completeTasksData:[],
+    err:false
 }
 
 const taskReducer = (state = initState, action) => {
@@ -13,6 +14,16 @@ const taskReducer = (state = initState, action) => {
         case 'CREATE_TASK':
         console.log('create task', action.task)
          return state
+        case 'TASK_BLANK':
+            return{
+                ...state,
+                err:true
+            }
+        case 'RESET_TASK_ALERT':
+        return{
+            ...state,
+            err:false
+        }
         case 'CREATE_TASK_ERROR':
             console.log('create task', action.err)
             return state

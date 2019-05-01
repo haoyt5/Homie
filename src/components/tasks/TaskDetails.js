@@ -17,16 +17,16 @@ export class TaskDetails extends Component {
     }
   render() {
     const id = this.props.match.params.id
-    console.log(this.props)
     if (this.props.taskdetails.data){
-        const { author, content, title } = this.props.taskdetails.data
+        const { expiryDate, author, content, title } = this.props.taskdetails.data
+        console.log(expiryDate.toDate())
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
                     <h2 className="sub-instruciton-title">Accept the Task</h2>
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
-                            <p className="expirydate">Expiry Date | Wed</p>
+                            <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
                             <p className="expirydate">Posted by | {author}</p>
                             <p>{content}</p>
                             

@@ -227,7 +227,7 @@ a:focus {
 .popup-layer{
     position: absolute;
     z-index: 1000;
-    background-color: rgba(216, 216, 216, 0.8) ;
+    background-color: rgba(76, 76, 76, 0.8) ;
     height: 95vh;
     width:100%;
     color:rgb(203, 203 , 203);
@@ -239,11 +239,47 @@ a:focus {
 .information-window{
     border-radius: 5px;
     padding:2rem;
-    margin-top:25%;
-    width:50%;
+    margin-top:15%;
+    width:40%;
     background-color: #fff;
-
-
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.alert-icon{
+    font-size: 6rem;
+    text-align: center;
+    color:#FF8300;
+    margin:1rem 0;
+}
+.information-window h2{
+    color:#7F7F7F;
+    margin:0.5rem 0;
+}
+.information-window h4{
+    margin:0.5rem 0;
+}
+.information-window > div > hr {
+    height: 2px;
+    color: #e4e4e4;
+    background-color: #e4e4e4;
+    border: none;
+    margin:1rem 0;
+}
+.information-window button{
+    margin-top:0.5rem;
+}
+@media(max-width:800px){
+    .information-window{
+        width:60%;
+    }
+}
+@media(max-width:600px){
+    .information-window{
+        width:80%;
+    }
 }
 /*-------------------------*/
 /* $SignIn

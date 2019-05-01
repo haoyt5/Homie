@@ -4,33 +4,36 @@ export const createTask = (task) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorUid = getState().firebase.auth.uid;
-        console.log(task)
-        console.log(task.title.length)
         if (task.title.length !== 0){
-            alert('success')
+            firestore.collection('tasks').add({
+                ...task,
+                author: profile.firstname,
+                authorUid: authorUid,
+                groupUid: profile.defaultGroup,
+                createAt: new Date(),
+                assign:{assignedTo:null,assignedAt:null},
+                approve:{verifiedBy:null,verifiedAt:null},
+                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                status:"unassigned"
+            }).then(() => {
+                dispatch({ type: 'CREATE_TASK', task })
+            }).then(() => {
+                window.location.hash = '#/'
+            })
+            .catch((err)=>{
+                dispatch({ type: 'CREATE_TASK_ERROR', err })
+            })
         } else {
-            alert('失敗')
+            dispatch({ type: 'TASK_BLANK'})
         }
-        // firestore.collection('tasks').add({
-        //     ...task,
-        //     author: profile.firstname,
-        //     authorUid: authorUid,
-        //     groupUid: profile.defaultGroup,
-        //     createAt: new Date(),
-        //     assign:{assignedTo:null,assignedAt:null},
-        //     approve:{verifiedBy:null,verifiedAt:null},
-        //     lastUpdateAt:firestore.FieldValue.serverTimestamp(),
-        //     status:"unassigned"
-        // }).then(() => {
-        //     dispatch({ type: 'CREATE_TASK', task })
-        // }).then(() => {
-        //     window.location.hash = '#/'
-        // })
-        // .catch((err)=>{
-        //     dispatch({ type: 'CREATE_TASK_ERROR', err })
-        // })
     }
 };
+export const confirmTaskAlert =()=>{
+    return(dispatch, getState, { getFirebase, getFirestore })=>{
+        dispatch({ type: 'RESET_TASK_ALERT'})
+    }
+   
+}
 export const fetchTask = (taskUid) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
