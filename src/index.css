@@ -222,6 +222,30 @@ a:focus {
     color:white;
 }
 /*-------------------------*/
+/* $PopUp
+---------------------------*/
+.popup-layer{
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(216, 216, 216, 0.8) ;
+    height: 95vh;
+    width:100%;
+    color:rgb(203, 203 , 203);
+}
+.popup-layer >.container {
+   justify-content: center;
+   display: flex;
+}
+.information-window{
+    border-radius: 5px;
+    padding:2rem;
+    margin-top:25%;
+    width:50%;
+    background-color: #fff;
+
+
+}
+/*-------------------------*/
 /* $SignIn
 ---------------------------*/
 .signinform{
@@ -452,10 +476,67 @@ a.signgroup-tab:focus{
     outline: 0;
     border: 2px solid #E8E8E8;
     border-radius: 3px; 
-    padding: 0.5rem;
-
-    
+    padding: 0.5rem;    
 }
+.checkbox-wrapper{
+    display: flex;
+}
+.task-checkboxinput-row{
+    position: relative;
+    height:1.6rem;
+    line-height: 1.6rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width:2.2rem;
+}
+.task-checkboxinput-row input[type="checkbox"] {
+    position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  z-index: 50;
+  width: 1.6rem; /*Desired width*/
+  height: 1.6rem;
+  margin:0;
+
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #E8E8E8;
+}
+.task-checkboxinput-row:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.task-checkboxinput-row input:checked ~ .checkmark {
+    background-color:#D3A971;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.task-checkboxinput-row input:checked ~ .checkmark:after {
+    display: block;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 .task-input-row select option {
     width:100%;
    
@@ -678,6 +759,7 @@ bg-color-dashboard{
 .member-bar{
     display: flex;
     flex-direction: row;
+    padding:0.3rem 0;
 }
 .member-button{
     display: flex;
@@ -698,14 +780,28 @@ bg-color-dashboard{
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;
-    background-color: #a5a5a5;  
+    
 }
+
 .circle-wrapper{
     padding-bottom: 100%;
     overflow: hidden;
     border-radius:50%;
 }
 .circle-wrapper img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    max-width:100%;
+    margin:auto;
+    overflow: hidden;
+}
+.circle-wrapper > .member-img-holder{
+    color:white;
+    background-color: #A5A5A5;
+    border-radius: 50%;
     position:absolute;
     top:0;
     bottom:0;

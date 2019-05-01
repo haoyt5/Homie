@@ -17,7 +17,6 @@ const taskReducer = (state = initState, action) => {
             console.log('create task', action.err)
             return state
         case 'GET_TASKS':
-            console.log('get all task data')
             return {
                 ...state,
                 tasksData:action.tasksData,
@@ -27,11 +26,10 @@ const taskReducer = (state = initState, action) => {
                 completeTasksData:action.completeTasksData
             }
         case 'GET_TASK':
-        console.log('get the specific task data')
-        return {
-                ...state,
-                taskData:action.taskData
-            }
+            return {
+                    ...state,
+                    taskData:action.taskData
+                }
         case 'EMPTY_TASK':
             return{
                 ...state,

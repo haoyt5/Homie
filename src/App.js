@@ -20,7 +20,6 @@ class App extends React.Component{
     render() {
         
         return(
-              
         <HashRouter  >
             <div className="app">
                 <Navbar />
@@ -36,7 +35,6 @@ class App extends React.Component{
                 </Switch>
             </div>
         </HashRouter> 
-
         );
     }
 }

@@ -5,7 +5,7 @@ import GroupPopup from '../dashboard/GroupPopup'
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faUser, faCog, faUserPlus, faUnlink } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faUser, faCog, faUserPlus, faUnlink, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
@@ -70,7 +70,7 @@ class Dashboard extends Component {
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
-                {this.state.groupPopup ? <GroupPopup togglePopup={ this.togglePopup.bind(this) } groupsData={ this.props.groupsData }/> : null }
+                { this.state.groupPopup ? <GroupPopup togglePopup={ this.togglePopup.bind(this) } groupsData={ this.props.groupsData }/> : null }
                     <div className="container">
                         <div className="selected-wrapper">
                             <div className="selected-group" onClick={this.togglePopup}>
@@ -97,7 +97,7 @@ class Dashboard extends Component {
                                                     <div className="member-button" key={e} >
                                                         <div className="member-cirle">
                                                             <div className="circle-wrapper">
-                                                                <img src={ membersInfo[e].photoURL } alt=""/>
+                                                                { membersInfo[e].photoURL==='null' ? <div className="member-img-holder"> <FontAwesomeIcon icon={ faUserAlt } /> </div> :<img src={ membersInfo[e].photoURL } alt=""/> }
                                                             </div>
                                                         </div>
                                                         <span className="circle-name">{membersInfo[e].firstname}</span>
@@ -107,7 +107,7 @@ class Dashboard extends Component {
                                      : null
                                     }
                                 </div>
-                            ): null}
+                            ): null }
                             { this.state.settingBar ? (
                                 <div className="setting-bar">
                                     <div className="setting-button">
@@ -118,8 +118,6 @@ class Dashboard extends Component {
                                     </div>
                                 </div>
                             ) : null }
-
-
                         </div>
                     </div>
                     <div className="container">

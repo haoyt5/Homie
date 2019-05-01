@@ -11,7 +11,8 @@ export class CreatTask extends Component {
         title: '',
         content: '',
         category:'trash',
-        expiryDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+        expiryDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        verifybyImage:false
     }
     handleBack = (e) =>{
       e.preventDefault();
@@ -21,15 +22,18 @@ export class CreatTask extends Component {
         this.setState({
            [e.target.id]: e.target.value
         })
-        
+    }
+    toggleChange = () => {
+      this.setState({
+        verifybyImage: !this.state.verifybyImage,
+      });
     }
     handleDateChange = date => {
       this.setState({ expiryDate: date });
     };
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
-        // this.props.createTask(this.state);
+        this.props.createTask(this.state);
         //after submit redidirect the user
         // this.props.history.push('/')
     }
@@ -37,17 +41,33 @@ export class CreatTask extends Component {
     // console.log(this.props)
     const { expiryDate } = this.state;
     return (
+      <div className="">
+      <div className="popup-layer">
+        <div className="container">
+          <div className="information-window">
+              <div className="container">
+              沒有輸入不給你過
+              <div className="feature-row">
+              <div className="medium-square-button">OK</div>
+              </div>
+              </div>
+              
+          </div>
+        </div>
+      </div>
+
       <div className="container">
+
       <h2 className="sub-instruciton-title">Post a task</h2>
         <form className="signinform"
              onSubmit={this.handleSubmit}>
-             <label className="label-font" htmlFor="title">Title</label>
+            <label className="label-font" htmlFor="title">Title</label>
             <div className="task-input-row">
                 <input type="test"
                         id="title"
                         onChange={this.handleChange}/>
             </div>
-          <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
+            <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
             <div className="task-input-row">
               <MuiPickersUtilsProvider id="expiryDate"  utils={DateFnsUtils}>
                   <div className="pickers">
@@ -55,8 +75,6 @@ export class CreatTask extends Component {
                   </div>
                 </MuiPickersUtilsProvider>
             </div>
-
-
             <label className="label-font" htmlFor="expiryDate">Category</label>
             <div className="task-input-row">
                 <select value={this.state.value} name="" id="category" onChange={this.handleChange}>
@@ -68,6 +86,18 @@ export class CreatTask extends Component {
                   <option value="other">Other</option>
                 </select>
             </div>
+            <label className="label-font" htmlFor="verifybyImage">Verification condition</label>
+            <div className="checkbox-wrapper">
+            <div className="task-checkboxinput-row">
+                <input type="checkbox"
+                        id="verifybyImage"
+                        checked= {this.state.verifybyImage}
+                        onChange={this.toggleChange}/>
+                <span className="checkmark "></span>
+            </div>
+            <div className="checkbox-text">verified by image</div>
+            </div>
+
             <label className="label-font" htmlFor="content">Description</label>
             <div className="textarea-row">
                 <textarea type="text"
@@ -81,6 +111,7 @@ export class CreatTask extends Component {
             </div>
         </form>
 
+      </div>
       </div>
     )
   }
