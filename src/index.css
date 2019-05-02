@@ -860,7 +860,7 @@ bg-color-dashboard{
     position:relative;
     overflow:hidden;
     width:100%;
-    margin:0 15px;
+
 }
 .barchart-inner{
     padding-top: 20%;
@@ -877,6 +877,7 @@ bg-color-dashboard{
     margin:auto;
     border:2px solid plum;;
     border-radius: 5px;
+    margin:0 15px;
 }
 /*-------------------------*/
 /* $TaskList
