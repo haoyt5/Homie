@@ -854,6 +854,31 @@ bg-color-dashboard{
     text-align: center;
 }
 /*-------------------------*/
+/* $Barchart
+---------------------------*/
+.barchart-box{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    margin:0 15px;
+}
+.barchart-inner{
+    padding-top: 20%;
+    content:"";
+    display: block;
+}
+#chart{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    max-width:100%;
+    margin:auto;
+    border:2px solid plum;;
+    border-radius: 5px;
+}
+/*-------------------------*/
 /* $TaskList
 ---------------------------*/
 .title-row{

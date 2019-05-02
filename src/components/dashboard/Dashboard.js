@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TaskList from '../tasks/TaskList';
+import BarChart from '../chart/BarChart'
 import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
 import { connect } from 'react-redux';
@@ -12,10 +13,32 @@ import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions
 import { fetchTaskList } from '../store/actions/taskActions'
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props)
+        this.chart = React.createRef();
+    }
     state = {
         groupPopup: false,
         memberBar: false,
-        settingBar:false
+        settingBar:false,
+        data: [    {
+            "name": "karen",
+            "points":5
+        },
+        {
+            "name": "Sherlock",
+            "points":3
+        },
+        {
+            "name": "Watson",
+            "points":7
+        },
+        {
+            "name": "Molly",
+            "points":12
+        }],
+        width: 400,
+        height: 200,
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){
@@ -125,6 +148,10 @@ class Dashboard extends Component {
                             ) : null }
                         </div>
                     </div>
+                    <div className="container">  
+                    <BarChart data={this.state.data} width={this.state.width} height={this.state.height} />
+                    </div>
+                    
                     <div className="container">
                     {this.state.groupPopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
                     </div>
