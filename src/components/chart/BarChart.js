@@ -19,13 +19,15 @@ export class BarChart extends Component {
     .attr("height", "100%")
 
     //create margins and dimensions
-    const margin = {top:"5%", bottom:"5%", left:"10%", right:"10%"}
+    const margin = {top:"2%", bottom:"2%", left:"15%", right:"15%"}
     const graphWidth = 100% - margin.left - margin.right;
     const graphHeight = 100% - margin.height - margin.bottom;
     const graph = svg.append('g')
                     .attr('width',graphWidth)
                     .attr('height',graphHeight)
-                    .attr('transform', `translate(${margin.left},${margin.top})`)
+                    .attr('transform', `translate( 20 , 20)`)
+    const xAxisGroup = graph.append('g')
+    const yAxisGroup = graph.append('g')
     //join data to react
     const rects =  graph.selectAll("rect")
     .data(this.props.data)
@@ -57,6 +59,11 @@ export class BarChart extends Component {
     .attr("x", (d, i) => 0)
     .attr("fill", "pink")
 
+    //create and call the axes
+    const yAxis = d3.axisBottom(y)
+    const xAxis = d3.axisLeft(x)
+    yAxisGroup.call(yAxis)
+    xAxisGroup.call(xAxis)
   }
   render() {
     return (
