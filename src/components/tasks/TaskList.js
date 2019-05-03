@@ -8,10 +8,10 @@ class TaskList extends Component {
         const { completeTasks, pendingTasks, assignedTasks, unassignedTasks, task }  = this.props
         return (
             <div className="tasklist-wapper">
-                <div className="container">
+                {/* <div className="container">
                     <div className="empty-card">
                     </div>
-                </div>
+                </div> */}
                 <div className="title-row">
                     <h3 className="row-title">UNASSIGNED</h3>
                     <Link to="/post" className="row-icon icon-row-button">

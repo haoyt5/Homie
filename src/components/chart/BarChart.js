@@ -19,7 +19,7 @@ export class BarChart extends Component {
     .attr("height", "100%")
 
     //create margins and dimensions
-    const margin = {top:5, bottom:5, left:6, right:6}
+    const margin = {top:5, bottom:5, left:3, right:3}
     const graphWidth = 100 - margin.left - margin.right;
     const graphHeight = 100 - margin.top - margin.bottom;
    
@@ -27,15 +27,14 @@ export class BarChart extends Component {
                     .attr('width',graphWidth+`%`)
                     .attr('height',graphHeight+`%`)
                     .style('transform', `translate(${margin.left}% ,${margin.top}% )`)
-    const formatPercent = d3.format(".0%")
-    const xAxisGroup = graph.append('g')
-                            .style('width','100%')
-                            .style('height','100%')
-                            .style('transform', `translate(0 ,${ graphHeight - margin.top}% )`)
-    const yAxisGroup = graph.append('g')
-                            .style('width','100%')
-                            .style('height','100%')
-                            .style('transform', `translate(0 ,${ margin.top}% )`)
+    // const xAxisGroup = graph.append('g')
+    //                         .style('width','100%')
+    //                         .style('height','100%')
+    //                         .style('transform', `translate(0 ,${ graphHeight - margin.top}% )`)
+    // const yAxisGroup = graph.append('g')
+    //                         .style('width','100%')
+    //                         .style('height','100%')
+    //                         .style('transform', `translate(0 ,${ margin.top}% )`)
 
     //join data to react
     const rects =  graph.selectAll("rect")
@@ -50,8 +49,7 @@ export class BarChart extends Component {
     const y = d3.scaleBand()
                 .domain(this.props.data.map(data => data.name))
                 .range([graphHeight,0])
-                .padding(0.6)
-
+                .padding(0.5)
           
     // append the enterselections to DOM and add attrs to reacts already in dom 
     rects.enter()
