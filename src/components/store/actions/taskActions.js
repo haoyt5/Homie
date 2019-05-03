@@ -193,7 +193,7 @@ export const reportTaskWithImage = (taskUid, assign ,file) => {
                 dispatch({type: 'TASK_BLANK_NOPIC'})
             }
         } else {
-            dispatch({type: 'TASK_BLANK'})
+            dispatch({type: 'TASK_NOT_ASSIGNED'})
             return
         }
     }
@@ -223,7 +223,7 @@ export const reportTaskWOImage = (taskUid, assign) => {
                 console.log(err)
             })
         } else {
-            alert('非指定人')
+            dispatch({type: 'TASK_NOT_ASSIGNED'})
             return
         }
     }

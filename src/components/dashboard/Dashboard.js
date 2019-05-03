@@ -22,23 +22,25 @@ class Dashboard extends Component {
         memberBar: false,
         settingBar:false,
         data: [    {
-            "name": "karen",
-            "points":5
+            "name": "Karen",
+            "points":5,
+            "color":"#845EC2"
         },
         {
             "name": "Sherlock",
-            "points":3
+            "points":3,
+            "color":"#FF6F91"
         },
         {
             "name": "Watson",
-            "points":7
+            "points":7,
+            "color":"#FF9671"
         },
         {
             "name": "Molly",
-            "points":12
-        }],
-        width: 400,
-        height: 200,
+            "points":12,
+            "color":"#FFC75F"
+        }]
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){

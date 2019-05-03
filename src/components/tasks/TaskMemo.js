@@ -31,7 +31,6 @@ export class TaskMemo extends Component {
     }
     handleReport = (e) =>{
         e.preventDefault()
-        alert('cool')
         const taskUid = this.props.match.params.id
         const { assign } = this.props.taskdetails.data
         this.props.reportTaskWOImage(taskUid,assign)

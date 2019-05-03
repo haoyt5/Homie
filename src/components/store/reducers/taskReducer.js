@@ -26,6 +26,12 @@ const taskReducer = (state = initState, action) => {
             err:true,
             errMessage:"This task cannot report without a photo."
         }
+        case 'TASK_NOT_ASSIGNED':
+        return{
+            ...state,
+            err:true,
+            errMessage:"You are not assigned to this task"
+        }
         case 'RESET_TASK_ALERT':
         return{
             ...state,
