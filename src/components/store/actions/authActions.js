@@ -1,3 +1,4 @@
+const randomColor = require('randomcolor');
 export const signIn = (credentials) => {
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
@@ -28,7 +29,8 @@ export const signOut = () => {
 export const signUp = (newUser) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
-        const firestore = getFirestore();        
+        const firestore = getFirestore();       
+        let randomcolor = randomColor({luminosity: 'bright'}); 
         firebase.auth().createUserWithEmailAndPassword(
             newUser.email,
             newUser.password
@@ -39,7 +41,8 @@ export const signUp = (newUser) => {
                 initials: newUser.firstName[0] + newUser.lastName[0],
                 email: newUser.email,
                 createAt: firestore.FieldValue.serverTimestamp(),
-                photoURL: null
+                photoURL: null,
+                userColor:randomcolor
             })
         }).then(()=>{
             firebase.auth().currentUser.updateProfile({
@@ -63,22 +66,22 @@ export const googleLogin = () =>{
         const firebase = getFirebase();
         const firestore = getFirestore();
         const provider = new firebase.auth.GoogleAuthProvider();
+        let randomcolor = randomColor({luminosity: 'bright'}); 
         firebase.auth().signInWithPopup(provider)
         .then((result)=> {
             console.log(result)
             const {  name,given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
                 const { user } = result
-                console.log(result)
-                console.log(result.user.uid)
-                console.log(given_name,family_name,name,picture,email)
+
                 firestore.collection('users').doc(user.uid).set({
                     firstname: given_name || '',
                     lastname: family_name || '',
                     initials:  given_name[0] || '' +  family_name[0] || '',
                     photoURL: picture,
                     email: email,
-                    createAt: firestore.FieldValue.serverTimestamp()
+                    createAt: firestore.FieldValue.serverTimestamp(),
+                    userColor:randomcolor
                 })
                 .then(() =>  window.location.hash = '#/signgroup/signup' )
                 .then(() => dispatch({ type: 'LOGIN_SUCCESS' }))
@@ -132,11 +135,17 @@ export const signInGroup = (credentials) => {
                     querySnapshot.forEach(doc => {  
                         if(doc.data()){
                             groupUid = doc.id;
-                            const{ groupPassword } = doc.data();
+                            const{ members, groupPassword } = doc.data();
                             if ( groupPassword !== credentials.groupPassword){
                                 dispatch({ type: 'SIGNINGROUP_ERROR'})
                             }if ( groupPassword === credentials.groupPassword){
                                 groupSignInValidate = true
+                                console.log(members)
+                                if(members.indexOf(userUid)=== -1){
+                                    groupSignInValidate = true
+                                }else{
+                                    dispatch({ type: 'SIGNINGROUP_ERROR_EXIST'})
+                                }
                             }
                         } 
                     })
@@ -145,8 +154,9 @@ export const signInGroup = (credentials) => {
                 if( groupSignInValidate && userUid ){
         //(2)update the userUid in the members array
                     firestore.collection('groups').doc(groupUid).update({
+                        [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,points:0,userUid:userUid},
                         members:firestore.FieldValue.arrayUnion(userUid),
-                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
+                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                     }).then(()=>{
         //(3)update the groupUid in the users groups array
                         firestore.collection('users').doc(userUid).update({
@@ -195,7 +205,8 @@ export const signUpGroup = (newGroup) => {
                     firestore.collection('groups').add({
                         ...newGroup,
                         members:firestore.FieldValue.arrayUnion(userUid),
-                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
+                        [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,points:0,userUid:userUid},
+                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                     }).then(resp => {
         //(3)update to the user database with the groupUid
                         let groupUid = resp.id

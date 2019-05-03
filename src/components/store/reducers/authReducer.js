@@ -55,6 +55,12 @@ const authReducer = (state = initState, action ) => {
                 ...state,
                 groupError: "That was an invalid password"
                     }
+        case 'SIGNINGROUP_ERROR_EXIST':
+        console.log('This member already exist')
+        return {
+            ...state,
+            groupError: "You have been already joined this group"
+                }
         case 'SIGNUPGROUP_SUCCESS':
             console.log('signup group success')
             return {
