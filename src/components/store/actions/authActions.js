@@ -122,6 +122,7 @@ export const signInGroup = (credentials) => {
         const profile = getState().firebase.profile;
         let groupSignInValidate = false;
         let groupUid = null;
+        console.log('click')
         if ( groupId.length === 0 || groupPassword.length === 0 ){
             dispatch({ type: 'SIGNINGROUP_EMPTY'})
             return
@@ -139,10 +140,8 @@ export const signInGroup = (credentials) => {
                             if ( groupPassword !== credentials.groupPassword){
                                 dispatch({ type: 'SIGNINGROUP_ERROR'})
                             }if ( groupPassword === credentials.groupPassword){
-                                groupSignInValidate = true
                                 if(members.indexOf(userUid)=== -1){
                                     groupSignInValidate = true
-                                    console.log(groupUid)
                                 }else{
                                     dispatch({ type: 'SIGNINGROUP_ERROR_EXIST'})
                                 }
@@ -150,29 +149,31 @@ export const signInGroup = (credentials) => {
                         } 
                     })
                 } 
-            })
-            .then(() => {
+            }).then(() => {
                 if( groupSignInValidate && userUid ){
         //(2)update the userUid in the members array
                     firestore.collection('groups').doc(groupUid).update({
                         [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor || null,points:0,userUid:userUid},
                         members:firestore.FieldValue.arrayUnion(userUid),
                         [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor|| null,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
-                    }).then(()=>{
-        //(3)update the groupUid in the users groups array
-                        firestore.collection('users').doc(userUid).update({
-                            groupsUid:firestore.FieldValue.arrayUnion(groupUid),
-                            defaultGroup: groupUid
-                        })
                     }).catch(err => console.log(err))
                 }
+            }).then(()=>{
+                //(3)update the groupUid in the users groups array
+                if(groupSignInValidate && userUid ){
+                    firestore.collection('users').doc(userUid).update({
+                                groupsUid:firestore.FieldValue.arrayUnion(groupUid),
+                                defaultGroup: groupUid
+                            }).catch(err => console.log(err))
+                }
+
             }).then(()=>{
                 if(groupSignInValidate && userUid ){
                     dispatch({ type: 'SIGNINGROUP_SUCCESS'})
                 }
             }).then(()=>{
                 if(groupSignInValidate && userUid){
-                    window.location= '/'
+                    window.location.hash = '#/'
                 }
             }).catch(err => console.log(err))
         }
@@ -205,9 +206,7 @@ export const signUpGroup = (newGroup) => {
         //(2)If it is new groupId update the members array in the firestorecollection('groups') with the form information groupName, groupId, groupPassword, members userUid
                     firestore.collection('groups').add({
                         ...newGroup,
-                        members:firestore.FieldValue.arrayUnion(userUid),
-                        [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,points:0,userUid:userUid},
-                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
+                        members:firestore.FieldValue.arrayUnion(userUid)
                     }).then(resp => {
         //(3)update to the user database with the groupUid
                         let groupUid = resp.id
@@ -216,7 +215,9 @@ export const signUpGroup = (newGroup) => {
                             defaultGroup: groupUid
                         })
                         firestore.collection('groups').doc(groupUid).update({
-                            groupUid: groupUid
+                            groupUid: groupUid,
+                            [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor||null,points:0,userUid:userUid},
+                            [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor||null,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                         })
                     }).then(
                         dispatch({ type: 'SIGNUPGROUP_SUCCESS'})
@@ -245,16 +246,6 @@ export const leaveGroup = () => {
         let newDefaultGroup = null;
         let noDefaultGroup = false
         if (defaultGroup){ 
-
-            if (groupsUid.length === 1){
-                console.log('不可以換下一個')
-                console.log('window.location.href = /signgroup/signin ')
-            }{
-                // pullAtValue(groupsUid,defaultGroup)
-                // console.log('可以換下一個',groupsUid)
-                // newDefaultGroup = groupsUid.pop()
-                // console.log('new',newDefaultGroup)
-            }
             firestore.collection('groups').doc(defaultGroup).update({
                 members:firestore.FieldValue.arrayRemove(userUid),
                 [`membersInfo.${userUid}`]:firestore.FieldValue.delete(),

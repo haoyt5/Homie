@@ -15,6 +15,26 @@ export const fetchGroupList = (groupsUid) => {
         })
     }
 }
+export const fetchGroupPoints = () => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        let groupsData=[];
+        console.log('fetchGroupPoints')
+        const defaultGroup = getState().firebase.profile
+        console.log(defaultGroup)
+        //(1) groupsUid fetch the groups doc name groupsUid
+        // const firestore = getFirestore();
+        // groupsUid.map( (groupUid) => {
+        //     return (
+        //         firestore.collection('groups').doc(groupUid).get().then(
+        //             documentSnapshot => {
+        //                 groupsData =[...groupsData,documentSnapshot.data()]
+        //             }).then(()=>{
+        //                 dispatch({ type: 'GROUP_ADD',groupsData})
+        //             }) 
+        //     )
+        // })
+    }
+}
 export const fetchGroupDetails = (userUid) => {
     return (dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore()

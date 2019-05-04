@@ -24,24 +24,24 @@ class Dashboard extends Component {
         memberBar: false,
         settingBar:false,
         data: [    {
-            "name": "Karen",
+            "firstname": "Karen",
             "points":5,
-            "color":"#845EC2"
+            "userColor":"#845EC2"
         },
         {
-            "name": "Sherlock",
+            "firstname": "Sherlock",
             "points":3,
-            "color":"#FF6F91"
+            "userColor":"#FF6F91"
         },
         {
-            "name": "Watson",
+            "firstname": "Watson",
             "points":7,
-            "color":"#FF9671"
+            "userColor":"#FF9671"
         },
         {
-            "name": "Molly",
+            "firstname": "Molly",
             "points":12,
-            "color":"#FFC75F"
+            "userColor":"#FFC75F"
         }]
     }
     togglePopup = () => {
@@ -94,11 +94,17 @@ class Dashboard extends Component {
             this.props.fetchGroupDetails(this.props.auth.uid)
         }
     }
+    
     componentWillUnmount(){
-        this.props.fetchTaskList()
+       
     }
     render(){
         const { membersInfo, completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
+        let pointsData =[]
+        const {membersPointsRecord} = this.props
+        this.props.membersPointsRecord && Object.keys(membersPointsRecord).forEach(e => {
+            pointsData.push(membersPointsRecord[e])
+        })
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
@@ -157,7 +163,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">  
-                    <BarChart data={this.state.data} width={this.state.width} height={this.state.height} />
+                    <BarChart data={this.props.pointsData} width={this.state.width} height={this.state.height} />
                     </div>
                     
                     <div className="container">
@@ -176,10 +182,16 @@ class Dashboard extends Component {
     }
 }
 const mapStateToProps = (state) => {  
+    let pointsData =[]
+    const membersPointsData = state.group.defaultGroupData ? state.group.defaultGroupData.pointsRecord : null
+    membersPointsData && Object.keys(membersPointsData).forEach(e => {
+        pointsData.push(membersPointsData[e])
+    })
+
     const defaultGroupData = state.group.defaultGroupData ? state.group.defaultGroupData :null
     const auth = state.firebase.auth ? state.firebase.auth : null
     const membersInfo = state.group.defaultGroupData ? state.group.defaultGroupData.membersInfo : null
-
+    const membersPointsRecord = state.group.defaultGroupData ? state.group.defaultGroupData.pointsRecord : null
     return {
         tasks: state.firestore.ordered.tasks,
         auth: auth,
@@ -188,18 +200,20 @@ const mapStateToProps = (state) => {
         profile:state.firebase.profile,
         defaultGroupData:defaultGroupData,
         membersInfo:membersInfo,
+        membersPointsRecord:membersPointsRecord,
         tasksData:state.task.tasksData,
         unassignedTasksData: state.task.unassignedTasksData,
         assignedTasksData: state.task.assignedTasksData,
         pendingTasksData: state.task.pendingTasksData,
-        completeTasksData: state.task.completeTasksData
+        completeTasksData: state.task.completeTasksData,
+        pointsData:pointsData
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchGroupList: (groupsUid) => dispatch(fetchGroupList(groupsUid)),
         fetchTaskList: (userUid) => dispatch(fetchTaskList(userUid)),
-        fetchGroupDetails: (groupUid) => dispatch(fetchGroupDetails(groupUid)),
+        fetchGroupDetails: (groupUid) => dispatch(fetchGroupDetails(groupUid))
     }
 
 }

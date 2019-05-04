@@ -20,9 +20,6 @@ export class SignUpGroup extends Component {
     }
     
   render() {
-   
-    // const { groupError } = this.props
-    // if(groupError) return console.log( groupError )
     return (
         <div className="formoutter">
           <div className="formwrapper-bottom">

@@ -4,14 +4,14 @@ export class BarChart extends Component {
 
 
   componentDidMount() {
-    this.drawChart();
-    this.createBarchart()
+   
   
   }
   componentDidUpdate(){
-    this.createBarchart()
-  }
-  createBarchart(){
+    if (this.props.data.length !== 0){
+      console.log(this.props.data)
+      this.drawChart();
+    }
   }
   drawChart() {      
     const svg = d3.select("#chart").append("svg")
@@ -41,13 +41,13 @@ export class BarChart extends Component {
     .data(this.props.data)
 
     // const min = d3.min(this.props.data, d => d.points)
-    const max = d3.max(this.props.data, d => d.points)
-
+    let max = d3.max(this.props.data, d => d.points)
+    if (max===0){ max = 10 }
     const x = d3.scaleLinear()
                 .domain([0,max])
                 .range([0,graphWidth]);
     const y = d3.scaleBand()
-                .domain(this.props.data.map(data => data.name))
+                .domain(this.props.data.map(data => data.firstname))
                 .range([graphHeight,0])
                 .padding(0.5)
           
@@ -58,11 +58,11 @@ export class BarChart extends Component {
     .attr("width", (d, i) => x(d.points)+`%`)
     .attr("y", (d, i) => {
         return(
-           y(d.name)+`%`
+           y(d.firstname)+`%`
         ) 
     })
     .attr("x", (d, i) => 0)
-    .attr("fill", (d, i) => {return(d.color)})
+    .attr("fill", (d, i) => {return(d.userColor)})
     .attr("radius",5)
     
     rects.enter()
@@ -74,12 +74,12 @@ export class BarChart extends Component {
     .attr("width", (d, i) => x(d.points)+`%`)
     .attr("y", (d, i) => {
         return(
-           y(d.name)- 2 +`%`
+           y(d.firstname)- 2 +`%`
         ) 
     })
     .attr("x", 0)
     .text(function(d){
-    return `${d.name} : ${d.points} points` }
+    return `${d.firstname} : ${d.points} points` }
        )
     .style("backgroud-color", "white");
 

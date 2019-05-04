@@ -108,8 +108,7 @@ export const fetchTaskList = (userUid) => {
                                 })
                             })
                         })
-                    })
-                    
+                    }) 
                 }
             }).catch(err=>{
                 console.log(err)

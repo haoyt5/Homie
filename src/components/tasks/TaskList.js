@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 class TaskList extends Component {
+    
     render(){
         const { completeTasks, pendingTasks, assignedTasks, unassignedTasks }  = this.props
         return (
@@ -21,6 +22,7 @@ class TaskList extends Component {
                 </div>
 
                 {this.props.unassignedTasks[0] ? (
+                
                 <div className="container ">
                 {  unassignedTasks && unassignedTasks.map( task => {
                         return (
