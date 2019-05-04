@@ -3,6 +3,7 @@ import TaskList from '../tasks/TaskList';
 import BarChart from '../chart/BarChart'
 import Landing from '../dashboard/Landing'
 import GroupPopup from '../dashboard/GroupPopup' 
+import InfoWindow from '../alert/InfoWindow'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom' 
 
@@ -19,6 +20,7 @@ class Dashboard extends Component {
     }
     state = {
         groupPopup: false,
+        leavePopup:false,
         memberBar: false,
         settingBar:false,
         data: [    {
@@ -81,6 +83,11 @@ class Dashboard extends Component {
         }
 
     }
+    toggleLeaveGruop = (e) => {
+        this.setState(prevState => ({
+            leavePopup: !prevState.leavePopup
+        }))
+    }
     componentDidMount(){
         if(this.props.auth.uid){
             this.props.fetchTaskList(this.props.auth.uid)
@@ -96,6 +103,7 @@ class Dashboard extends Component {
             return (
                 <div className="dashboard-wrapper">
                 { this.state.groupPopup ? <GroupPopup togglePopup={ this.togglePopup.bind(this) } groupsData={ this.props.groupsData }/> : null }
+                { this.state.leavePopup ? <InfoWindow toggleLeaveGroup={ this.toggleLeaveGruop.bind(this) }/> : null}
                     <div className="container">
                         <div className="selected-wrapper">
                             <div className="selected-group" onClick={this.togglePopup}>
@@ -140,11 +148,9 @@ class Dashboard extends Component {
                                         <FontAwesomeIcon icon={faDoorOpen}/>  Join new group
                                     </div>
                                     </Link>
-                                    <div className="setting-button">
+                                    <div onClick={this.toggleLeaveGruop}
+                                         className="setting-button">
                                         <FontAwesomeIcon icon={faUnlink }/> Leave this group
-                                    </div>
-                                    <div className="setting-button">
-                                        <FontAwesomeIcon icon={faUserPlus}/>  Add member
                                     </div>
                                 </div>
                             ) : null }
@@ -155,7 +161,7 @@ class Dashboard extends Component {
                     </div>
                     
                     <div className="container">
-                    {this.state.groupPopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
+                    {this.state.groupPopup || this.state.leavePopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
                     </div>
                 </div>
             )
@@ -193,14 +199,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchGroupList: (groupsUid) => dispatch(fetchGroupList(groupsUid)),
         fetchTaskList: (userUid) => dispatch(fetchTaskList(userUid)),
-        fetchGroupDetails: (groupUid) => dispatch(fetchGroupDetails(groupUid)) 
+        fetchGroupDetails: (groupUid) => dispatch(fetchGroupDetails(groupUid)),
     }
 
 }
 export default  connect( mapStateToProps, mapDispatchToProps)(Dashboard);
-// export default compose(
-//     connect( mapStateToProps, mapDispatchToProps),
-//     firestoreConnect([
-//         { collection: 'tasks' , orderBy:['createAt','desc']}
-//     ])
-// )(Dashboard);

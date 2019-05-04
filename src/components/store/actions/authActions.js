@@ -70,7 +70,7 @@ export const googleLogin = () =>{
         firebase.auth().signInWithPopup(provider)
         .then((result)=> {
             console.log(result)
-            const {  name,given_name,family_name, picture,email} = result.additionalUserInfo.profile
+            const {  given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
                 const { user } = result
 
@@ -140,9 +140,9 @@ export const signInGroup = (credentials) => {
                                 dispatch({ type: 'SIGNINGROUP_ERROR'})
                             }if ( groupPassword === credentials.groupPassword){
                                 groupSignInValidate = true
-                                console.log(members)
                                 if(members.indexOf(userUid)=== -1){
                                     groupSignInValidate = true
+                                    console.log(groupUid)
                                 }else{
                                     dispatch({ type: 'SIGNINGROUP_ERROR_EXIST'})
                                 }
@@ -150,20 +150,21 @@ export const signInGroup = (credentials) => {
                         } 
                     })
                 } 
-            }).then(() => {
+            })
+            .then(() => {
                 if( groupSignInValidate && userUid ){
         //(2)update the userUid in the members array
                     firestore.collection('groups').doc(groupUid).update({
-                        [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,points:0,userUid:userUid},
+                        [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor || null,points:0,userUid:userUid},
                         members:firestore.FieldValue.arrayUnion(userUid),
-                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
+                        [`membersInfo.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor|| null,photoURL:`${profile.photoURL}` ||  null ,userUid:userUid}
                     }).then(()=>{
         //(3)update the groupUid in the users groups array
                         firestore.collection('users').doc(userUid).update({
                             groupsUid:firestore.FieldValue.arrayUnion(groupUid),
                             defaultGroup: groupUid
                         })
-                    })
+                    }).catch(err => console.log(err))
                 }
             }).then(()=>{
                 if(groupSignInValidate && userUid ){
@@ -171,9 +172,9 @@ export const signInGroup = (credentials) => {
                 }
             }).then(()=>{
                 if(groupSignInValidate && userUid){
-                    window.location.hash = '#/'
+                    window.location= '/'
                 }
-            })
+            }).catch(err => console.log(err))
         }
     }
 }
@@ -224,6 +225,61 @@ export const signUpGroup = (newGroup) => {
                     })
                 }
             })
+        }
+    }
+}
+const pullAtValue = (arr, pullArr) => {
+    let removed = [],
+      pushToRemove = arr.forEach((v, i) => (pullArr.includes(v) ? removed.push(v) : v)),
+      mutateTo = arr.filter((v, i) => !pullArr.includes(v));
+    arr.length = 0;
+    mutateTo.forEach(v => arr.push(v));
+    return removed;
+  };
+export const leaveGroup = () => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        const userUid = getState().firebase.auth.uid;
+        const profile = getState().firebase.profile;
+        const { defaultGroup, groupsUid } = getState().firebase.profile;
+        let newDefaultGroup = null;
+        let noDefaultGroup = false
+        if (defaultGroup){ 
+
+            if (groupsUid.length === 1){
+                console.log('不可以換下一個')
+                console.log('window.location.href = /signgroup/signin ')
+            }{
+                // pullAtValue(groupsUid,defaultGroup)
+                // console.log('可以換下一個',groupsUid)
+                // newDefaultGroup = groupsUid.pop()
+                // console.log('new',newDefaultGroup)
+            }
+            firestore.collection('groups').doc(defaultGroup).update({
+                members:firestore.FieldValue.arrayRemove(userUid),
+                [`membersInfo.${userUid}`]:firestore.FieldValue.delete(),
+                [`pointsRecord.${userUid}`]:firestore.FieldValue.delete(),
+            }).then(()=>{
+                if (groupsUid === 1){
+                    noDefaultGroup = true
+                } else {
+                    pullAtValue(groupsUid,defaultGroup)
+                    newDefaultGroup = groupsUid.pop()
+                }
+            }).then(()=>{
+                firestore.collection('users').doc(userUid).update({
+                    groupsUid:firestore.FieldValue.arrayRemove(defaultGroup),
+                    defaultGroup: newDefaultGroup
+                })
+            }).then(()=>{
+                if (noDefaultGroup){
+                    window.location.hash = '#/signgroup/signin'
+                }else{
+                    window.location = '/'
+                }
+            })
+        } else {
+            return 
         }
     }
 }

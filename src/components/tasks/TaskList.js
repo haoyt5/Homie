@@ -5,7 +5,7 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 class TaskList extends Component {
     render(){
-        const { completeTasks, pendingTasks, assignedTasks, unassignedTasks, task }  = this.props
+        const { completeTasks, pendingTasks, assignedTasks, unassignedTasks }  = this.props
         return (
             <div className="tasklist-wapper">
                 {/* <div className="container">

@@ -17,14 +17,10 @@ export class TaskProcess extends Component {
     componentWillUnmount(){
         this.props.fetchTask()
     }
-    // getSnapshotBeforeUpdate(nextProps, nextState){
-    //     console.log('nextProps',nextProps)
-    //     console.log('nextState',nextState)
-    // }
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { pendingImgURL, assign, author, content, title } = this.props.taskdetails.data
+        const { pendingImgURL, assign, author, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">

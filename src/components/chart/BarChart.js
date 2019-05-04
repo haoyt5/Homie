@@ -40,7 +40,7 @@ export class BarChart extends Component {
     const rects =  graph.selectAll("rect")
     .data(this.props.data)
 
-    const min = d3.min(this.props.data, d => d.points)
+    // const min = d3.min(this.props.data, d => d.points)
     const max = d3.max(this.props.data, d => d.points)
 
     const x = d3.scaleLinear()

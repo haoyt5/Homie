@@ -254,6 +254,9 @@ a:focus {
     color:#FF8300;
     margin:1rem 0;
 }
+.browncolor-icon{
+    color:#D3A971;
+}
 .information-window h2{
     color:#7F7F7F;
     margin:0.5rem 0;
@@ -371,6 +374,24 @@ a:focus {
     transition: 1s;
     transform: scale(1.01);
     /* background-image: linear-gradient(to right top, #fae3b9, #f8d094, #f6bb71, #f6a550, #f68d31, #f78c29, #f88c1f, #f98b13, #fba428, #fcbb3f, #fdd158, #ffe673); */
+}
+.small-square-button{
+    background-color: #D3A971;
+    color:white;
+    border:0;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding:0.3rem 2.3rem;
+    line-height: 1.5rem;
+    border-radius: 5px;
+    margin:0 0.8rem;
+}
+.small-square-button:hover,
+.small-square-button:active{
+    background-color: #C49A66;
+    transition: 1s;
+    transform: scale(1.01);  
 }
 .medium-square-button{
     background-color: #D3A971;
@@ -836,7 +857,6 @@ bg-color-dashboard{
 }
 .circle-wrapper > .member-img-holder{
     color:white;
-    background-color: #A5A5A5;
     border-radius: 50%;
     position:absolute;
     top:0;
@@ -846,6 +866,7 @@ bg-color-dashboard{
     max-width:100%;
     margin:auto;
     overflow: hidden;
+    background-color: #A5A5A5;
 }
 .circle-name{
     font-size: 0.5rem;
