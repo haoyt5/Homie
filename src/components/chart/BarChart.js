@@ -9,7 +9,6 @@ export class BarChart extends Component {
   }
   componentDidUpdate(){
     if (this.props.data.length !== 0){
-      console.log(this.props.data)
       this.drawChart();
     }
   }
@@ -42,7 +41,7 @@ export class BarChart extends Component {
 
     // const min = d3.min(this.props.data, d => d.points)
     let max = d3.max(this.props.data, d => d.points)
-    if (max===0){ max = 10 }
+    if ( max===0 ){ max = 5 }
     const x = d3.scaleLinear()
                 .domain([0,max])
                 .range([0,graphWidth]);

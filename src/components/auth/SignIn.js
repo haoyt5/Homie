@@ -30,7 +30,7 @@ export class SignIn extends Component {
 
     }
   render() {
-    const { authError, auth, profile } = this.props;
+    const { authError } = this.props;
     // if (auth.uid && !profile.defaultGroup) return <Redirect to ='/' />
     // if (auth.uid && profile.defaultGroup) return <Redirect to ='/' />
     return (

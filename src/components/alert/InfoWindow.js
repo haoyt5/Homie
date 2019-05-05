@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle, faRunning } from '@fortawesome/free-solid-svg-icons';
+import { faRunning } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux'
 import { confirmTaskAlert } from '../store/actions/taskActions'
 import { leaveGroup } from '../store/actions/authActions'

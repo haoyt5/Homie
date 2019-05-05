@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom' 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorOpen, faAngleDown, faUser, faCog, faUserPlus, faUnlink, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faDoorOpen, faAngleDown, faUser, faCog, faUnlink, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions'
 import { fetchTaskList } from '../store/actions/taskActions'
@@ -49,6 +49,7 @@ class Dashboard extends Component {
             if (this.props.profile.defaultGroup) {
                 this.props.fetchGroupList(this.props.groupsUid)
                 this.props.fetchTaskList()
+                this.props.fetchGroupDetails()
             }
            
         } 
@@ -93,10 +94,9 @@ class Dashboard extends Component {
             this.props.fetchTaskList(this.props.auth.uid)
             this.props.fetchGroupDetails(this.props.auth.uid)
         }
-    }
-    
+    }  
     componentWillUnmount(){
-       
+        this.props.fetchGroupDetails()
     }
     render(){
         const { membersInfo, completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props
@@ -163,7 +163,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                     <div className="container">  
-                    <BarChart data={this.props.pointsData} width={this.state.width} height={this.state.height} />
+                    {this.state.groupPopup || this.state.leavePopup ? null :<BarChart data={this.props.pointsData} width={this.state.width} height={this.state.height} />}
                     </div>
                     
                     <div className="container">

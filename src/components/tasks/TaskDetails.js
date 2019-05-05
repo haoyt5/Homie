@@ -19,7 +19,6 @@ export class TaskDetails extends Component {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
         const { expiryDate, author, content, title } = this.props.taskdetails.data
-        console.log(expiryDate.toDate())
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">

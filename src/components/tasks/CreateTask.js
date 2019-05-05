@@ -52,7 +52,7 @@ export class CreatTask extends Component {
                 <div className="container">           
                 <h1 className="alert-icon"><FontAwesomeIcon icon={ faExclamationTriangle }/></h1>
                 <h2>Error</h2>
-                <h4>The form cannot be submitted because of an error</h4>
+                <h4>The field of title cannot be empty</h4>
                 <hr/>
                 <button className="medium-button"
                           onClick={ this.handleAlert }>OK</button>

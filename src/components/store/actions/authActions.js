@@ -241,7 +241,6 @@ export const leaveGroup = () => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
         const userUid = getState().firebase.auth.uid;
-        const profile = getState().firebase.profile;
         const { defaultGroup, groupsUid } = getState().firebase.profile;
         let newDefaultGroup = null;
         let noDefaultGroup = false

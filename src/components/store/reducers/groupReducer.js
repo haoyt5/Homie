@@ -22,6 +22,11 @@ const groupReducer = (state = initState, action ) => {
             ...state,
             defaultGroupData:action.groupData
             }
+        case 'GET_GROUP_EMPTY':
+        return {
+            ...state,
+            defaultGroupData:null
+            }
         default:
             return state
     }
