@@ -332,7 +332,7 @@ a:focus {
     box-shadow: 0px 4px 5px -2px rgba(235,235,235,1);
 }
 .formwrapper-top{
-    padding:0 0rem 0.5rem 0rem;
+    padding:0 1rem 0.5rem 1rem;
     text-align: left;
     min-width:50%;
     border: 0.5px solid #E8E8E8;
@@ -342,20 +342,6 @@ a:focus {
     -moz-box-shadow: 0px -3px 5px -4px rgba(235,235,235,1);
     box-shadow: 0px -3px 5px -4px rgba(235,235,235,1);
 }
-@media(max-width:800px){
-    .formwrapper{
-        width:80%;
-    }
-}
-@media(max-width:600px){
-    .formwrapper{
-        width:100%;
-    }
-}
-.feature-row{
-    text-align: center;
-}
-
 .medium-button{
     /* background-color: #EDAA15; */
     background-color: #FF8300;
@@ -375,6 +361,29 @@ a:focus {
     transform: scale(1.01);
     /* background-image: linear-gradient(to right top, #fae3b9, #f8d094, #f6bb71, #f6a550, #f68d31, #f78c29, #f88c1f, #f98b13, #fba428, #fcbb3f, #fdd158, #ffe673); */
 }
+@media(max-width:800px){
+    .formwrapper{
+        width:80%;
+    }
+    .formwrapper-bottom,
+    .formwrapper-top{
+        width:60%;
+    }
+}
+@media(max-width:600px){
+    .formwrapper{
+        width:100%;
+    }
+    .formwrapper-bottom,
+    .formwrapper-top{
+        width:80%;
+    }
+}
+.feature-row{
+    text-align: center;
+}
+
+
 .small-square-button{
     background-color: #D3A971;
     color:white;
@@ -492,10 +501,12 @@ a:focus {
     width: 50%;
     text-align: center;  
     padding:1rem 0  1rem 0; 
+    /* border:1px solid black; */
 }
 a.signgroup-tab:hover{
-   background-color:#ebebeb;
-   color: #FFBC00;
+   /* background-color:#ebebeb; */
+   border-radius: 5px;
+   color: #FF8300;
    transition: 0.5s;
 }
 a.signgroup-tab:active,
