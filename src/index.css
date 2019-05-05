@@ -656,17 +656,12 @@ a.signgroup-tab:focus{
 .col-2-1{
     width:50%;
     cursor: default;
-}
-.campaign-block{
     display: flex;
     height: 100%;
     justify-content: center;
     flex-direction: column;
     line-height: 2.5rem;
 }
-/* .campaign-item{
-    align-self: center;
-} */
 .brand{
     color: #F8C633;
     cursor: grabbing;
@@ -692,10 +687,29 @@ a.signgroup-tab:focus{
 }
 .logo-block{
     display: flex;
-    height: 100%;
     justify-content: center;
     flex-direction: column;
     line-height: 2.5rem;
+}
+@media(max-width:700px){
+    .col-2-1{
+      width:100%;
+      height:40%;
+    }
+    /* .campaign-block-title{
+        font-size: 1.6rem;
+    } */
+    .welcome-wrapper{
+        text-align: center;
+
+    }
+    .welcome-wrapper >.container{
+        display: inline-block;
+    }
+    .campaign-block{
+        text-align: left;
+    }
+
 }
 .logo-holder{
     cursor: grabbing;
