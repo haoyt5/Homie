@@ -100,7 +100,7 @@ export class CreatTask extends Component {
                           onChange={this.toggleChange}/>
                   <span className="checkmark "></span>
               </div>
-              <div className="checkbox-text">verified by image</div>
+              <div className="checkbox-text">Photo proof</div>
               </div>
 
               <label className="label-font" htmlFor="content">Description</label>

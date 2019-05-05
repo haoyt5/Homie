@@ -70,7 +70,9 @@ class TaskList extends Component {
                 <div className="container">
                     <div className="empty-card"></div>
                 </div>)}
-                <h3 className="title">PENDING APPROVAL</h3>
+                <div className="title-row">
+                    <h3 className="row-title">PENDING APPROVAL</h3>
+                </div>
                 {this.props.pendingTasks[0]?(
                     <div className="container ">
                     {  pendingTasks && pendingTasks.map( task => {
@@ -94,7 +96,9 @@ class TaskList extends Component {
                 <div className="container">
                     <div className="empty-card"></div>
                 </div>)}
-                <h3 className="title">COMPLETE</h3>
+                <div className="title-row">
+                    <h3 className="row-title">COMPLETE</h3>
+                </div>
                 {this.props.completeTasks[0] ? (
                 <div className="container ">
                     {  completeTasks && completeTasks.map( task => {

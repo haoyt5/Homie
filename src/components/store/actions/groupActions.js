@@ -21,6 +21,7 @@ export const fetchGroupDetails = (userUid) => {
         const firestore = getFirestore()
         let groupData;
         if(userUid){
+
             firestore.collection('users').doc(userUid).get()
             .then(doc => { 
                 const defaultGroup  = doc.data().defaultGroup || null
@@ -34,8 +35,9 @@ export const fetchGroupDetails = (userUid) => {
                     }).then(()=>{
                         dispatch({type: 'GET_GROUP', groupData})
                     })
+                }else{
+                    dispatch({type: 'GET_GROUP_EMPTY'})
                 }
-    
             })
         }else{
             console.log('EMPTY')

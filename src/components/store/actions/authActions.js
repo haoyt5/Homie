@@ -72,12 +72,14 @@ export const googleLogin = () =>{
             console.log(result)
             const {  given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
+                let initName = given_name[0] || ' '
+                let initLName = family_name[0] || ' '
                 const { user } = result
 
                 firestore.collection('users').doc(user.uid).set({
                     firstname: given_name || '',
                     lastname: family_name || '',
-                    initials:  given_name[0] || '' +  family_name[0] || '',
+                    initials:  initName + initLName,
                     photoURL: picture,
                     email: email,
                     createAt: firestore.FieldValue.serverTimestamp(),
