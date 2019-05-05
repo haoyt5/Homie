@@ -20,14 +20,14 @@ export class TaskProcess extends Component {
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { pendingImgURL, assign, author, title } = this.props.taskdetails.data
+        const { expiryDate,pendingImgURL, assign, author, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
                     <h2 className="sub-instruciton-title">Approve the Task</h2>
                     <div className="task-card">
                             <h2 className="title">{title}</h2>
-                            <p className="expirydate">Expiry Date | Wed</p>
+                            <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
                             <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p className="expirydate">Posted by | {author}</p>
                             {pendingImgURL ? (
