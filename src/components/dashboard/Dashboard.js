@@ -96,7 +96,9 @@ class Dashboard extends Component {
         }
     }  
     componentWillUnmount(){
+        console.log('unmount dashboard EMPTY')
         this.props.fetchGroupDetails()
+        this.props.fetchTaskList()
     }
     render(){
         const { membersInfo, completeTasksData, pendingTasksData,assignedTasksData, unassignedTasksData, tasksData, auth } = this.props

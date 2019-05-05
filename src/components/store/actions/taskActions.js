@@ -142,10 +142,13 @@ export const acceptTask = (taskUid) => {
         }).then(() => {
             firestore.collection('users').doc(userUid).update({
                 [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+            }).then(()=>{
+                dispatch({type: 'EMPTY_TASKS'})
             })
-        }).then(() => {
-            window.location.hash = '#/'
-        })
+            .then(() => {
+                window.location.hash = '#/'
+            })
+        }).catch((err)=>{console.log(err)})
 
     }
 };
@@ -179,9 +182,13 @@ export const reportTaskWithImage = (taskUid, assign ,file) => {
                             firestore.collection('users').doc(userUid).update({
                                 [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
                                 [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                            }).then(()=>{
+                                dispatch({type: 'EMPTY_TASKS'})
+                            }).then(() => {
+                                window.location.hash = '#/'
                             })
-                        }).then(() => {
-                            window.location.hash = '#/'
+                        }).catch(err=>{
+                            console.log(err)
                         })
                     }).catch(err=>{
                         console.log(err)
@@ -220,9 +227,13 @@ export const reportTaskWOImage = (taskUid, assign) => {
                 firestore.collection('users').doc(userUid).update({
                     [`beAssignedTo.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
                     [`pending.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                }).then(()=>{
+                    dispatch({type: 'EMPTY_TASKS'})
+                }).then(() => {
+                    window.location.hash = '#/'
+                }).catch((err)=>{
+                    console.log(err)
                 })
-            }).then(() => {
-                window.location.hash = '#/'
             }).catch((err)=>{
                 console.log(err)
             })
@@ -235,7 +246,6 @@ export const reportTaskWOImage = (taskUid, assign) => {
 export const approveTask = (taskUid, assign) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore()
-        const firebase = getFirebase()
         const groupUid = getState().firebase.profile.defaultGroup
         const userName = getState().firebase.profile.firstname
         const profile = getState().firebase.profile
@@ -246,33 +256,33 @@ export const approveTask = (taskUid, assign) => {
         //(2) update the user doc remove taskUid from the pending and add it to the finish
         //(*) Error Handling check if contain the image or not
         if( userUid !== assignedToUid ) {
-
-            firestore.collection('tasks').doc(taskUid).update({
-                lastUpdateAt:firestore.FieldValue.serverTimestamp(),
-                status: 'complete',
-                approve:{approvedAt:firestore.FieldValue.serverTimestamp(),
-                         approvedBy:userName,
-                         approvedByURL:profile.photoURL || null,
-                         approvedByColor:profile.userColor || null},
-            }).then(() => {
-                firestore.collection('users').doc(assignedToUid).update({
-                    [`pending.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
-                    [`finish.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
-                })
-            }).then(()=>{
-                firestore.collection('groups').doc(groupUid).get().then(doc =>{
-                    const { pointsRecord } = doc.data()
-                    newPoints = pointsRecord[assignedToUid].points + 1
-                    return newPoints
+            firestore.collection('groups').doc(groupUid).get().then(doc =>{
+                const { pointsRecord } = doc.data()
+                newPoints = pointsRecord[assignedToUid].points + 1
+                return newPoints
+            }).then(()=> {
+                firestore.collection('groups').doc(groupUid).update({
+                    [`pointsRecord.${assignedToUid}.points`]:newPoints
                 }).then(()=>{
-                    console.log(newPoints)
-                    firestore.collection('groups').doc(groupUid).update({
-                        [`pointsRecord.${assignedToUid}.points`]:newPoints
-                    })
-                })
-            }).then(() => {
-                window.location.hash = '#/'
-            })
+                    firestore.collection('tasks').doc(taskUid).update({
+                        lastUpdateAt:firestore.FieldValue.serverTimestamp(),
+                        status: 'complete',
+                        approve:{approvedAt:firestore.FieldValue.serverTimestamp(),
+                                 approvedBy:userName,
+                                 approvedByURL:profile.photoURL || null,
+                                 approvedByColor:profile.userColor || null}
+                    }).then(()=>{
+                        firestore.collection('users').doc(assignedToUid).update({
+                            [`pending.${groupUid}`]:firestore.FieldValue.arrayRemove(taskUid),
+                            [`finish.${groupUid}`]:firestore.FieldValue.arrayUnion(taskUid)
+                        }).then(()=>{
+                            dispatch({type: 'EMPTY_TASKS'})
+                        }).then(() => {
+                            window.location.hash = '#/'
+                        }).catch(err=>console.log(err))
+                    }).catch(err=>console.log(err))
+                }).catch(err=>console.log(err))
+            }).catch(err=>console.log(err))
             
         } else {
             alert('It is an invalid action')

@@ -38,6 +38,7 @@ export const fetchGroupDetails = (userUid) => {
     
             })
         }else{
+            console.log('EMPTY')
             dispatch({type: 'GET_GROUP_EMPTY'})
         }
 
