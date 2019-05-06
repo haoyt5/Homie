@@ -6,6 +6,7 @@ const initState = {
     assignedTasksData:[],
     pendingTasksData:[],
     completeTasksData:[],
+    complete:false,
     err:false,
     errMessage:null,
 }
@@ -48,7 +49,8 @@ const taskReducer = (state = initState, action) => {
                 unassignedTasksData:action.unassignedTasksData,
                 assignedTasksData:action.assignedTasksData,
                 pendingTasksData:action.pendingTasksData,
-                completeTasksData:action.completeTasksData
+                completeTasksData:action.completeTasksData,
+                complete:true
             }
         case 'GET_TASK':
             return {
@@ -67,7 +69,8 @@ const taskReducer = (state = initState, action) => {
                 unassignedTasksData:[],
                 assignedTasksData:[],
                 pendingTasksData:[],
-                completeTasksData:[]
+                completeTasksData:[],
+                complete:false
             }
         default:
             return state

@@ -107,6 +107,7 @@ class Dashboard extends Component {
         this.props.membersPointsRecord && Object.keys(membersPointsRecord).forEach(e => {
             pointsData.push(membersPointsRecord[e])
         })
+        console.log(this.props.fetchComplete)
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">
@@ -169,7 +170,7 @@ class Dashboard extends Component {
                     </div>
                     
                     <div className="container">
-                    {this.state.groupPopup || this.state.leavePopup ? null :  <TaskList task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
+                    {this.state.groupPopup || this.state.leavePopup ? null :  <TaskList fetchComplete = {this.props.fetchComplete}  task={ tasksData } unassignedTasks={ unassignedTasksData } assignedTasks={ assignedTasksData } pendingTasks={ pendingTasksData } completeTasks={ completeTasksData }/> }
                     </div>
                 </div>
             )
@@ -208,7 +209,8 @@ const mapStateToProps = (state) => {
         assignedTasksData: state.task.assignedTasksData,
         pendingTasksData: state.task.pendingTasksData,
         completeTasksData: state.task.completeTasksData,
-        pointsData:pointsData
+        pointsData:pointsData,
+        fetchComplete:state.task.complete
     }
 }
 const mapDispatchToProps = (dispatch) => {
