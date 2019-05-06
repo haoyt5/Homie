@@ -67,19 +67,21 @@ export const googleLogin = () =>{
         const firestore = getFirestore();
         const provider = new firebase.auth.GoogleAuthProvider();
         let randomcolor = randomColor({luminosity: 'bright'}); 
+        let initName
+        let initLName 
         firebase.auth().signInWithPopup(provider)
         .then((result)=> {
             console.log(result)
             const {  given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
-                let initName = given_name[0] || ' '
-                let initLName = family_name[0] || ' '
+                initName = given_name|| ' '
+                initLName = family_name|| ' '
                 const { user } = result
 
                 firestore.collection('users').doc(user.uid).set({
                     firstname: given_name || '',
                     lastname: family_name || '',
-                    initials:  initName + initLName,
+                    initials:  initName[0] + initLName[0],
                     photoURL: picture,
                     email: email,
                     createAt: firestore.FieldValue.serverTimestamp(),
