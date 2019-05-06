@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Homie/static/css/main.696a9278.chunk.css",
-    "main.js": "/Homie/static/js/main.61847fa1.chunk.js",
-    "main.js.map": "/Homie/static/js/main.61847fa1.chunk.js.map",
+    "main.css": "/Homie/static/css/main.ad677651.chunk.css",
+    "main.js": "/Homie/static/js/main.6b9b63aa.chunk.js",
+    "main.js.map": "/Homie/static/js/main.6b9b63aa.chunk.js.map",
     "runtime~main.js": "/Homie/static/js/runtime~main.ad1b8cca.js",
     "runtime~main.js.map": "/Homie/static/js/runtime~main.ad1b8cca.js.map",
     "static/js/2.a55e2512.chunk.js": "/Homie/static/js/2.a55e2512.chunk.js",
     "static/js/2.a55e2512.chunk.js.map": "/Homie/static/js/2.a55e2512.chunk.js.map",
     "index.html": "/Homie/index.html",
-    "precache-manifest.ff70bd20385e911542abd0225cae2385.js": "/Homie/precache-manifest.ff70bd20385e911542abd0225cae2385.js",
+    "precache-manifest.e2bfc61954010214087fb1b0bd61d7c6.js": "/Homie/precache-manifest.e2bfc61954010214087fb1b0bd61d7c6.js",
     "service-worker.js": "/Homie/service-worker.js",
-    "static/css/main.696a9278.chunk.css.map": "/Homie/static/css/main.696a9278.chunk.css.map"
+    "static/css/main.ad677651.chunk.css.map": "/Homie/static/css/main.ad677651.chunk.css.map"
   }
 }
