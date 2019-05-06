@@ -20,7 +20,7 @@ export class TaskProcess extends Component {
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { expiryDate,pendingImgURL, assign, author, title } = this.props.taskdetails.data
+        const { content, expiryDate,pendingImgURL, assign, author, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
@@ -30,6 +30,8 @@ export class TaskProcess extends Component {
                             <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
                             <p className="expirydate">Assigned to | {assign.assignedTo}</p>
                             <p className="expirydate">Posted by | {author}</p>
+                            <p className="expirydate">Description</p>
+                                <p>{content}</p>
                             {pendingImgURL ? (
                                 <div>
                                 <p className="expirydate">Image attachment</p>
