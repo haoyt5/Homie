@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faQuestion, faStopwatch,faMapPin } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faQuestion, faStopwatch,faCamera } from '@fortawesome/free-solid-svg-icons';
 
 class TaskList extends Component {
     
@@ -50,6 +50,14 @@ class TaskList extends Component {
                                         </div>                                       
                                         {task.data.content.length !== 0 ?<p className="info-content">{ task.data.content }</p> : <p className="info-content u-invisible"> -- </p>} 
                                         <div className="info-end-row">
+                                        {task.data.verifybyImage ? (
+                                            <p className="expiry-tag">
+                                                <div className="tag-icon">
+                                                    <FontAwesomeIcon  icon={faCamera }/>
+                                                </div>
+                                                <div className="tag-date">proof needed</div>
+                                            </p>
+                                        ): null }
                                             <p className="expiry-tag">
                                                 <div className="tag-icon">
                                                     <FontAwesomeIcon  icon={faStopwatch }/>
@@ -101,6 +109,14 @@ class TaskList extends Component {
                                         </div>                                       
                                         {task.data.content.length !== 0 ?<p className="info-content">{ task.data.content }</p> : <p className="info-content u-invisible"> -- </p>} 
                                         <div className="info-end-row">
+                                            {task.data.verifybyImage ? (
+                                                <p className="expiry-tag">
+                                                    <div className="tag-icon">
+                                                        <FontAwesomeIcon  icon={faCamera }/>
+                                                    </div>
+                                                    <div className="tag-date">proof needed</div>
+                                                </p>
+                                            ): null }
                                             <p className="expiry-tag">
                                                 <div className="tag-icon">
                                                     <FontAwesomeIcon  icon={faStopwatch }/>
@@ -150,6 +166,14 @@ class TaskList extends Component {
                                             </div>                                       
                                             {task.data.content.length !== 0 ?<p className="info-content">{ task.data.content }</p> : <p className="info-content u-invisible"> -- </p>} 
                                             <div className="info-end-row">
+                                            {task.data.verifybyImage ? (
+                                                <p className="expiry-tag">
+                                                    <div className="tag-icon">
+                                                        <FontAwesomeIcon  icon={faCamera }/>
+                                                    </div>
+                                                    <div className="tag-date">proof needed</div>
+                                                </p>
+                                            ): null }
                                                 <p className="expiry-tag">
                                                     <div className="tag-icon">
                                                         <FontAwesomeIcon  icon={faStopwatch }/>
@@ -198,6 +222,14 @@ class TaskList extends Component {
                                             </div>                                       
                                             {task.data.content.length !== 0 ?<p className="info-content">{ task.data.content }</p> : <p className="info-content u-invisible"> -- </p>} 
                                             <div className="info-end-row">
+                                            {task.data.verifybyImage ? (
+                                                <p className="expiry-tag">
+                                                    <div className="tag-icon">
+                                                        <FontAwesomeIcon  icon={faCamera }/>
+                                                    </div>
+                                                    <div className="tag-date">proof needed</div>
+                                                </p>
+                                            ): null }
                                                 <p className="expiry-tag">
                                                     <div className="tag-icon">
                                                         <FontAwesomeIcon  icon={faStopwatch }/>

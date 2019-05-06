@@ -865,7 +865,7 @@ a.signgroup-tab:focus{
     border:1px solid #ededed;
     border-radius: 1rem;
     padding:0 0.3rem;
-    
+    margin:0 0.15rem;
 
 }
 .tag-date{

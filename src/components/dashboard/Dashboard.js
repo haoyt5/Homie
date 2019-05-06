@@ -1,4 +1,4 @@
-wimport React, { Component } from 'react';
+import React, { Component } from 'react';
 import TaskList from '../tasks/TaskList';
 import BarChart from '../chart/BarChart'
 import Landing from '../dashboard/Landing'
