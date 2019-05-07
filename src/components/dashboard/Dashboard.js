@@ -14,35 +14,12 @@ import { fetchGroupList, fetchGroupDetails } from '../store/actions/groupActions
 import { fetchTaskList } from '../store/actions/taskActions'
 
 class Dashboard extends Component {
-    constructor(props){
-        super(props)
-        this.chart = React.createRef();
-    }
+
     state = {
         groupPopup: false,
         leavePopup:false,
         memberBar: false,
-        settingBar:false,
-        data: [    {
-            "firstname": "Karen",
-            "points":5,
-            "userColor":"#845EC2"
-        },
-        {
-            "firstname": "Sherlock",
-            "points":3,
-            "userColor":"#FF6F91"
-        },
-        {
-            "firstname": "Watson",
-            "points":7,
-            "userColor":"#FF9671"
-        },
-        {
-            "firstname": "Molly",
-            "points":12,
-            "userColor":"#FFC75F"
-        }]
+        settingBar:false
     }
     togglePopup = () => {
         if( !this.state.groupPopup ){

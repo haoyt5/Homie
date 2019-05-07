@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Homie/static/css/main.ad677651.chunk.css",
-    "main.js": "/Homie/static/js/main.6b9b63aa.chunk.js",
-    "main.js.map": "/Homie/static/js/main.6b9b63aa.chunk.js.map",
+    "main.css": "/Homie/static/css/main.719edda1.chunk.css",
+    "main.js": "/Homie/static/js/main.5b05b9c1.chunk.js",
+    "main.js.map": "/Homie/static/js/main.5b05b9c1.chunk.js.map",
     "runtime~main.js": "/Homie/static/js/runtime~main.ad1b8cca.js",
     "runtime~main.js.map": "/Homie/static/js/runtime~main.ad1b8cca.js.map",
-    "static/js/2.a55e2512.chunk.js": "/Homie/static/js/2.a55e2512.chunk.js",
-    "static/js/2.a55e2512.chunk.js.map": "/Homie/static/js/2.a55e2512.chunk.js.map",
+    "static/js/2.8a41ff66.chunk.js": "/Homie/static/js/2.8a41ff66.chunk.js",
+    "static/js/2.8a41ff66.chunk.js.map": "/Homie/static/js/2.8a41ff66.chunk.js.map",
     "index.html": "/Homie/index.html",
-    "precache-manifest.e2bfc61954010214087fb1b0bd61d7c6.js": "/Homie/precache-manifest.e2bfc61954010214087fb1b0bd61d7c6.js",
+    "precache-manifest.6284a48085d97f7ea659694d3848ed23.js": "/Homie/precache-manifest.6284a48085d97f7ea659694d3848ed23.js",
     "service-worker.js": "/Homie/service-worker.js",
-    "static/css/main.ad677651.chunk.css.map": "/Homie/static/css/main.ad677651.chunk.css.map"
+    "static/css/main.719edda1.chunk.css.map": "/Homie/static/css/main.719edda1.chunk.css.map"
   }
 }

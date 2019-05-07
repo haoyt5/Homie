@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTask, approveTask } from '../store/actions/taskActions'
-
+import PageLoader from '../layout/PageLoader'
 export class TaskProcess extends Component {
     handleBack = (e) =>{
         e.preventDefault();
@@ -59,15 +59,7 @@ export class TaskProcess extends Component {
            
         )
     } else {
-        return (
-            <div className="container">
-                <div className="bouncing-loader">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        )
+        return <PageLoader />
     }
   }
 }

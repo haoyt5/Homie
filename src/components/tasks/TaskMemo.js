@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AlertWindow from '../alert/AlertWindow'
 import { connect } from 'react-redux';
 import { fetchTask, reportTaskWithImage, reportTaskWOImage } from '../store/actions/taskActions'
+import PageLoader from '../layout/PageLoader'
 export class TaskMemo extends Component {
     constructor(props) {
         super(props)
@@ -109,15 +110,7 @@ export class TaskMemo extends Component {
            
         )
     } else {
-        return (
-            <div className="container">
-                 <div className="bouncing-loader">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        )
+        return <PageLoader />
     }
   }
 }

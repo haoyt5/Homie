@@ -1087,10 +1087,31 @@ bg-color-dashboard{
     width:100%;
     margin: 0.5rem 0;
 }
+
 .barchart-inner{
     padding-top: 20%;
     content:"";
     display: block;
+}
+@media(max-width:800px){
+    .barchart-inner{
+        padding-top: 30%;
+    }
+}
+@media(max-width:600px){
+    .barchart-inner{
+        padding-top: 40%;
+    }
+}
+@media(max-width:425px){
+    .barchart-inner{
+        padding-top: 45%;
+    }
+}
+@media(max-width:375px){
+    .barchart-inner{
+        padding-top: 55%;
+    }
 }
 #chart{
     position:absolute;

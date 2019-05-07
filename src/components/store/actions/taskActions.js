@@ -186,6 +186,8 @@ export const reportTaskWithImage = (taskUid, assign ,file) => {
                                 dispatch({type: 'EMPTY_TASKS'})
                             }).then(() => {
                                 window.location.hash = '#/'
+                            }).catch(err=>{
+                                console.log(err)
                             })
                         }).catch(err=>{
                             console.log(err)

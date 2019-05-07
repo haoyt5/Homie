@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTask, acceptTask } from '../store/actions/taskActions'
+import PageLoader from '../layout/PageLoader'
 export class TaskDetails extends Component {
     handleBack = (e) =>{
         e.preventDefault();
@@ -42,22 +43,11 @@ export class TaskDetails extends Component {
            
         )
     } else {
-        return (
-            <div className="container">
-                <div className="bouncing-loader">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        )
+        return <PageLoader />
     }
   }
 }
 const mapStateToProps = (state, ownProps) => {
-    // const id = ownProps.match.params.id
-    // const tasks = state.firestore.data.tasks
-    // const task = tasks ? tasks[id] : null
     const taskdetails = state.task.taskData ? state.task.taskData : null
     return {
         taskdetails: taskdetails
@@ -72,9 +62,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default    connect(mapStateToProps,mapDispatchToProps)(TaskDetails);
-// export default compose(
-//     connect(mapStateToProps,mapDispatchToProps),
-//     firestoreConnect([
-//         { collection: 'tasks' }
-//     ])
-// )(TaskDetails);
