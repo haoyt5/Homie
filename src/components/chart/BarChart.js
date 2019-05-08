@@ -9,8 +9,6 @@ export class BarChart extends Component {
   }
   componentDidUpdate(){
     if (this.props.data.length !== 0){
-      console.log('DRAWCHART')
-      console.log(this.props.data)
       this.drawChart();
     }
   }

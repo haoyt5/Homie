@@ -84,7 +84,6 @@ class Dashboard extends Component {
         this.props.membersPointsRecord && Object.keys(membersPointsRecord).forEach(e => {
             pointsData.push(membersPointsRecord[e])
         })
-        console.log(this.props.fetchComplete)
         if (auth.uid){
             return (
                 <div className="dashboard-wrapper">

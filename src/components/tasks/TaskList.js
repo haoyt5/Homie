@@ -8,13 +8,12 @@ class TaskList extends Component {
     
     render(){
         const { completeTasks, pendingTasks, assignedTasks, unassignedTasks }  = this.props
-        console.log(this.props)
         return (
             <div className="tasklist-wapper">
                 <div className="title-row">
                     <h3 className="row-title">UNASSIGNED</h3>
                     <Link to="/post" className="row-icon icon-row-button">
-                    <h3><FontAwesomeIcon  icon={faPlusSquare }/></h3>
+                    <h3><FontAwesomeIcon  icon={ faPlusSquare }/></h3>
                     <p>Add another task</p>
                     </Link>
                 </div>
@@ -78,7 +77,7 @@ class TaskList extends Component {
                                     <div className="col-pic">
                                         <div className="card-img-box ">
                                             <div className="card-img-box-inner">
-                                                {task.data.assign.assignedToURL !== null ? <img className="card-img-holder" src={ task.data.assign.assignedToURL } alt=""/> :  <div className="card-img-holder" style={{backgroundColor:task.data.assign.assignedToColor}}><p>{task.data.assign.assignedTo[0]}</p></div> }
+                                                { task.data.assign.assignedToURL !== null ? <img className="card-img-holder" src={ task.data.assign.assignedToURL } alt=""/> :  <div className="card-img-holder" style={{backgroundColor:task.data.assign.assignedToColor}}><p>{task.data.assign.assignedTo[0]}</p></div> }
                                             </div>
                                         </div>
                                     </div>

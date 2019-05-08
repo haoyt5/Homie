@@ -1,3 +1,5 @@
+import { ninvoke } from 'q';
+
 const randomColor = require('randomcolor');
 export const signIn = (credentials) => {
     return (dispatch, getState, {getFirebase}) => {
@@ -233,14 +235,7 @@ export const signUpGroup = (newGroup) => {
         }
     }
 }
-const pullAtValue = (arr, pullArr) => {
-    let removed = [],
-      pushToRemove = arr.forEach((v, i) => (pullArr.includes(v) ? removed.push(v) : v)),
-      mutateTo = arr.filter((v, i) => !pullArr.includes(v));
-    arr.length = 0;
-    mutateTo.forEach(v => arr.push(v));
-    return removed;
-  };
+
 export const leaveGroup = () => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
@@ -248,32 +243,31 @@ export const leaveGroup = () => {
         const { defaultGroup, groupsUid } = getState().firebase.profile;
         let newDefaultGroup = null;
         let noDefaultGroup = false
-        if (defaultGroup){ 
-            firestore.collection('groups').doc(defaultGroup).update({
-                members:firestore.FieldValue.arrayRemove(userUid),
-                [`membersInfo.${userUid}`]:firestore.FieldValue.delete(),
-                [`pointsRecord.${userUid}`]:firestore.FieldValue.delete(),
+        const newGroupsUid = groupsUid.filter(item => item === defaultGroup )
+
+        console.log(groupsUid)
+        console.log(newGroupsUid)
+        console.log(newDefaultGroup)
+        if(!defaultGroup) { return }
+        firestore.collection('groups').doc(defaultGroup).update({
+            members:firestore.FieldValue.arrayRemove(userUid),
+            [`membersInfo.${userUid}`]:firestore.FieldValue.delete(),
+            [`pointsRecord.${userUid}`]:firestore.FieldValue.delete()
+        }).then(()=>{
+            newGroupsUid.length === 1 ?  noDefaultGroup = true : newDefaultGroup = newGroupsUid.pop()
+            if (newGroupsUid.length === 0){
+                noDefaultGroup = true
+                newDefaultGroup = null
+            }else{
+                newDefaultGroup = newGroupsUid.pop()
+            }
+        }).then(()=>{
+            firestore.collection('users').doc(userUid).update({
+                groupsUid:firestore.FieldValue.arrayRemove(defaultGroup),
+                defaultGroup: newDefaultGroup 
             }).then(()=>{
-                if (groupsUid === 1){
-                    noDefaultGroup = true
-                } else {
-                    pullAtValue(groupsUid,defaultGroup)
-                    newDefaultGroup = groupsUid.pop()
-                }
-            }).then(()=>{
-                firestore.collection('users').doc(userUid).update({
-                    groupsUid:firestore.FieldValue.arrayRemove(defaultGroup),
-                    defaultGroup: newDefaultGroup
-                })
-            }).then(()=>{
-                if (noDefaultGroup){
-                    window.location.hash = '#/signgroup/signin'
-                }else{
-                    window.location = '/'
-                }
-            })
-        } else {
-            return 
-        }
+            noDefaultGroup ? window.location.hash = '#/signgroup/signin' : window.location = '/';
+            }).catch(err=>console.log(err))
+        }).catch(err=>console.log(err))
     }
 }

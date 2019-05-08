@@ -7,7 +7,6 @@ import { leaveGroup } from '../store/actions/authActions'
 export class InfoWindow extends Component {
   handleConfirm = () =>{
      this.props.leaveGroup()
-     
   }
   render() {
     return (
