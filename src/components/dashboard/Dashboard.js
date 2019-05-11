@@ -73,7 +73,6 @@ class Dashboard extends Component {
         }
     }  
     componentWillUnmount(){
-        console.log('unmount dashboard EMPTY')
         this.props.fetchGroupDetails()
         this.props.fetchTaskList()
     }
