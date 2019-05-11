@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import * as d3 from 'd3'
 export class BarChart extends Component {
 
-
-  componentDidMount() {
-   
-  
-  }
   componentDidUpdate(){
     if (this.props.data.length !== 0){
       this.drawChart();
@@ -26,20 +21,10 @@ export class BarChart extends Component {
                     .attr('width',graphWidth+`%`)
                     .attr('height',graphHeight+`%`)
                     .style('transform', `translate(${margin.left}% ,${margin.top}% )`)
-    // const xAxisGroup = graph.append('g')
-    //                         .style('width','100%')
-    //                         .style('height','100%')
-    //                         .style('transform', `translate(0 ,${ graphHeight - margin.top}% )`)
-    // const yAxisGroup = graph.append('g')
-    //                         .style('width','100%')
-    //                         .style('height','100%')
-    //                         .style('transform', `translate(0 ,${ margin.top}% )`)
-
-    //join data to react
+    //join data to rectangle
     const rects =  graph.selectAll("rect")
     .data(this.props.data)
 
-    // const min = d3.min(this.props.data, d => d.points)
     let max = d3.max(this.props.data, d => d.points)
     if ( max < 5 ){ max = 5 }
     const x = d3.scaleLinear()
@@ -81,14 +66,6 @@ export class BarChart extends Component {
     return `${d.firstname} : ${d.points} points` }
        )
     .style("backgroud-color", "white");
-
-    
-
-    //create and call the axes
-    // const xAxis = d3.axisBottom(x)
-    // const yAxis = d3.axisLeft(y)
-    // xAxisGroup.call(xAxis)
-    // yAxisGroup.call(yAxis)
              
   }
   render() {
