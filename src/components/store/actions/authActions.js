@@ -72,7 +72,6 @@ export const googleLogin = () =>{
         let initLName 
         firebase.auth().signInWithPopup(provider)
         .then((result)=> {
-            console.log(result)
             const {  given_name,family_name, picture,email} = result.additionalUserInfo.profile
             if( result.additionalUserInfo.isNewUser ){
                 initName = given_name|| ' '
@@ -100,11 +99,9 @@ export const googleLogin = () =>{
                     querySnapshot.forEach( doc => {
                         const defaultGroup = doc.data().defaultGroup || null
                         if (defaultGroup){
-                            console.log(defaultGroup)
                             dispatch({ type: 'LOGIN_SUCCESS' })
                             window.location.hash = '#/'
                         } else {
-                            console.log(defaultGroup)
                             dispatch({ type: 'LOGIN_SUCCESS' })
                             window.location.hash = '#/signgroup/signup'
                         }  
@@ -127,7 +124,6 @@ export const signInGroup = (credentials) => {
         const profile = getState().firebase.profile;
         let groupSignInValidate = false;
         let groupUid = null;
-        console.log('click')
         if ( groupId.length === 0 || groupPassword.length === 0 ){
             dispatch({ type: 'SIGNINGROUP_EMPTY'})
             return
@@ -242,13 +238,7 @@ export const leaveGroup = () => {
         const { defaultGroup, groupsUid } = getState().firebase.profile;
         let newDefaultGroup = null;
         const newGroupsUid = groupsUid.filter(item => item !== defaultGroup );
-        // console.log('the group uid going to drop this',defaultGroup)
-        // console.log('this is the new array of the uid',newGroupsUid)
-        // newDefaultGroup = newGroupsUid.pop()
-        // console.log('maka a new default group',newDefaultGroup,newGroupsUid.pop())
-        // console.log('new uid of the default group ',newGroupsUid)
         if(!defaultGroup) { return }
-
         // remove the user related information of the doc of the group
         firestore.collection('groups').doc(defaultGroup).update({
             members:firestore.FieldValue.arrayRemove(userUid),
@@ -264,7 +254,6 @@ export const leaveGroup = () => {
                     window.location.hash = '#/signgroup/signin'
                 }).catch(err=>console.log(err))
             }else{
-                console.log(newGroupsUid)
                 firestore.collection('users').doc(userUid).update({
                     groupsUid:newGroupsUid,
                     defaultGroup: newGroupsUid[0]
