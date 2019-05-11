@@ -45,19 +45,19 @@ class TaskList extends Component {
                                             {task.data.content.length !== 0 ?<p className="info-content">{ task.data.content }</p> : <p className="info-content u-invisible"> -- </p>} 
                                             <div className="info-end-row">
                                             {task.data.verifybyImage ? (
-                                                <p className="expiry-tag">
+                                                <div className="expiry-tag">
                                                     <div className="tag-icon">
                                                         <FontAwesomeIcon  icon={ faCamera }/>
                                                     </div>
                                                     <div className="tag-date">proof needed</div>
-                                                </p>
+                                                </div>
                                             ): null }
-                                                <p className="expiry-tag">
+                                                <div className="expiry-tag">
                                                     <div className="tag-icon">
                                                         <FontAwesomeIcon  icon={faStopwatch }/>
                                                     </div>
                                                     <div className="tag-date">{ task.data.expiryDate.toDate().toDateString() }</div>
-                                                </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>                                
