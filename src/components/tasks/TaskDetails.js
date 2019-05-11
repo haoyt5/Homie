@@ -29,7 +29,6 @@ export class TaskDetails extends Component {
                             <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
                             <p className="expirydate">Posted by | {author}</p>
                             <p>{content}</p>
-                            
                     </div>
                 </div>
                 <div className="feature-row">
@@ -38,7 +37,6 @@ export class TaskDetails extends Component {
                 <button onClick={this.handleAccept}
                         className="medium-square-button">Accept</button>
                 </div>
-                
             </div>
            
         )
@@ -61,4 +59,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default    connect(mapStateToProps,mapDispatchToProps)(TaskDetails);
+export default connect(mapStateToProps,mapDispatchToProps)(TaskDetails);
