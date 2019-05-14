@@ -33,8 +33,10 @@ describe('render',() =>{
             const button = findTestAttr(wrapper,'createtask-button');
             expect(button.length).toBe(1);
         })
-        test('checkbox start at false',(initState={})=>{
-            
+        test('checkbox of verifybyImage start at false',()=>{
+            const wrapper = setup();
+            const initialCheckboxState = wrapper.state('verifybyImage')
+            expect(initialCheckboxState).toBeFalsy()
         })
     })
 })
