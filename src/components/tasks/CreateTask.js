@@ -44,7 +44,7 @@ export class CreatTask extends Component {
   render() {
     const { expiryDate } = this.state;
     return (
-      <div className="">
+      <div data-test="component-create-task" className="component-create-task">
         {this.props.taskErr ? (
           <div className="popup-layer">
           <div className="container">
@@ -94,11 +94,11 @@ export class CreatTask extends Component {
               <label className="label-font" htmlFor="verifybyImage">Verification condition</label>
               <div className="checkbox-wrapper">
               <div className="task-checkboxinput-row">
-                  <input type="checkbox"
+                  <input data-test="createtask-checkbox" type="checkbox"
                           id="verifybyImage"
                           checked= {this.state.verifybyImage}
                           onChange={this.toggleChange}/>
-                  <span className="checkmark "></span>
+                  <span className="checkmark"></span>
               </div>
               <div className="checkbox-text">Photo proof</div>
               </div>
@@ -110,7 +110,8 @@ export class CreatTask extends Component {
                           onChange={this.handleChange}/>
               </div>
               <div className="feature-row">
-                  <button onClick={this.handleBack} 
+                  <button data-test="createtask-button"
+                          onClick={this.handleBack} 
                           className="medium-square-button cancel-button">Back</button>
                   <button className="medium-square-button">Save</button>
               </div>
