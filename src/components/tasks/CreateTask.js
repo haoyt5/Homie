@@ -98,7 +98,7 @@ export class CreatTask extends Component {
                           id="verifybyImage"
                           checked= {this.state.verifybyImage}
                           onChange={this.toggleChange}/>
-                  <span className="checkmark"></span>
+                  <span  data-test="createtask-display-checked" className="checkmark"></span>
               </div>
               <div className="checkbox-text">Photo proof</div>
               </div>
