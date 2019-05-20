@@ -13,10 +13,9 @@ export class BarChart extends Component {
     .attr("height", "100%")
 
     //create margins and dimensions
-    const margin = {top:5, bottom:5, left:3, right:3}
+    const margin = {top:5, bottom:5, left:2, right:5}
     const graphWidth = 100 - margin.left - margin.right;
     const graphHeight = 100 - margin.top - margin.bottom;
-   
     const graph = svg.append('g')
                     .attr('width',graphWidth+`%`)
                     .attr('height',graphHeight+`%`)

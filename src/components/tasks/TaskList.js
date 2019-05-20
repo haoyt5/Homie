@@ -14,7 +14,7 @@ class TaskList extends Component {
                     <h3 className="row-title">UNASSIGNED</h3>
                     <Link to="/post" className="row-icon icon-row-button">
                     <h3><FontAwesomeIcon  icon={ faPlusSquare }/></h3>
-                    <p>Add another task</p>
+                    <p className="row-feature-text" ></p>
                     </Link>
                 </div>
                 { this.props.fetchComplete ?  (this.props.unassignedTasks[0]  ?  ( <div className="container ">
@@ -22,7 +22,7 @@ class TaskList extends Component {
                         return (
                             <Link className="card-hover" to={'/task/'+  task.id } key={ task.id } task={ task }>
                                 <div className="task-card card-hover" >
-                                    <div className="card-row">
+                                    <div className="card-row ">
                                         <div className="col-pic">
                                             <div className="card-img-box u-dashed-border">
                                                 <div className="card-img-box-inner">

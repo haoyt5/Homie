@@ -822,12 +822,20 @@ a.signgroup-tab:focus{
     justify-content:space-between;
     margin:0.2rem 0;
 }
+
 .card-title{
     color:#839799;
     font-weight: 900;
 }
 .create-tag{
     display: flex;
+}
+@media(max-width:450px){
+    .info-title-row{
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 .card-create-time{
     color:#aeb9ba;
@@ -866,8 +874,8 @@ a.signgroup-tab:focus{
     border-radius: 1rem;
     padding:0 0.3rem;
     margin:0 0.15rem;
-
 }
+
 .tag-date{
     color:#839799;
 }
@@ -899,13 +907,26 @@ a.signgroup-tab:focus{
         width:65%;
     }
 }
-@media(max-width:375px){
+/* @media(max-width:375px){
     .col-pic{
         width:42%;
     }
     .col-info{
         width:58%;
     }
+} */
+@media(max-width:450px){
+    .card-row{
+        display: flex;
+        flex-direction: column;
+    }
+    .col-pic{
+        width:100%;
+    }
+    .col-info{
+        width:100%;
+    }
+
 }
 .card-img-box{
     width: 50%;
@@ -920,11 +941,17 @@ a.signgroup-tab:focus{
         margin:20% 20%;
     }
 }
-@media(max-width:375px){
+@media(max-width:450px){
     .card-img-box{
-        width:80%;
-        margin:40% 3%;
+        width:35%;
+        margin:8% auto;
+        /* margin:40% 3%; */
         /* margin-top:20%; */
+    }
+}
+@media(max-width:350px){
+    .card-img-box{
+        width:50%;
     }
 }
 .u-dashed-border{
@@ -1139,6 +1166,14 @@ bg-color-dashboard{
     line-height: 2rem;
     color:#839799;
     font-weight: bold;
+}
+.row-feature-text:after{
+    content:"Add new task"
+}
+@media(max-width:450px){
+    .row-feature-text:after{
+        content:"Add task"
+    }
 }
 .row-icon{
     position: absolute;
