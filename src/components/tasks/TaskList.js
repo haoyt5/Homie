@@ -27,7 +27,7 @@ class TaskList extends Component {
                                             <div className="card-img-box u-dashed-border">
                                                 <div className="card-img-box-inner">
                                                     <div className="card-img-holder">
-                                                    <p><FontAwesomeIcon icon={ faQuestion }/></p>
+                                                    <p><FontAwesomeIcon className="unassigned-mark" icon={ faQuestion }/></p>
                                                     </div>
                                                 </div>
                                             </div>

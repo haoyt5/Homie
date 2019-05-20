@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AlertWindow from '../alert/AlertWindow'
 import { connect } from 'react-redux';
 import { fetchTask, reportTaskWithImage, reportTaskWOImage } from '../store/actions/taskActions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import PageLoader from '../layout/PageLoader'
 export class TaskMemo extends Component {
     constructor(props) {
@@ -53,12 +55,35 @@ export class TaskMemo extends Component {
                     <div className="container ">
                         <h2 className="sub-instruciton-title">Report the Task</h2>
                         <div className="task-card">
+                                
+                                <div className="expiry-row">
+                                    <div className="expiry-col">
+                                        <div className="expiry-picbox">
+                                            <div className="expiry-picbox-inner">
+                                                { assign.assignedToURL !== null ? <img className="expiry-img" src={assign.assignedToURL} alt=""/> :<div className="card-img-holder" style={{backgroundColor:assign.assignedToColor}}><p>{assign.assignedTo[0]}</p></div> }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="expiry-date-col">
+                                        <div className="date-tag-time">{ expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</div>
+                                        <div className="date-tag-date">
+                                            <span className="date-tag-span">{expiryDate.toDate().toDateString()}</span>
+                                            </div>
+                                    </div>
+                                </div>
                                 <h2 className="title">{title}</h2>
-                                <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
-                                <p className="expirydate">Posted by | {author}</p>
-                                <p className="expirydate">Assigned to | {assign.assignedTo}</p>
-                                <p className="expirydate">Description</p>
                                 <p>{content}</p>
+                                {/* <p className="expirydate">Assigned to | {assign.assignedTo}</p> */}
+                                {/* <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p> */}
+                                
+                                <div className="condition-row">
+                                    { verifybyImage ? (
+                                                    <span className="conditional-span"> <FontAwesomeIcon  icon={ faCamera }/> photo needed</span>
+                                                ): null }
+                                </div>
+                                {/* <p className="expirydate">Description</p> */}
+                                
+                                <p className="expirydate">Posted by | {author}</p>
                                 {this.state.imagePreviewUrl[0] && (
                                     <div>
                                     <p className="expirydate">Image attachment</p>

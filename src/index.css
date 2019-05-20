@@ -801,6 +801,8 @@ a.signgroup-tab:focus{
 .title{
     font-weight: 1200;
     letter-spacing: 1.5px;
+    line-height: 2.5rem;
+    color:#839799;
 }
 .task-card{
     background-color: #fff;
@@ -984,7 +986,9 @@ a.signgroup-tab:focus{
     font-size: 2.2rem;
     font-weight: 100;
 }
-
+.unassigned-mark{
+    color:#ced8dd;
+}
 
 .empty-card{
     background-color: #f2f2f2;
@@ -1332,6 +1336,59 @@ bg-color-dashboard{
 .uploadwrapper input[type=file]::-webkit-file-upload-button{
     font-size: 0.8rem;
 }
+.expiry-row{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1rem;
+}
+.expiry-col{
+    width:30%;
+}
+.expiry-date-col{
+    width:70%;
+    text-align: right;
+}
+.date-tag-time{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding-right:1rem;
+    letter-spacing: 1.3px;
+}
+.date-tag-span{
+    background-color: #f5f5f5;
+    padding:0.3rem 0.6rem;
+    border-radius: 5px;
+}
+.conditional-span{
+    background-color: #ff8300;
+    color:#ffff;
+    padding:0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size:0.8rem;
+}
+.expiry-picbox{
+    width:15%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin:0 10%;
+}
+.expiry-picbox-inner{
+    padding-top: 100%;
+    content:"";
+    display: block;
+}
+.expiry-img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    max-width:100%;
+    max-height:100%;
+    margin:auto;
+}
+
 /*-------------------------*/
 /* $Bouncing Loader
 ---------------------------*/
