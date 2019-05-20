@@ -10,3 +10,9 @@ Here is a working live demo: https://haoyt5.github.io/Homie/
 - D3.js
 - Firebase
 - Unit Test: Jest, Enzyme
+  
+## Key Features
+- View tasks progress feed
+- Create and schedule tasks with different conditions
+- Join and leave the groups
+- Motivate the users with points with data visualization
