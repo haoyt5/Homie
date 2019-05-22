@@ -432,14 +432,21 @@ a:focus {
     border-radius: 5px;
     margin:0 1rem;
 }
-@media(max-width:550px){
+@media(max-width:580px){
     .medium-square-button{
         margin:0.3rem;
+        padding:0.5rem 5rem;
     }
 }
-@media(max-width:425px){
+@media(max-width:455px){
     .medium-square-button{
-        padding:0.6rem 7rem;
+        padding:0.4rem 4rem;
+    }
+}
+@media(max-width:400px){
+    .medium-square-button{
+        margin:0.3rem;
+        padding:0.5rem 6.8rem;
     }
 }
 .medium-square-button:hover,
@@ -560,10 +567,14 @@ a.signgroup-tab:focus{
 /*-------------------------*/
 /* $CreatTask
 ---------------------------*/
-
+.task-file-input-row input{
+    width:100%;
+    border: 2px solid #E8E8E8;
+    border-radius: 5px;
+    margin:0.8rem 0;
+}
 .task-input-row input{
     border: 2px solid #E8E8E8; 
-    /* border: 1px solid white;  */
     width:100%;
 }
 .task-input-row select {
@@ -804,6 +815,20 @@ a.signgroup-tab:focus{
     line-height: 2.5rem;
     color:#839799;
 }
+.content-block{
+    padding:1rem 0;
+}
+.hr-row hr{
+    border-color: #f5f5f5;
+    background-color: #f5f5f5;
+    color:#f5f5f5;
+    border:1.5px solid ;
+}
+.create-row{
+    text-align: right;
+    font-size: 0.85rem;
+}
+
 .task-card{
     background-color: #fff;
     padding: 1rem;
@@ -1304,7 +1329,9 @@ bg-color-dashboard{
 /*-------------------------*/
 /* $TaskMemo
 ---------------------------*/
+
 .image-row{
+    margin:0.5rem 0;
     text-align: center;
     width: 100%;
     display: flex;
@@ -1312,9 +1339,29 @@ bg-color-dashboard{
     justify-content: center;
 }
 .image-box {
-    width:30%;
+    width:35%;
     overflow:hidden;
     position:relative;
+}
+@media(max-width:900px){
+    .image-box {
+        width:40%;
+    }
+}
+@media(max-width:650px){
+    .image-box {
+        width:50%;
+    }
+}
+@media(max-width:550px){
+    .image-box {
+        width:65%;
+    }
+}
+@media(max-width:450px){
+    .image-box {
+        width:90%;
+    }
 }
 .image-box-inner{
     padding-bottom: 100%;
@@ -1330,6 +1377,7 @@ bg-color-dashboard{
     max-height:100%;
     margin:auto;
 }
+
 .uploadwrapper input[type=file] {
     font-size: 0.8rem;
 }
@@ -1343,11 +1391,47 @@ bg-color-dashboard{
 }
 .expiry-col{
     width:30%;
+    display: flex;
 }
 .expiry-date-col{
     width:70%;
     text-align: right;
 }
+@media(max-width:1200px){
+    .expiry-col{
+        width:40%;
+    }
+    .expiry-date-col{
+        width:60%;
+    }
+}
+@media(max-width:1000px){
+    .expiry-col{
+        width:50%;
+    }
+    .expiry-date-col{
+        width:50%;
+    }
+}
+
+.expiry-assign-pic{
+    width:40%;
+}
+.expiry-assign-name{
+    width:60%;
+}
+.assign-text span {
+    font-size: 0.8rem;
+}
+.assign-content{
+    color:#839799;
+    /* line-height: 1.2rem; */
+    font-size: 1.3rem;
+}
+.expiry-name-col{
+    width:5%;
+}
+
 .date-tag-time{
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1366,12 +1450,34 @@ bg-color-dashboard{
     border-radius: 5px;
     font-size:0.8rem;
 }
+@media(max-width:550px){
+    .date-tag-time{
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+        padding-right:1rem;
+        letter-spacing: 1.2px;
+    }
+    .date-tag-span{
+        font-size: 0.8rem;
+    }
+}
 .expiry-picbox{
-    width:15%;
+    width:40%;
+    display: block;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    margin:0 10%;
+    margin:auto;
+}
+@media(max-width:850px){
+    .expiry-picbox{
+        width:50%;
+    }
+}
+@media(max-width:650px){
+    .expiry-picbox{
+        width:70%;
+    }
 }
 .expiry-picbox-inner{
     padding-top: 100%;

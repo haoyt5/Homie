@@ -20,18 +20,45 @@ export class TaskProcess extends Component {
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { content, expiryDate,pendingImgURL, assign, author, title } = this.props.taskdetails.data
+        const { createAt,content, expiryDate,pendingImgURL, assign, author, title } = this.props.taskdetails.data
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
                     <h2 className="sub-instruciton-title">Approve the Task</h2>
                     <div className="task-card">
-                            <h2 className="title">{title}</h2>
-                            <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p>
-                            <p className="expirydate">Assigned to | {assign.assignedTo}</p>
-                            <p className="expirydate">Posted by | {author}</p>
-                            <p className="expirydate">Description</p>
-                                <p>{content}</p>
+                            <div className="expiry-row">
+                                    <div className="expiry-col">
+                                        <div className="expiry-assign-pic">
+                                            <div className="expiry-picbox">
+                                                <div className="expiry-picbox-inner">
+                                                    { assign.assignedToURL !== null ? <img className="expiry-img" src={assign.assignedToURL} alt=""/> :<div className="card-img-holder" style={{backgroundColor:assign.assignedToColor}}><p>{assign.assignedTo[0]}</p></div> }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="expiry-assign-name">
+                                            <div className="assign-text"><span>Assigned to</span> </div>
+                                            <div className="assign-content">{assign.assignedTo}</div>
+                                        </div>
+                                    </div>
+                                    <div className="expiry-date-col">
+                                        <div className="date-tag-time">{ expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</div>
+                                        <div className="date-tag-date">
+                                            <span className="date-tag-span">{expiryDate.toDate().toDateString()}</span>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div className="content-block">
+                                    <h2 className="title">{title}</h2>
+                                    <p className="main-content">{content}</p>
+                                    </div>
+                                    <div className="hr-row">
+                                        <hr/>
+                                    </div>
+                                <div className="create-row">
+                                        <span>{createAt.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</span>・
+                                        <span>{createAt.toDate().toDateString().slice(4, 15).replace( /\s+/g ,"/")}</span>・
+                                    <span>{author}</span>
+                                </div>
                             {pendingImgURL ? (
                                 <div>
                                 <p className="expirydate">Image attachment</p>

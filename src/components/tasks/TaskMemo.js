@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { fetchTask, reportTaskWithImage, reportTaskWOImage } from '../store/actions/taskActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import PageLoader from '../layout/PageLoader'
+import PageLoader from '../layout/PageLoader';
+import temp from '../../img/temp.png'
+
 export class TaskMemo extends Component {
     constructor(props) {
         super(props)
@@ -47,7 +49,7 @@ export class TaskMemo extends Component {
   render() {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
-        const { verifybyImage,expiryDate, assign,author, content, title } = this.props.taskdetails.data
+        const { createAt,verifybyImage,expiryDate, assign,author, content, title } = this.props.taskdetails.data
         return(
             <div>
             {this.props.taskErr ? <AlertWindow error={ this.props.match.params.id }/> : null }
@@ -58,12 +60,19 @@ export class TaskMemo extends Component {
                                 
                                 <div className="expiry-row">
                                     <div className="expiry-col">
-                                        <div className="expiry-picbox">
-                                            <div className="expiry-picbox-inner">
-                                                { assign.assignedToURL !== null ? <img className="expiry-img" src={assign.assignedToURL} alt=""/> :<div className="card-img-holder" style={{backgroundColor:assign.assignedToColor}}><p>{assign.assignedTo[0]}</p></div> }
+                                        <div className="expiry-assign-pic">
+                                            <div className="expiry-picbox">
+                                                <div className="expiry-picbox-inner">
+                                                    { assign.assignedToURL !== null ? <img className="expiry-img" src={assign.assignedToURL} alt=""/> :<div className="card-img-holder" style={{backgroundColor:assign.assignedToColor}}><p>{assign.assignedTo[0]}</p></div> }
+                                                </div>
                                             </div>
                                         </div>
+                                        <div className="expiry-assign-name">
+                                            <div className="assign-text"><span>Assigned to</span> </div>
+                                            <div className="assign-content">{assign.assignedTo}</div>
+                                        </div>
                                     </div>
+
                                     <div className="expiry-date-col">
                                         <div className="date-tag-time">{ expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</div>
                                         <div className="date-tag-date">
@@ -71,26 +80,26 @@ export class TaskMemo extends Component {
                                             </div>
                                     </div>
                                 </div>
+                                <div className="content-block">
                                 <h2 className="title">{title}</h2>
-                                <p>{content}</p>
-                                {/* <p className="expirydate">Assigned to | {assign.assignedTo}</p> */}
-                                {/* <p className="expirydate">Expiry Date | { expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','') + " "+ expiryDate.toDate().toDateString() }</p> */}
-                                
-                                <div className="condition-row">
-                                    { verifybyImage ? (
-                                                    <span className="conditional-span"> <FontAwesomeIcon  icon={ faCamera }/> photo needed</span>
-                                                ): null }
+                                <p className="main-content">{content}</p>
                                 </div>
-                                {/* <p className="expirydate">Description</p> */}
+                                <div className="hr-row">
+                                    <hr/>
+                                </div>
+                                <div className="create-row">
+                                    <span>{createAt.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</span>・
+                                    <span>{createAt.toDate().toDateString().slice(4, 15).replace( /\s+/g ,"/")}</span>・
+                                    <span>{author}</span>
+                                </div>
                                 
-                                <p className="expirydate">Posted by | {author}</p>
                                 {this.state.imagePreviewUrl[0] && (
                                     <div>
-                                    <p className="expirydate">Image attachment</p>
                                     <div className="image-row">
                                         <div className="image-box">
                                             <div className="image-box-inner">
                                             <img className="" src={this.state.imagePreviewUrl} alt=""/> 
+                                            {/* <img className="" src={temp} alt=""/>  */}
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +111,7 @@ export class TaskMemo extends Component {
                             <div className="uploadwrapper">
                             <form action=""
                                 onSubmit={this.handleReportWithImage}>
-                                <div className="task-input-row">
+                                <div className="task-file-input-row">
                                     <label htmlFor="imagefile">attachment</label>
                                     <input id="imagefile"
                                         type="file"
