@@ -13,26 +13,32 @@ Here is a working live demo: https://haoyt5.github.io/Homie/
 - Unit Test: Jest, Enzyme
   
 ## Key Features
-- View tasks progress feed
+#### View tasks progress feed
 <p align="center">
-<img src="https://haoyt5.github.io/Homie/img/dashboard.png" alt="field process"width="60%"/>
+<img src="https://haoyt5.github.io/Homie/img/dashboard.png" alt="field process"width="90%"/>
 </p>
-- Create and schedule tasks with different conditions<br>
-<p align="center">
-<img src="https://haoyt5.github.io/Homie/img/t_create.png" alt="task create" width="30%" />
-<img src="https://haoyt5.github.io/Homie/img/t_accept.png" alt="tack accept" width="30%"/>
-<br>
-<img src="https://haoyt5.github.io/Homie/img/t_report.png" alt="task report" width="30%"/>
-<img src="https://haoyt5.github.io/Homie/img/t_approve.png" alt="task approve" width="30%"/>
-</p>
-- Join and leave the groups
+
+#### Create and schedule tasks with different conditions
 
 <p align="center">
-<img src="https://haoyt5.github.io/Homie/img/group_manage.png" alt="alt text" width="60%"/><br/>
-<img src="https://haoyt5.github.io/Homie/img/group_switch.png" alt="task approve" width="30%" />
-<img src="https://haoyt5.github.io/Homie/img/group_create.png" alt="task approve" width="30%"/>
+<img src="https://haoyt5.github.io/Homie/img/t_create.png" alt="task create" width="45%" />
+<img src="https://haoyt5.github.io/Homie/img/t_accept.png" alt="tack accept" width="45%"/>
+<br>
+<img src="https://haoyt5.github.io/Homie/img/t_report.png" alt="task report" width="45%"/>
+<img src="https://haoyt5.github.io/Homie/img/t_approve.png" alt="task approve" width="45%"/>
 </p>
-- Motivate the users with points comparison
+
+#### Join and leave the groups
+
 <p align="center">
-<img src="https://haoyt5.github.io/Homie/img/chart.png" alt="alt text" width="60%"/>
+<img src="https://haoyt5.github.io/Homie/img/group_manage.png" alt="alt text" width="90%"/>
+<br/>
+<img src="https://haoyt5.github.io/Homie/img/group_switch.png" alt="task approve" width="45%" />
+<img src="https://haoyt5.github.io/Homie/img/group_create.png" alt="task approve" width="45%"/>
+</p>
+
+#### Motivate the users with points comparison
+
+<p align="center">
+<img src="https://haoyt5.github.io/Homie/img/chart.png" alt="alt text" width="90%"/>
 </p>
