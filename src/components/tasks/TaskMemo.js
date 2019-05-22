@@ -57,7 +57,6 @@ export class TaskMemo extends Component {
                     <div className="container ">
                         <h2 className="sub-instruciton-title">Report the Task</h2>
                         <div className="task-card">
-                                
                                 <div className="expiry-row">
                                     <div className="expiry-col">
                                         <div className="expiry-assign-pic">
@@ -72,7 +71,6 @@ export class TaskMemo extends Component {
                                             <div className="assign-content">{assign.assignedTo}</div>
                                         </div>
                                     </div>
-
                                     <div className="expiry-date-col">
                                         <div className="date-tag-time">{ expiryDate.toDate().toTimeString().replace('GMT+0800 (Taipei Standard Time)','').slice(0, 5)}</div>
                                         <div className="date-tag-date">
@@ -81,8 +79,8 @@ export class TaskMemo extends Component {
                                     </div>
                                 </div>
                                 <div className="content-block">
-                                <h2 className="title">{title}</h2>
-                                <p className="main-content">{content}</p>
+                                     <h2 className="title">{title}</h2>
+                                    <p className="main-content">{content}</p>
                                 </div>
                                 <div className="hr-row">
                                     <hr/>
