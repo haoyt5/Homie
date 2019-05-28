@@ -169,7 +169,6 @@ export const reportTaskWithImage = (taskUid, assign ,file) => {
                 const mainImage = storageRef.child(file.name)
                 mainImage.put(file)
                 .then((UploadTaskSnapshot)=>{
-                    // console.log(UploadTaskSnapshot)
                     mainImage.getDownloadURL()
                     .then( ( imageurl )=> {
                         firestore.collection('tasks').doc(taskUid).update({

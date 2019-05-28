@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-
-
 import { connect } from 'react-redux'
 import { createTask, confirmTaskAlert } from '../store/actions/taskActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-
 import DateFnsUtils from "@date-io/date-fns";
 import {  MuiPickersUtilsProvider, DateTimePicker } from "material-ui-pickers";
 export class CreatTask extends Component {
@@ -17,7 +14,7 @@ export class CreatTask extends Component {
         expiryDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
         verifybyImage:false
     }
-    handleBack = (e) =>{
+    handleBack = (e) => {
       e.preventDefault();
       window.location.href="#/"
     }

@@ -12,7 +12,6 @@ export class SignUpGroup extends Component {
         this.setState({
            [e.target.id]: e.target.value
         })
-      //  console.log(this.state)
     }
     handleSubmit = (e) =>{
         e.preventDefault();
@@ -60,9 +59,8 @@ export class SignUpGroup extends Component {
   }
 }
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
-      auth: state.firebase.auth, //for checking the login or not
+      auth: state.firebase.auth,
       groupError: state.auth.groupError
     }
   }

@@ -14,12 +14,6 @@ export class GroupPopup extends Component {
         this.props.togglePopup()
         this.props.fetchGroupDetails()
     }
-    componentDidUpdate(){
-        // console.log(this.props)
-    }
-    componentWillMount(){
-        
-    }
     render() {
         const { groupsData } = this.props
         return (
