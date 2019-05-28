@@ -258,7 +258,7 @@ export const leaveGroup = () => {
                     groupsUid:newGroupsUid,
                     defaultGroup: newGroupsUid[0]
                 }).then(()=>{
-                    window.location = '/'
+                    window.location.hash = '#/'
                 }).catch(err=>console.log(err))
             }
 
