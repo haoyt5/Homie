@@ -258,7 +258,7 @@ export const leaveGroup = () => {
                     groupsUid:newGroupsUid,
                     defaultGroup: newGroupsUid[0]
                 }).then(()=>{
-                    window.location.hash = '#/'
+                    window.location.hash = '#/signgroup/signup'
                 }).catch(err=>console.log(err))
             }
 
