@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createTask, confirmTaskAlert } from '../store/actions/taskActions'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import DateFnsUtils from "@date-io/date-fns";
@@ -52,7 +51,7 @@ export class CreatTask extends Component {
                 <h4>The field of title cannot be empty</h4>
                 <hr/>
                 <button className="medium-button"
-                          onClick={ this.handleAlert }>OK</button>
+                        onClick={ this.handleAlert }>OK</button>
                 </div>
             </div>
           </div>
@@ -71,7 +70,7 @@ export class CreatTask extends Component {
               </div>
               <label className="label-font" htmlFor="expiryDate">Expiry Date</label>
               <div className="task-input-row">
-                <MuiPickersUtilsProvider id="expiryDate"  utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider id="expiryDate" utils={DateFnsUtils}>
                     <div className="pickers">
                       <DateTimePicker id="inputdate" className="input-date browser-default" value={expiryDate} onChange={this.handleDateChange} />
                     </div>
@@ -113,7 +112,6 @@ export class CreatTask extends Component {
                   <button className="medium-square-button">Save</button>
               </div>
           </form>
-
         </div>
       </div>
     )
