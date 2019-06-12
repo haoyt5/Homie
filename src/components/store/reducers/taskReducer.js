@@ -14,31 +14,30 @@ const initState = {
 const taskReducer = (state = initState, action) => {
     switch (action.type) {
         case 'CREATE_TASK':
-        console.log('create task', action.task)
-         return state
+            return state
         case 'TASK_BLANK':
             return{
                 ...state,
                 err:true
             }
         case 'TASK_BLANK_NOPIC':
-        return{
-            ...state,
-            err:true,
-            errMessage:"This task cannot report without a photo."
-        }
+            return{
+                ...state,
+                err:true,
+                errMessage:"This task cannot report without a photo."
+            }
         case 'TASK_NOT_ASSIGNED':
-        return{
-            ...state,
-            err:true,
-            errMessage:"You are not assigned to this task"
-        }
+            return{
+                ...state,
+                err:true,
+                errMessage:"You are not assigned to this task"
+            }
         case 'RESET_TASK_ALERT':
-        return{
-            ...state,
-            err:false,
-            errMessage:null
-        }
+            return{
+                ...state,
+                err:false,
+                errMessage:null
+            }
         case 'CREATE_TASK_ERROR':
             console.log('create task', action.err)
             return state
