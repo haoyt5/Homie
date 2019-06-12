@@ -18,18 +18,17 @@ const groupReducer = (state = initState, action ) => {
                 switchError:action.error
             }
         case 'GET_GROUP':
-        return {
-            ...state,
-            defaultGroupData:action.groupData
-            }
+            return {
+                ...state,
+                defaultGroupData:action.groupData
+                }
         case 'GET_GROUP_EMPTY':
-        return {
-            ...state,
-            defaultGroupData:null
-            }
+            return {
+                ...state,
+                defaultGroupData:null
+                }
         default:
             return state
     }
-    
 }
 export default groupReducer
