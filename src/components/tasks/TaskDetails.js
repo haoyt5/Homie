@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { fetchTask, acceptTask } from '../store/actions/taskActions'
 import PageLoader from '../layout/PageLoader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faQuestion} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faQuestion} from '@fortawesome/free-solid-svg-icons'
 export class TaskDetails extends Component {
     handleBack = (e) =>{
         e.preventDefault();
@@ -22,7 +22,6 @@ export class TaskDetails extends Component {
     const id = this.props.match.params.id
     if (this.props.taskdetails.data){
         const { createAt,assign, expiryDate, author, content, title } = this.props.taskdetails.data
-        console.log(assign)
         return(
             <div className="taskdetails-wrapper" key={id} >
                 <div className="container ">
@@ -70,7 +69,6 @@ export class TaskDetails extends Component {
                         className="medium-square-button">Accept</button>
                 </div>
             </div>
-           
         )
     } else {
         return <PageLoader />
@@ -84,7 +82,6 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 const mapDispatchToProps = (dispatch) => {
-
     return {
         fetchTask: (taskUid) => dispatch(fetchTask(taskUid)),
         acceptTask:(taskUid) => dispatch(acceptTask(taskUid))
