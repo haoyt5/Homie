@@ -28,9 +28,9 @@ export const signOut = () => {
 
 export const signUp = (newUser) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
-        const firebase = getFirebase();
-        const firestore = getFirestore();       
-        let randomcolor = randomColor({luminosity: 'bright'}); 
+        const firebase = getFirebase()
+        const firestore = getFirestore()      
+        let randomcolor = randomColor({luminosity: 'bright'})
         firebase.auth().createUserWithEmailAndPassword(
             newUser.email,
             newUser.password
@@ -64,10 +64,10 @@ export const signUp = (newUser) => {
 
 export const googleLogin = () =>{
     return (dispatch, getState, {getFirebase, getFirestore})=>{
-        const firebase = getFirebase();
-        const firestore = getFirestore();
-        const provider = new firebase.auth.GoogleAuthProvider();
-        let randomcolor = randomColor({luminosity: 'bright'}); 
+        const firebase = getFirebase()
+        const firestore = getFirestore()
+        const provider = new firebase.auth.GoogleAuthProvider()
+        let randomcolor = randomColor({luminosity: 'bright'})
         let initName
         let initLName 
         firebase.auth().signInWithPopup(provider)
@@ -77,7 +77,6 @@ export const googleLogin = () =>{
                 initName = given_name|| ' '
                 initLName = family_name|| ' '
                 const { user } = result
-
                 firestore.collection('users').doc(user.uid).set({
                     firstname: given_name || '',
                     lastname: family_name || '',
@@ -119,9 +118,9 @@ export const googleLogin = () =>{
 export const signInGroup = (credentials) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const { groupId, groupPassword } = credentials
-        const firestore = getFirestore();
-        const userUid = getState().firebase.auth.uid;
-        const profile = getState().firebase.profile;
+        const firestore = getFirestore()
+        const userUid = getState().firebase.auth.uid
+        const profile = getState().firebase.profile
         let groupSignInValidate = false;
         let groupUid = null;
         if ( groupId.length === 0 || groupPassword.length === 0 ){
@@ -151,8 +150,8 @@ export const signInGroup = (credentials) => {
                     })
                 } 
             }).then(() => {
-                if( groupSignInValidate && userUid ){
         //(2)update the userUid in the members array
+                if( groupSignInValidate && userUid ){
                     firestore.collection('groups').doc(groupUid).update({
                         [`pointsRecord.${userUid}`]:{firstname:profile.firstname,userColor:profile.userColor || null,points:0,userUid:userUid},
                         members:firestore.FieldValue.arrayUnion(userUid),
@@ -167,7 +166,6 @@ export const signInGroup = (credentials) => {
                                 defaultGroup: groupUid
                             }).catch(err => console.log(err))
                 }
-
             }).then(()=>{
                 if(groupSignInValidate && userUid ){
                     dispatch({ type: 'SIGNINGROUP_SUCCESS'})
@@ -233,11 +231,11 @@ export const signUpGroup = (newGroup) => {
 
 export const leaveGroup = () => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
-        const firestore = getFirestore();
-        const userUid = getState().firebase.auth.uid;
-        const { defaultGroup, groupsUid } = getState().firebase.profile;
-        let newDefaultGroup = null;
-        const newGroupsUid = groupsUid.filter(item => item !== defaultGroup );
+        const firestore = getFirestore()
+        const userUid = getState().firebase.auth.uid
+        const { defaultGroup, groupsUid } = getState().firebase.profile
+        let newDefaultGroup = null
+        const newGroupsUid = groupsUid.filter(item => item !== defaultGroup )
         if(!defaultGroup) { return }
         // remove the user related information of the doc of the group
         firestore.collection('groups').doc(defaultGroup).update({
@@ -261,7 +259,6 @@ export const leaveGroup = () => {
                     window.location.hash = '#/signgroup/signup'
                 }).catch(err=>console.log(err))
             }
-
         }).catch(err=>console.log(err))
     }
 }
